@@ -2,21 +2,20 @@ import React from 'react';
 
 type PropsTypeTodo = {
     title: string
-    body?: number
     tasks: TaskType[]
+    removeTask: (id: number) => void
 }
 
-type TaskType = {
+export type TaskType = {
     id: number
     title: string
     isDone: boolean
 }
 
-const Todo = (props: PropsTypeTodo) => {
+export const Todolist = (props: PropsTypeTodo) => {
     return (
         <div>
             <h3>{props.title}</h3>
-            <h3>{props.body}</h3>
             <div>
                 <input/>
                 <button>+</button>
@@ -25,16 +24,12 @@ const Todo = (props: PropsTypeTodo) => {
                 {props.tasks.map((el) => {
                     return (
                         <li>
+                            <button onClick={() => props.removeTask(el.id)}>x</button>
                             <input type="checkbox" checked={el.isDone}/>
                             <span>{el.title}</span>
                         </li>
                     )
                 })}
-
-                {/*<li><input type="checkbox" checked={true}/> <span>{props.tasks[0].title}</span></li>
-                <li><input type="checkbox" checked={true}/> <span>{props.tasks[1].title}</span></li>
-                <li><input type="checkbox" checked={false}/> <span>{props.tasks[2].title}</span></li>
-                <li><input type="checkbox" checked={false}/> <span>{props.tasks[3].title}</span></li>*/}
             </ul>
             <div>
                 <button>All</button>
@@ -44,5 +39,3 @@ const Todo = (props: PropsTypeTodo) => {
         </div>
     )
 }
-
-export default Todo
