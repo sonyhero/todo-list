@@ -42,7 +42,7 @@ export const Todolist = (props: PropsTypeTodo) => {
             <ul>
                 {filteredTask.map((el) => {
                     return (
-                        <li>
+                        <li key={el.id}>
                             <button onClick={() => props.removeTask(el.id)}>x</button>
                             <input type="checkbox" checked={el.isDone}/>
                             <span>{el.title}</span>
