@@ -26,7 +26,8 @@ export function Todolist(props: PropsType) {
     const [listRef] = useAutoAnimate<HTMLUListElement>()
 
     const addTaskHandler = () => {
-        props.addTask(newTitle)
+        if(newTitle.trim()!=='')
+        props.addTask(newTitle.trim())
         setNewTitle('')
     }
     const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
