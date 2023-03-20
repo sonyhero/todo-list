@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 import {Button} from './components/Button';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
+import s from './Todolist.module.css'
 
 type TaskType = {
     id: string
@@ -20,17 +21,21 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
-
     const [newTitle, setNewTitle] = useState('')
+    const [error, setError] = useState<string|null>(null)
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
 
     const addTaskHandler = () => {
-        if(newTitle.trim()!=='')
-        props.addTask(newTitle.trim())
-        setNewTitle('')
+        if(newTitle.trim()!=='') {
+            props.addTask(newTitle.trim())
+            setNewTitle('')
+        } else {
+            setError('Ошибка')
+        }
     }
     const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
         if (event.key === 'Enter') addTaskHandler()
     }
 
@@ -55,13 +60,16 @@ export function Todolist(props: PropsType) {
         <div>
             <input value={newTitle}
                    onChange={onChangeHandler}
-                   onKeyDown={onKeyDownHandler}/>
+                   onKeyDown={onKeyDownHandler}
+                   className={error ? s.error : ''}
+            />
             <button onClick={addTaskHandler}>+</button>
+            {error && <div className={s.errorMessage}>{error}</div>}
         </div>
+
         <ul ref={listRef}>
             {
                 props.tasks.map(t => {
-
 
                     return (
                         <li key={t.id}>
