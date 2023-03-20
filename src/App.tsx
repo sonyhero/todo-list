@@ -15,6 +15,10 @@ function App() {
         {id: v1(), title: 'GraphQL', isDone: false},
     ]);
 
+    const changeIsDone = (taskId: string, newIsDone: boolean) => {
+        setTasks(tasks.map(el=> el.id === taskId ?{...el, isDone: newIsDone} : el))
+    }
+
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(t => t.id !== id);
         setTasks(filteredTasks);
@@ -47,6 +51,7 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}
+                      changeIsDone={changeIsDone}
             />
         </div>
     );
