@@ -3,7 +3,7 @@ import {FilterValuesType} from './App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
