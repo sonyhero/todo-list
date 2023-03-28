@@ -1,17 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType} from './App'
+import {FilterValuesType, TaskType} from './App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-
 type PropsType = {
     title: string
-    tasks: Array<TaskType>
+    tasks: TaskType[]
     removeTask: (taskId: string) => void
     changeFilter: (value: FilterValuesType) => void
     addTask: (newTitle: string) => void
