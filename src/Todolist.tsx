@@ -5,11 +5,12 @@ import s from './Todolist.module.css'
 
 type PropsType = {
     title: string
+    todoListId: string
     tasks: TaskType[]
-    removeTask: (taskId: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (newTitle: string) => void
-    changeIsDone: (taskId: string, newIsDone: boolean) => void
+    removeTask: (taskId: string, todoListId: string) => void
+    changeFilter: (value: FilterValuesType, todoListId: string) => void
+    addTask: (newTitle: string, todoListId: string) => void
+    changeIsDone: (taskId: string, newIsDone: boolean, todoListId: string) => void
     filter: FilterValuesType
     removeTodoList: (todoListId: string) => void
 }
@@ -23,7 +24,7 @@ export function Todolist(props: PropsType) {
 
     const addTaskHandler = () => {
         if (newTitle.trim() !== '') {
-            props.addTask(newTitle.trim())
+            props.addTask(newTitle.trim(), props.todoListId)
             setNewTitle('')
         } else {
             setError('Ошибка')
@@ -38,16 +39,16 @@ export function Todolist(props: PropsType) {
         setNewTitle(event.currentTarget.value)
     }
 
-    const removeTaskHandler = (t: string) => {
-        props.removeTask(t)
+    const removeTaskHandler = (taskId: string) => {
+        props.removeTask(taskId, props.todoListId)
     }
 
     const changeFilter = (filerValue: FilterValuesType) => {
-        props.changeFilter(filerValue)
+        props.changeFilter(filerValue, props.todoListId)
     }
 
     const onChangeIsDoneHandler = (taskId: string, e: boolean) => {
-        props.changeIsDone(taskId, e)
+        props.changeIsDone(taskId, e, props.todoListId)
     }
 
     return <div>
