@@ -58,7 +58,10 @@ function App() {
     }
 
     const changeIsDone = (taskId: string, newIsDone: boolean, todoListId: string) => {
-        setTasks({...tasks, [todoListId]:tasks[todoListId].map(tl => tl.id === taskId? {...tl, isDone: newIsDone} : tl)})
+        setTasks({
+            ...tasks,
+            [todoListId]: tasks[todoListId].map(tl => tl.id === taskId ? {...tl, isDone: newIsDone} : tl)
+        })
         // setTasks(tasks.map(el => el.id === taskId ? {...el, isDone: newIsDone} : el))
     }
 
@@ -84,12 +87,12 @@ function App() {
 
 
     function changeFilter(filerValue: FilterValuesType, todoListId: string) {
-        setTodoLists(todoLists.map(tl => tl.id === todoListId?{...tl, filter: filerValue} : tl));
+        setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: filerValue} : tl));
     }
 
     const todoListsComponents = todoLists.map(tl => {
 
-const tasksForRender = tasksForTodolist(tasks[tl.id], tl.filter)
+            const tasksForRender = tasksForTodolist(tasks[tl.id], tl.filter)
 
             return (
                 <Todolist
@@ -106,7 +109,6 @@ const tasksForRender = tasksForTodolist(tasks[tl.id], tl.filter)
                 />
             )
         }
-
     )
 
     return (
