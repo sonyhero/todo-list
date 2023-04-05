@@ -111,7 +111,6 @@ function App() {
                     changeTaskTitle={changeTaskTitle}
                     changeTaskStatus={changeTaskStatus}
 
-                    addTodoList={addTodoList}
                     removeTodoList={removeTodoList}
                     changeTodoListTitle={changeTodoListTitle}
                     changeTodoListFilter={changeTodoListFilter}
@@ -123,8 +122,7 @@ function App() {
     return (
 
         <div className="App">
-            <AddItemForm addItem={() => {
-            }} todoListId={'weq'}/>
+            <AddItemForm addItem={addTodoList}/>
             {todoListsComponents}
         </div>
     );
