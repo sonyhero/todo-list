@@ -2,8 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from '../Todolist.module.css';
 
 type AddItemFormPropsType = {
-    addItem: (newTitle: string, todoListId: string) => void
-    todoListId: string
+    addItem: (newTitle: string) => void
 }
 export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
 
@@ -20,7 +19,8 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     }
     const addTaskHandler = () => {
         if (newTitle.trim() !== '') {
-            props.addItem(newTitle.trim(), props.todoListId)
+            props.addItem(newTitle)
+            // props.addItem(newTitle.trim())
             setNewTitle('')
         } else {
             setError('Ошибка')
