@@ -34,23 +34,13 @@ export const Todolist: React.FC<PropsType> = (props) => {
 
     const onChangeIsDoneHandler = (taskId: string, e: boolean) => props.changeTaskStatus(taskId, e, props.todoListId)
 
-    // const addTask = (newTitle: string, todoListId: string) => {
-    //     props.addTask(newTitle, todoListId)
-    // }
+    const addTask = (newTitle: string) => {
+        props.addTask(newTitle, props.todoListId)
+    }
 
     return <div>
         <h3>{props.title}</h3>
-        <AddItemForm addItem={props.addTask} todoListId={props.todoListId}/>
-        {/*<div>*/}
-        {/*    <input value={newTitle}*/}
-        {/*           onChange={onChangeHandler}*/}
-        {/*           onKeyDown={onKeyDownHandler}*/}
-        {/*           className={error ? s.error : ''}*/}
-        {/*    />*/}
-        {/*    <button onClick={addTaskHandler}>+</button>*/}
-        {/*    {error && <div className={s.errorMessage}>{error}</div>}*/}
-        {/*</div>*/}
-
+        <AddItemForm addItem={addTask}/>
         <ul ref={listRef}>
             {
                 props.tasks.map(t => {
