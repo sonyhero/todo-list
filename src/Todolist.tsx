@@ -38,9 +38,14 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         props.addTask(newTitle, props.todoListId)
     }
 
+    const removeTodoList = () => {
+      props.removeTodoList(props.todoListId)
+    }
 
     return <div>
-        <h3>{props.title}</h3>
+        <h3>{props.title}
+            <Button name={'x'} callback={removeTodoList}  xType={'red'} className={false}/>
+        </h3>
         <AddItemForm addItem={addTask}/>
         <ul className={s.tasks} ref={listRef}>
             {
