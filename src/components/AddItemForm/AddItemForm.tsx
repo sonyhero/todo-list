@@ -31,16 +31,19 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
         + (error ? ' ' + s.errorInput : '')
 
     return (
-        <div className={s.itemForm}>
-            <input value={newTitle}
-                   onChange={onChangeHandler}
-                   onKeyDown={onKeyDownHandler}
-                   // className={error ? s.error : ''}
-                   className={finalInputClassName}
-            />
-            <Button name={'Add'} callback={addTaskHandler} />
-            {/*<button onClick={addTaskHandler}>+</button>*/}
-            {error && <div className={s.errorMessage}>{error}</div>}
-        </div>
+        <div>
+            <div className={s.itemForm}>
+                <input value={newTitle}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyDownHandler}
+                    // className={error ? s.error : ''}
+                       className={finalInputClassName}
+                />
+                <Button name={'Add'} callback={addTaskHandler} />
+                {/*<button onClick={addTaskHandler}>+</button>*/}
+            </div>
+        {error && <div className={s.errorMessage}>{error}</div>}
+    </div>
+
     )
 }
