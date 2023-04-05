@@ -26,12 +26,17 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             setError('Ошибка')
         }
     }
+
+    const finalInputClassName = s.input
+        + (error ? ' ' + s.errorInput : '')
+
     return (
         <div>
             <input value={newTitle}
                    onChange={onChangeHandler}
                    onKeyDown={onKeyDownHandler}
-                   className={error ? s.error : ''}
+                   // className={error ? s.error : ''}
+                   className={finalInputClassName}
             />
             <Button name={'Add'} callback={addTaskHandler} />
             {/*<button onClick={addTaskHandler}>+</button>*/}

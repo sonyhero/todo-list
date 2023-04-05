@@ -26,9 +26,8 @@ function App() {
 
     const [todoLists, setTodoLists] = useState<TodoListsStateType[]>([
         {id: todoListId_1, title: 'What to learn', filter: 'all'},
-        {id: todoListId_2, title: 'What to buy', filter: 'all'},
+        {id: todoListId_2, title: 'What to buy', filter: 'all'}
     ])
-
 
     const [tasks, setTasks] = useState<TasksStateType>({
         [todoListId_1]: [
@@ -43,7 +42,7 @@ function App() {
             {id: v1(), title: 'Salt', isDone: true},
             {id: v1(), title: 'Water', isDone: false},
             {id: v1(), title: 'Beer', isDone: false},
-        ],
+        ]
     });
     // CRUD operations for Tasks
     const addTask = (newTitle: string, todoListId: string) => {
@@ -54,9 +53,7 @@ function App() {
         setTasks({...tasks, [todoListId]: tasks[todoListId].filter(tl => tl.id !== taskId)})
     }
     const changeTaskTitle = (taskId: string, newTitle: string, todoListId: string) => {
-        setTasks({
-            ...tasks,
-            [todoListId]: tasks[todoListId].map(tl => tl.id === taskId ? {...tl, title: newTitle} : tl)
+        setTasks({...tasks, [todoListId]: tasks[todoListId].map(tl => tl.id === taskId ? {...tl, title: newTitle} : tl)
         })
     }
     const changeTaskStatus = (taskId: string, newIsDone: boolean, todoListId: string) => {

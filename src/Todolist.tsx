@@ -4,6 +4,7 @@ import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
 import {AddItemForm} from './components/AddItemForm';
 import {Button} from './components/Button/Button';
+import {EditableSpan} from './components/EditableSpan';
 
 type TodolistPropsType = {
     title: string
@@ -19,7 +20,6 @@ type TodolistPropsType = {
     changeTodoListTitle: (newTitle: string, todoListId: string) => void
     removeTodoList: (todoListId: string) => void
     changeTodoListFilter: (value: FilterValuesType, todoListId: string) => void
-
 }
 
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
@@ -38,19 +38,24 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         props.addTask(newTitle, props.todoListId)
     }
 
+
     return <div>
         <h3>{props.title}</h3>
         <AddItemForm addItem={addTask}/>
         <ul className={s.tasks} ref={listRef}>
             {
                 props.tasks.map(t => {
+                    const changeTaskTitle = (newTitle: string) => {
+                        props.changeTaskTitle(t.id, newTitle, props.todoListId)
+                    }
 
                     return (
                         <li className={t.isDone ? s.isDone : ''} key={t.id}>
                             <input type="checkbox"
                                    onChange={(e) => onChangeIsDoneHandler(t.id, e.currentTarget.checked)}
                                    checked={t.isDone}/>
-                            <span>{t.title}</span>
+                            {/*<span>{t.title}</span>*/}
+                            <EditableSpan onChange={changeTaskTitle} title={t.title}/>
                             {/*<button onClick={() => removeTaskHandler(t.id)}>x</button>*/}
                             <Button name={'x'} callback={() => removeTaskHandler(t.id)} xType={'red'} className={false}/>
                         </li>)

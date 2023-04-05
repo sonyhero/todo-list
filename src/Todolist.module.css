@@ -1,7 +1,7 @@
 
-.error {
-    border: red 1px solid;
-}
+/*.error {*/
+/*    border: red 1px solid;*/
+/*}*/
 
 .errorMessage {
     color: red;
@@ -13,4 +13,65 @@
 
 .isDone {
     opacity: 0.5;
+}
+
+.input:focus {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    width: 300px;
+    height: 25px;
+    border-radius: 1px;
+    color: #212529;
+    border: 1px solid #D1D1D1;
+    background-color: #fff;
+    outline: 0;
+    font-size: 20px;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.15);
+}
+
+.input {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    width: 300px;
+    height: 25px;
+    color: #212529;
+    background-color: #fff;
+    outline: 0;
+    font-size: 20px;
+    border-radius: 3px;
+    border: 1px solid #3f4952;
+}
+
+.errorInput {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    font-size: 20px;
+    width: 300px;
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid #E35959FF;
+    background-color: #eebebe;
+}
+
+.errorInput:focus {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    font-size: 20px;
+    border-radius: 3px;
+    border: 1px solid #E35959FF;
+    background-color: #eebebe;
+}
+
+.error {
+    color: #E35959FF;
+    font-size: 20px;
+    font-weight: 500;
 }
