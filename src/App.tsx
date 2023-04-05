@@ -120,11 +120,14 @@ function App() {
     )
 
     return (
-
-        <div className="App">
-            <AddItemForm addItem={addTodoList}/>
-            {todoListsComponents}
+        <div className={'wrapper'}>
+            <div className="App">
+                <AddItemForm addItem={addTodoList}/>
+                {todoListsComponents}
+            </div>
         </div>
+
+
     );
 }
 

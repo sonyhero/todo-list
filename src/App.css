@@ -1,6 +1,9 @@
 .App {
+  font-family: 'Montserrat', sans-serif;
   padding: 30px;
   display: flex;
+  align-items: flex-start;
+
 }
 
 .App > div {
