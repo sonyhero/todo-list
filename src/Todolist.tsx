@@ -3,8 +3,9 @@ import {FilterValuesType, TaskType} from './App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
 import {AddItemForm} from './components/AddItemForm';
+import {Button} from './components/Button/Button';
 
-type PropsType = {
+type TodolistPropsType = {
     title: string
     todoListId: string
     tasks: TaskType[]
@@ -21,15 +22,15 @@ type PropsType = {
 
 }
 
-export const Todolist: React.FC<PropsType> = (props) => {
+export const Todolist: React.FC<TodolistPropsType> = (props) => {
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
-
     const removeTaskHandler = (taskId: string) => props.removeTask(taskId, props.todoListId)
 
-
-    const changeFilter = (filerValue: FilterValuesType) => props.changeTodoListFilter(filerValue, props.todoListId)
-
+    // const changeFilter = (filerValue: FilterValuesType) => props.changeTodoListFilter(filerValue, props.todoListId)
+    const setChangeFilterAll = () => props.changeTodoListFilter('all', props.todoListId)
+    const setChangeFilterActive = () => props.changeTodoListFilter('active', props.todoListId)
+    const setChangeFilterCompleted = () => props.changeTodoListFilter('completed', props.todoListId)
 
     const onChangeIsDoneHandler = (taskId: string, e: boolean) => props.changeTaskStatus(taskId, e, props.todoListId)
 
@@ -40,7 +41,7 @@ export const Todolist: React.FC<PropsType> = (props) => {
     return <div>
         <h3>{props.title}</h3>
         <AddItemForm addItem={addTask}/>
-        <ul ref={listRef}>
+        <ul className={s.tasks} ref={listRef}>
             {
                 props.tasks.map(t => {
 
@@ -50,21 +51,25 @@ export const Todolist: React.FC<PropsType> = (props) => {
                                    onChange={(e) => onChangeIsDoneHandler(t.id, e.currentTarget.checked)}
                                    checked={t.isDone}/>
                             <span>{t.title}</span>
-                            <button onClick={() => removeTaskHandler(t.id)}>x</button>
+                            {/*<button onClick={() => removeTaskHandler(t.id)}>x</button>*/}
+                            <Button name={'x'} callback={() => removeTaskHandler(t.id)} xType={'red'} className={false}/>
                         </li>)
                 })
             }
         </ul>
         <div>
-            <button className={props.filter === 'all' ? s.activeFilter : ''} name={'All'}
-                    onClick={() => changeFilter('all')}>All
-            </button>
-            <button className={props.filter === 'active' ? s.activeFilter : ''} name={'Active'}
-                    onClick={() => changeFilter('active')}>Active
-            </button>
-            <button className={props.filter === 'completed' ? s.activeFilter : ''} name={'Completed'}
-                    onClick={() => changeFilter('completed')}>Completed
-            </button>
+            <Button className={props.filter === 'all'} name={'All'} callback={setChangeFilterAll}/>
+            <Button className={props.filter === 'active'} name={'Active'} callback={setChangeFilterActive}/>
+            <Button className={props.filter === 'completed'} name={'Completed'} callback={setChangeFilterCompleted}/>
+            {/*<button className={props.filter === 'all' ? s.activeFilter : ''} name={'All'}*/}
+            {/*        onClick={() => changeFilter('all')}>All*/}
+            {/*</button>*/}
+            {/*<button className={props.filter === 'active' ? s.activeFilter : ''} name={'Active'}*/}
+            {/*        onClick={() => changeFilter('active')}>Active*/}
+            {/*</button>*/}
+            {/*<button className={props.filter === 'completed' ? s.activeFilter : ''} name={'Completed'}*/}
+            {/*        onClick={() => changeFilter('completed')}>Completed*/}
+            {/*</button>*/}
         </div>
     </div>
 }
