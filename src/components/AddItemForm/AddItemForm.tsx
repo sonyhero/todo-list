@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import s from '../Todolist.module.css';
-import {Button} from './Button/Button';
+import s from './AddItemForm.module.css';
+import {Button} from '../Button/Button';
 
 type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
@@ -31,7 +31,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
         + (error ? ' ' + s.errorInput : '')
 
     return (
-        <div>
+        <div className={s.itemForm}>
             <input value={newTitle}
                    onChange={onChangeHandler}
                    onKeyDown={onKeyDownHandler}

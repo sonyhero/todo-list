@@ -2,7 +2,7 @@ import React from 'react';
 import {FilterValuesType, TaskType} from './App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
-import {AddItemForm} from './components/AddItemForm';
+import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {Button} from './components/Button/Button';
 import {EditableSpan} from './components/EditableSpan';
 
