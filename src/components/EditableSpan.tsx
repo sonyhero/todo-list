@@ -10,12 +10,10 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
 
     const activateEditMode = () => {
         setEditMode(true)
-        setTitle(props.title)
     }
     const activateViewMode = () => {
         setEditMode(false)
         props.onChange(title)
-
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

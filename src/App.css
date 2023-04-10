@@ -1,12 +1,11 @@
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
 
 .App {
   font-family: 'Montserrat', sans-serif;
   padding: 30px;
   display: flex;
-  align-items: flex-start;
-
-}
-
-.App > div {
-  margin-right: 50px;
 }
