@@ -45,7 +45,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         props.changeTodoListTitle(newTitle, props.todoListId)
     }
 
-    return <div>
+    return <div  className={s.todoWrapper}>
         <h3>
             <EditableSpan title={props.title} onChange={changeTodoListTitle}/>
             <Button name={'x'} callback={removeTodoList}  xType={'red'} className={false}/>
