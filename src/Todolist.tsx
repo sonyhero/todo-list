@@ -63,10 +63,11 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                             <input type="checkbox"
                                    onChange={(e) => onChangeIsDoneHandler(t.id, e.currentTarget.checked)}
                                    checked={t.isDone}/>
-                            {/*<span>{t.title}</span>*/}
                             <EditableSpan onChange={changeTaskTitle} title={t.title}/>
-                            {/*<button onClick={() => removeTaskHandler(t.id)}>x</button>*/}
-                            <Button name={'x'} callback={() => removeTaskHandler(t.id)} xType={'red'} className={false}/>
+                            <Button name={'x'}
+                                    callback={() => removeTaskHandler(t.id)}
+                                    xType={'red'}
+                                    className={false}/>
                         </li>)
                 })
             }
@@ -75,15 +76,6 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
             <Button className={props.filter === 'all'} name={'All'} callback={setChangeFilterAll}/>
             <Button className={props.filter === 'active'} name={'Active'} callback={setChangeFilterActive}/>
             <Button className={props.filter === 'completed'} name={'Completed'} callback={setChangeFilterCompleted}/>
-            {/*<button className={props.filter === 'all' ? s.activeFilter : ''} name={'All'}*/}
-            {/*        onClick={() => changeFilter('all')}>All*/}
-            {/*</button>*/}
-            {/*<button className={props.filter === 'active' ? s.activeFilter : ''} name={'Active'}*/}
-            {/*        onClick={() => changeFilter('active')}>Active*/}
-            {/*</button>*/}
-            {/*<button className={props.filter === 'completed' ? s.activeFilter : ''} name={'Completed'}*/}
-            {/*        onClick={() => changeFilter('completed')}>Completed*/}
-            {/*</button>*/}
         </div>
     </div>
 }

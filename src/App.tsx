@@ -18,6 +18,7 @@ import {
     RemoveTodoListAC,
     TodoListsReducer
 } from './reducers/todoListsReducer';
+import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TaskType = {
@@ -35,6 +36,8 @@ export type TasksStateType = {
 }
 
 function App() {
+
+    const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
 
     const todoListId_1 = v1()
     const todoListId_2 = v1()
@@ -172,7 +175,7 @@ function App() {
     return (
         <div className="App">
             <AddItemForm addItem={addTodoList}/>
-            <div className={'wrapper'}>
+            <div ref={todoListsRef} className={'wrapper'}>
                 {todoListsComponents}
             </div>
         </div>
