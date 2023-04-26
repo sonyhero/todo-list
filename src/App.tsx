@@ -8,7 +8,7 @@ import {
     AddTaskAC,
     ChangeTaskStatusAC,
     ChangeTaskTitleAC,
-    RemoveTaskAC,
+    RemoveTaskAC, RemoveTodoListTasksAC,
     TasksReducer,
 } from './reducers/tasksReducer';
 import {
@@ -127,7 +127,7 @@ function App() {
     const removeTodoList = (todoListId: string) => {
         // setTodoLists(todoLists.filter(tl => tl.id !== todoListId))
         dispatchTodoLists(RemoveTodoListAC(todoListId))
-        delete tasks[todoListId]
+        dispatchTasks(RemoveTodoListTasksAC(todoListId))
 
     }
     const changeTodoListTitle = (newTitle: string, todoListId: string) => {
