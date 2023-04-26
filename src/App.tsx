@@ -4,11 +4,10 @@ import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {
-    AddEmptyTodoListAC,
     AddTaskAC,
     ChangeTaskStatusAC,
     ChangeTaskTitleAC,
-    RemoveTaskAC, RemoveTodoListTasksAC,
+    RemoveTaskAC,
     TasksReducer,
 } from './reducers/tasksReducer';
 import {
@@ -63,7 +62,7 @@ function App() {
     //     ]
     // });
 
-    const [todoLists, dispatchTodoLists] = useReducer(TodoListsReducer, [
+    const [todoLists, dispatchTodoLists] = useReducer(TodoListsReducer,[
         {id: todoListId_1, title: 'What to learn', filter: 'all'},
         {id: todoListId_2, title: 'What to buy', filter: 'all'}
     ])
@@ -86,8 +85,7 @@ function App() {
     // CRUD operations for Tasks
     const addTask = (newTitle: string, todoListId: string) => {
         // setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
-        const newTask: TaskType = {id: v1(), title: newTitle, isDone: false}
-        dispatchTasks(AddTaskAC(newTask, todoListId))
+        dispatchTasks(AddTaskAC(newTitle, todoListId))
     }
     const removeTask = (taskId: string, todoListId: string) => {
         // setTasks({...tasks, [todoListId]: tasks[todoListId].filter(tl => tl.id !== taskId)})
@@ -115,19 +113,19 @@ function App() {
         // }
         // setTodoLists([...todoLists, newTodoList])
         // setTasks({...tasks, [newTodoList.id]: []})
-        const newTodoList: TodoListsStateType = {
-            id: v1(),
-            title: newTitle,
-            filter: 'all'
-        }
-        dispatchTodoLists(AddTodoListAC(newTodoList))
-        dispatchTasks(AddEmptyTodoListAC(newTodoList.id))
+        // const newTodoList: TodoListsStateType = {
+        //     id: v1(),
+        //     title: newTitle,
+        //     filter: 'all'
+        // }
+        dispatchTodoLists(AddTodoListAC(newTitle))
+        dispatchTasks(AddTodoListAC(newTitle))
 
     }
     const removeTodoList = (todoListId: string) => {
         // setTodoLists(todoLists.filter(tl => tl.id !== todoListId))
         dispatchTodoLists(RemoveTodoListAC(todoListId))
-        dispatchTasks(RemoveTodoListTasksAC(todoListId))
+        dispatchTasks(RemoveTodoListAC(todoListId))
 
     }
     const changeTodoListTitle = (newTitle: string, todoListId: string) => {
