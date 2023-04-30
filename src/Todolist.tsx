@@ -5,11 +5,12 @@ import s from './Todolist.module.css'
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {Button} from './components/Button/Button';
 import {EditableSpan} from './components/EditableSpan';
+import {useAppSelector} from './hooks/hooks';
 
 type TodolistPropsType = {
     title: string
     todoListId: string
-    tasks: TaskType[]
+    // tasks: TaskType[]
     filter: FilterValuesType
 
     addTask: (newTitle: string, todoListId: string) => void
@@ -23,6 +24,18 @@ type TodolistPropsType = {
 }
 
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
+
+    const tasks = useAppSelector(state => state.tasks)
+
+    const tasksForTodolist = (taskList: TaskType[], filterValue: FilterValuesType) => {
+        return (filterValue === 'active')
+            ? taskList.filter(t => !t.isDone)
+            : (filterValue === 'completed')
+                ? taskList.filter(t => t.isDone)
+                : taskList
+    }
+    const tasksForRender = tasksForTodolist(tasks[props.todoListId], props.filter)
+
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
     const removeTaskHandler = (taskId: string) => props.removeTask(taskId, props.todoListId)
@@ -53,7 +66,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         <AddItemForm addItem={addTask}/>
         <ul className={s.tasks} ref={listRef}>
             {
-                props.tasks.map(t => {
+                tasksForRender.map(t => {
                     const changeTaskTitle = (newTitle: string) => {
                         props.changeTaskTitle(t.id, newTitle, props.todoListId)
                     }
