@@ -15,7 +15,7 @@ export const Button = (props: ButtonType) => {
     ${props.xType === 'red' ? `${s.red} ${s.deleteTask}` : ''} 
     ${props.className ? s.secondary : s.default}
     `
-//s.red + ' ' + s.deleteTask
+
     const onClickHandler = () => {
         props.callback()
     }

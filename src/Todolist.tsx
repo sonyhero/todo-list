@@ -26,6 +26,7 @@ type TodolistPropsType = {
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
 
     const tasks = useAppSelector(state => state.tasks)
+    const [listRef] = useAutoAnimate<HTMLUListElement>()
 
     const tasksForTodolist = (taskList: TaskType[], filterValue: FilterValuesType) => {
         return (filterValue === 'active')
@@ -36,11 +37,8 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
     }
     const tasksForRender = tasksForTodolist(tasks[props.todoListId], props.filter)
 
-
-    const [listRef] = useAutoAnimate<HTMLUListElement>()
     const removeTaskHandler = (taskId: string) => props.removeTask(taskId, props.todoListId)
 
-    // const changeFilter = (filerValue: FilterValuesType) => props.changeTodoListFilter(filerValue, props.todoListId)
     const setChangeFilterAll = () => props.changeTodoListFilter('all', props.todoListId)
     const setChangeFilterActive = () => props.changeTodoListFilter('active', props.todoListId)
     const setChangeFilterCompleted = () => props.changeTodoListFilter('completed', props.todoListId)

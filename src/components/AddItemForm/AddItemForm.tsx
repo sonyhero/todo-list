@@ -40,7 +40,6 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
                        className={finalInputClassName}
                 />
                 <Button name={'Add'} callback={addTaskHandler} />
-                {/*<button onClick={addTaskHandler}>+</button>*/}
             </div>
         {error && <div className={s.errorMessage}>{error}</div>}
     </div>
