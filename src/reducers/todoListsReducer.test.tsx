@@ -52,7 +52,7 @@ test('correct todolist should change its name', () => {
     ]
 
 
-    const action = ChangeTodoListTitleAC(newTodolistTitle,todolistId2);
+    const action = ChangeTodoListTitleAC(todolistId2, newTodolistTitle);
 
     const endState = TodoListsReducer(startState, action);
 
@@ -71,7 +71,7 @@ test('correct filter of todolist should be changed', () => {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
 
-    const action = ChangeTodoListFilterAC(newFilter, todolistId2);
+    const action = ChangeTodoListFilterAC(todolistId2, newFilter);
 
     const endState = TodoListsReducer(startState, action);
 

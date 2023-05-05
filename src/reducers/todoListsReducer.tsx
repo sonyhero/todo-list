@@ -66,23 +66,23 @@ export const RemoveTodoListAC = (todoListId: string) => {
 }
 
 type ChangeTodoListTitleACType = ReturnType<typeof ChangeTodoListTitleAC>
-export const ChangeTodoListTitleAC = (newTitle: string, todoListId: string) => {
+export const ChangeTodoListTitleAC = (todoListId: string, newTitle: string) => {
     return {
         type: 'CHANGE_TODOLIST_TITLE',
         payload: {
-            newTitle,
-            todoListId
+            todoListId,
+            newTitle
         }
     } as const
 }
 
 type ChangeTodoListFilterACType = ReturnType<typeof ChangeTodoListFilterAC>
-export const ChangeTodoListFilterAC = (filerValue: FilterValuesType, todoListId: string) => {
+export const ChangeTodoListFilterAC = (todoListId: string, filerValue: FilterValuesType, ) => {
     return {
         type: 'CHANGE_TODOLIST_FILTER',
         payload: {
-            filerValue,
-            todoListId
+            todoListId,
+            filerValue
         }
     } as const
 }
