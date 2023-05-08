@@ -1,5 +1,5 @@
 import React from 'react';
-import {FilterValuesType, TaskType} from './App'
+import {FilterValuesType} from './App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
@@ -42,14 +42,22 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
     const setChangeFilterCompleted = () => dispatch(ChangeTodoListFilterAC(todoListId, 'completed'))
 
     // CRUD operations for Tasks
-    const tasksForTodolist = (taskList: TaskType[], filterValue: FilterValuesType) => {
-        return (filterValue === 'active')
-            ? taskList.filter(t => !t.isDone)
-            : (filterValue === 'completed')
-                ? taskList.filter(t => t.isDone)
-                : taskList
+    // const tasksForTodolist = (taskList: TaskType[], filterValue: FilterValuesType) => {
+    //     return (filterValue === 'active')
+    //         ? taskList.filter(t => !t.isDone)
+    //         : (filterValue === 'completed')
+    //             ? taskList.filter(t => t.isDone)
+    //             : taskList
+    // }
+    // const tasksForRender = tasksForTodolist(tasks, filter)
+
+    const tasksForTodolist = () => {
+        return (filter === 'active')
+            ? tasks.filter(t => !t.isDone)
+            : (filter === 'completed')
+                ? tasks.filter(t => t.isDone)
+                : tasks
     }
-    const tasksForRender = tasksForTodolist(tasks, filter)
 
     const addTask = (newTitle: string) => {
         dispatch(AddTaskAC(todoListId, newTitle))
@@ -73,7 +81,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         <AddItemForm addItem={addTask}/>
         <ul className={s.tasks} ref={listRef}>
             {
-                tasksForRender.map(t => {
+                tasksForTodolist().map(t => {
                     return (
                         <li className={t.isDone ? s.isDone : ''} key={t.id}>
                             <input type="checkbox"
