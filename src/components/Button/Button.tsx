@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import s from './Button.module.css';
 
 type ButtonType = {
@@ -8,7 +8,7 @@ type ButtonType = {
     xType?: string
 }
 
-export const Button = (props: ButtonType) => {
+export const Button = memo((props: ButtonType) => {
 
     const finalClassName = `
     ${s.button}
@@ -22,4 +22,4 @@ export const Button = (props: ButtonType) => {
     return (
         <button className={finalClassName} onClick={onClickHandler}>{props.name}</button>
     )
-}
+})

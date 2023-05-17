@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
@@ -22,15 +22,17 @@ export type TasksStateType = {
     [key: string]: TaskType[]
 }
 
-export const App = () => {
+export const App =  () => {
+
+    console.log('App render')
 
     const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
 
     const todoLists = useAppSelector(state => state.todoLists)
     const dispatch = useDispatch()
-    const addTodoList = (newTitle: string) => {
+    const addTodoList = useCallback((newTitle: string) => {
         dispatch(AddTodoListAC(newTitle))
-    }
+    }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {
             return (

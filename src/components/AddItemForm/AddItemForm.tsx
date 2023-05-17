@@ -1,11 +1,13 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useCallback, useState} from 'react';
 import s from './AddItemForm.module.css';
 import {Button} from '../Button/Button';
 
 type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
 }
-export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
+
+    console.log('AddItemForm render')
 
     const [newTitle, setNewTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -20,14 +22,14 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setNewTitle(event.currentTarget.value)
     }
-    const addTaskHandler = () => {
+    const addTaskHandler = useCallback(() => {
         if (newTitle.trim() !== '') {
-            props.addItem(newTitle.trim())
+            addItem(newTitle.trim())
             setNewTitle('')
         } else {
             setError('Ошибка')
         }
-    }
+    }, [newTitle, addItem])
 
     const finalInputClassName = s.input
         + (error ? ' ' + s.errorInput : '')
