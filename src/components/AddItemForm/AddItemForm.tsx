@@ -44,8 +44,8 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
                        className={finalInputClassName}
                 />
                 <Button name={'Add'} callback={addTaskHandler}/>
+                {error && <div className={s.errorMessage}>{error}</div>}
             </div>
-            {error && <div className={s.errorMessage}>{error}</div>}
         </div>
     )
 })
