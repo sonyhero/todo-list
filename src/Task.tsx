@@ -4,6 +4,7 @@ import {EditableSpan} from './components/EditableSpan';
 import {Button} from './components/Button/Button';
 import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from './reducers/tasksReducer';
 import {useDispatch} from 'react-redux';
+import {CheckBox} from './components/CheckBox';
 
 type TaskPropsType = {
     id: string
@@ -31,9 +32,7 @@ export const Task: React.FC<TaskPropsType> = memo((props)=>{
 
     return (
         <li className={isDone ? s.isDone : ''}>
-            <input type="checkbox"
-                   onChange={(e) => onChangeTaskStatusHandler(id, e.currentTarget.checked)}
-                   checked={isDone}/>
+            <CheckBox checked={isDone} callBack={(e) => onChangeTaskStatusHandler(id, e)}/>
             <EditableSpan onChange={(newTitle) => changeTaskTitle(id, newTitle)} title={title}/>
             <Button name={'x'}
                     callback={() => removeTaskHandler(id)}
