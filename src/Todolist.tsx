@@ -9,7 +9,7 @@ import {useAppSelector} from './hooks/hooks';
 import {useDispatch} from 'react-redux';
 import {ChangeTodoListFilterAC, ChangeTodoListTitleAC, RemoveTodoListAC} from './reducers/todoListsReducer';
 import {AddTaskAC} from './reducers/tasksReducer';
-import {Task} from './Task';
+import {MappedTasks} from './MappedTasks';
 
 type TodolistPropsType = {
     title: string
@@ -40,23 +40,14 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
         dispatch(ChangeTodoListFilterAC(todoListId, 'all'))
     }, [dispatch, todoListId])
     const setChangeFilterActive = useCallback(() => {
-            dispatch(ChangeTodoListFilterAC(todoListId, 'active'))
-        }, [dispatch, todoListId])
+        dispatch(ChangeTodoListFilterAC(todoListId, 'active'))
+    }, [dispatch, todoListId])
     const setChangeFilterCompleted = useCallback(() => {
-            dispatch(ChangeTodoListFilterAC(todoListId, 'completed'))
-        }, [dispatch, todoListId])
+        dispatch(ChangeTodoListFilterAC(todoListId, 'completed'))
+    }, [dispatch, todoListId])
 
-    // CRUD operations for Tasks
-    // const tasksForTodolist = (taskList: TaskType[], filterValue: FilterValuesType) => {
-    //     return (filterValue === 'active')
-    //         ? taskList.filter(t => !t.isDone)
-    //         : (filterValue === 'completed')
-    //             ? taskList.filter(t => t.isDone)
-    //             : taskList
-    // }
-    // const tasksForRender = tasksForTodolist(tasks, filter)
 
-    const tasksForTodolist = () => {
+    const filteredTasks = () => {
         return (filter === 'active')
             ? tasks.filter(t => !t.isDone)
             : (filter === 'completed')
@@ -64,19 +55,11 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
                 : tasks
     }
 
+    const tasksForTodolist = filteredTasks()
+
     const addTask = useCallback((newTitle: string) => {
         dispatch(AddTaskAC(todoListId, newTitle))
     }, [dispatch, todoListId])
-    // const removeTaskHandler = (taskId: string) => {
-    //     dispatch(RemoveTaskAC(todoListId, taskId))
-    // }
-    // const onChangeTaskStatusHandler = (taskId: string, e: boolean) => {
-    //     dispatch(ChangeTaskStatusAC(todoListId, taskId, e,))
-    // }
-    //
-    // const changeTaskTitle = (taskId: string, newTitle: string) => {
-    //     dispatch(ChangeTaskTitleAC(todoListId, taskId, newTitle))
-    // }
 
     return <div className={s.todoWrapper}>
         <h3>
@@ -85,23 +68,8 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
         </h3>
         <AddItemForm addItem={addTask}/>
         <ul className={s.tasks} ref={listRef}>
-            {
-                tasksForTodolist().map(t => {
-                    return (
-                        <Task key={t.id} id={t.id} title={t.title} isDone={t.isDone} todoListId={todoListId}/>
-                        // <li className={t.isDone ? s.isDone : ''} key={t.id}>
-                        //     <input type="checkbox"
-                        //            onChange={(e) => onChangeTaskStatusHandler(t.id, e.currentTarget.checked)}
-                        //            checked={t.isDone}/>
-                        //     <EditableSpan onChange={(newTitle) => changeTaskTitle(t.id, newTitle)} title={t.title}/>
-                        //     <Button name={'x'}
-                        //             callback={() => removeTaskHandler(t.id)}
-                        //             xType={'red'}
-                        //             className={false}/>
-                        // </li>
-                    )
-                })
-            }
+            <MappedTasks tasksForTodolist={tasksForTodolist}
+                         todoListId={todoListId}/>
         </ul>
         <div>
             <Button className={filter === 'all'} name={'All'} callback={setChangeFilterAll}/>
