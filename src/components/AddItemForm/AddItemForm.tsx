@@ -1,39 +1,23 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useCallback, useState} from 'react';
+import React, {memo} from 'react';
 import s from './AddItemForm.module.css';
 import {Button} from '../Button/Button';
 import {Input} from '../Input';
+import {useAddItemForm} from './hooks/useAddItemForm';
 
 type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
 }
 export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
-
     console.log('AddItemForm render')
 
-    const [newTitle, setNewTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
-
-    const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (error) {
-            setError(null)
-        }
-        if (event.key === 'Enter') addTaskHandler()
-    }
-
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewTitle(event.currentTarget.value)
-    }
-    const addTaskHandler = useCallback(() => {
-        if (newTitle.trim() !== '') {
-            addItem(newTitle.trim())
-            setNewTitle('')
-        } else {
-            setError('Ошибка')
-        }
-    }, [newTitle, addItem])
-
-    const finalInputClassName = s.input
-        + (error ? ' ' + s.errorInput : '')
+    const {
+        newTitle,
+        error,
+        onKeyDownHandler,
+        onChangeHandler,
+        finalInputClassName,
+        addTaskHandler
+    } = useAddItemForm(addItem)
 
     return (
         <div>
