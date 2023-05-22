@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {AddTodoListAC} from './reducers/todoListsReducer';
 import {useAutoAnimate} from '@formkit/auto-animate/react';

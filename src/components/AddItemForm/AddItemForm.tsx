@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useCallback, useState} from 'react';
 import s from './AddItemForm.module.css';
 import {Button} from '../Button/Button';
+import {Input} from '../Input';
 
 type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
@@ -37,10 +38,9 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
     return (
         <div>
             <div className={s.itemForm}>
-                <input value={newTitle}
+                <Input value={newTitle}
                        onChange={onChangeHandler}
                        onKeyDown={onKeyDownHandler}
-                    // className={error ? s.error : ''}
                        className={finalInputClassName}
                 />
                 <Button name={'Add'} callback={addTaskHandler}/>

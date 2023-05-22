@@ -1,4 +1,4 @@
-import {TaskType} from './App';
+import {TaskType} from '../../App';
 import React, {memo} from 'react';
 import {Task} from './Task';
 

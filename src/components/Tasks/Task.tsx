@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
-import s from './Todolist.module.css';
-import {EditableSpan} from './components/EditableSpan';
-import {Button} from './components/Button/Button';
-import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from './reducers/tasksReducer';
+import s from '../Todolist/Todolist.module.css';
+import {EditableSpan} from '../EditableSpan';
+import {Button} from '../Button/Button';
+import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from '../../reducers/tasksReducer';
 import {useDispatch} from 'react-redux';
-import {CheckBox} from './components/CheckBox';
+import {CheckBox} from '../CheckBox';
 
 type TaskPropsType = {
     id: string

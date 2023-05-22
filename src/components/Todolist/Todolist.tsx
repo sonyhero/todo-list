@@ -1,15 +1,15 @@
 import React, {memo, useCallback} from 'react';
-import {FilterValuesType} from './App'
+import {FilterValuesType} from '../../App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
-import {AddItemForm} from './components/AddItemForm/AddItemForm';
-import {Button} from './components/Button/Button';
-import {EditableSpan} from './components/EditableSpan';
-import {useAppSelector} from './hooks/hooks';
+import {AddItemForm} from '../AddItemForm/AddItemForm';
+import {Button} from '../Button/Button';
+import {EditableSpan} from '../EditableSpan';
+import {useAppSelector} from '../../hooks/hooks';
 import {useDispatch} from 'react-redux';
-import {ChangeTodoListFilterAC, ChangeTodoListTitleAC, RemoveTodoListAC} from './reducers/todoListsReducer';
-import {AddTaskAC} from './reducers/tasksReducer';
-import {MappedTasks} from './MappedTasks';
+import {ChangeTodoListFilterAC, ChangeTodoListTitleAC, RemoveTodoListAC} from '../../reducers/todoListsReducer';
+import {AddTaskAC} from '../../reducers/tasksReducer';
+import {MappedTasks} from '../Tasks/MappedTasks';
 
 type TodolistPropsType = {
     title: string
