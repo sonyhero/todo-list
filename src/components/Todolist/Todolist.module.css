@@ -11,3 +11,13 @@
 .isDone {
     opacity: 0.5;
 }
+
+.taskWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btwWrap {
+    display: flex;
+    justify-content: center;
+}

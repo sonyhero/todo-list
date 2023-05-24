@@ -31,9 +31,11 @@ export const Task: React.FC<TaskPropsType> = memo((props)=>{
     }
 
     return (
-        <li className={isDone ? s.isDone : ''}>
-            <CheckBox checked={isDone} callBack={(e) => onChangeTaskStatusHandler(id, e)}/>
-            <EditableSpan onChange={(newTitle) => changeTaskTitle(id, newTitle)} title={title}/>
+        <li className={`${s.taskWrap} ${isDone ? s.isDone : ''}`}>
+            <div>
+                <CheckBox checked={isDone} callBack={(e) => onChangeTaskStatusHandler(id, e)}/>
+                <EditableSpan onChange={(newTitle) => changeTaskTitle(id, newTitle)} title={title}/>
+            </div>
             <Button name={'x'}
                     callback={() => removeTaskHandler(id)}
                     xType={'red'}

@@ -22,7 +22,7 @@ export type TasksStateType = {
     [key: string]: TaskType[]
 }
 
-export const App =  () => {
+export const App = () => {
 
     console.log('App render')
 
@@ -48,8 +48,11 @@ export const App =  () => {
 
     return (
         <div className="App">
-            <AddItemForm addItem={addTodoList}/>
-            <div ref={todoListsRef} className={'wrapper'}>
+            <div className="headerWrap">
+                <AddItemForm addItem={addTodoList}/>
+            </div>
+
+            <div ref={todoListsRef} className="wrapper">
                 {todoListsComponents}
             </div>
         </div>

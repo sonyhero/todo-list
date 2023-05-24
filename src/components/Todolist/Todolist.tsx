@@ -42,7 +42,7 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
             <MappedTasks tasksForTodolist={tasksForTodolist}
                          todoListId={todoListId}/>
         </ul>
-        <div>
+        <div className={s.btwWrap}>
             <Button className={filter === 'all'} name={'All'} callback={setChangeFilterAll}/>
             <Button className={filter === 'active'} name={'Active'} callback={setChangeFilterActive}/>
             <Button className={filter === 'completed'} name={'Completed'} callback={setChangeFilterCompleted}/>
