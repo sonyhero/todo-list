@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {todoListAPI} from './api';
 
 export default {
-    title: 'API'
+    title: 'API-Todolist'
 }
 
 export const GetTodolists = () => {
