@@ -24,10 +24,11 @@ export const GetTasks = () => {
                 {JSON.stringify(state)}
             </div>
             <br/>
-            <input value={value}
-                   placeholder={'Todolist ID'}
-                   onChange={(e) => setValue(e.currentTarget.value)}
-            />
+            <div>Todolist ID
+                <input value={value}
+                        placeholder={'Todolist ID'}
+                        onChange={(e) => setValue(e.currentTarget.value)}
+            /></div>
             <button disabled={isDisabled} onClick={getTasks}>Get Tasks</button>
         </div>
     )
@@ -57,13 +58,13 @@ export const CreateTask = () => {
             <br/>
             <div>Todolist ID
                 <input value={todolistId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Todolist ID'}
                        onChange={(e) => setTodolistId(e.currentTarget.value)}
                 />
             </div>
             <div>Task Title
                 <input value={title}
-                       placeholder={'Todolist title'}
+                       placeholder={'Task Title'}
                        onChange={(e) => setTitle(e.currentTarget.value)}
                 />
             </div>
@@ -95,13 +96,13 @@ export const DeleteTask = () => {
             <br/>
             <div>Todolist ID
                 <input value={todolistId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Todolist ID'}
                        onChange={(e) => setTodolistId(e.currentTarget.value)}
                 />
             </div>
             <div>Task ID
                 <input value={taskId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Task ID'}
                        onChange={(e) => setTaskId(e.currentTarget.value)}
                 />
             </div>
@@ -135,21 +136,21 @@ export const UpdateTask = () => {
                 {JSON.stringify(state)}
             </div>
             <br/>
-            <div>ID
+            <div>Todolist ID
                 <input value={todolistId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Todolist ID'}
                        onChange={(e) => setTodolistId(e.currentTarget.value)}
                 />
             </div>
             <div>Task ID
                 <input value={taskId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Task ID'}
                        onChange={(e) => setTaskId(e.currentTarget.value)}
                 />
             </div>
-            <div>Title
+            <div>Task Title
                 <input value={title}
-                       placeholder={'Todolist title'}
+                       placeholder={'Task Title'}
                        onChange={(e) => setTitle(e.currentTarget.value)}
                 />
             </div>

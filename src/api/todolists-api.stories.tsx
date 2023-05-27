@@ -41,10 +41,10 @@ export const CreateTodolist = () => {
 
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
-    const [value, setValue] = useState<string>('')
+    const [todolistId, setTodolistId] = useState<string>('')
 
     const deleteTodolist = () => {
-        todoListAPI.deleteTodolist(value)
+        todoListAPI.deleteTodolist(todolistId)
             .then(data => setState(data))
     }
 
@@ -54,9 +54,9 @@ export const DeleteTodolist = () => {
                 {JSON.stringify(state)}
             </div>
             <br/>
-            <input value={value}
-                   placeholder={'Todolist title'}
-                   onChange={(e) => setValue(e.currentTarget.value)}
+            <input value={todolistId}
+                   placeholder={'Todolist ID'}
+                   onChange={(e) => setTodolistId(e.currentTarget.value)}
             />
             <button onClick={deleteTodolist}>Delete Todolist</button>
         </div>
@@ -83,15 +83,15 @@ export const UpdateTodolistTitle = () => {
                 {JSON.stringify(state)}
             </div>
             <br/>
-            <div>ID
+            <div>Todolist ID
                 <input value={todolistId}
-                       placeholder={'Todolist title'}
+                       placeholder={'Todolist ID'}
                        onChange={(e) => setTodolistId(e.currentTarget.value)}
                 />
             </div>
-            <div>Title
+            <div>Todolist Title
                 <input value={title}
-                       placeholder={'Todolist title'}
+                       placeholder={'Todolist Title'}
                        onChange={(e) => setTitle(e.currentTarget.value)}
                 />
             </div>
