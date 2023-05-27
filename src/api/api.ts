@@ -57,7 +57,7 @@ type TaskAPIType = {
 }
 
 
-type ResponseTaskType = {
+type ResponseGetTaskType = {
     items: TaskAPIType[]
     totalCount: number
     error: string
@@ -65,13 +65,13 @@ type ResponseTaskType = {
 
 export const taskAPI = {
     getTasks(todolistId: string) {
-        return instance.get<ResponseTaskType>(`todo-lists/${todolistId}/tasks`)
+        return instance.get<ResponseGetTaskType>(`todo-lists/${todolistId}/tasks`)
             .then((res) => res.data)
     },
-    // createTask(todolistId: string) {
-    //     return instance.post<ResponseType<{ items: TodolistAPIType }>>(`todo-lists/${todolistId}/tasks`, {title})
-    //         .then((res) => res.data)
-    // },
+    createTask(todolistId: string, title: string) {
+        return instance.post<ResponseType<{}>>(`todo-lists/${todolistId}/tasks`,{title})
+            .then((res) => res.data)
+    },
     // deleteTask(id: string) {
     //     return instance.delete<ResponseType<{}>>(`todo-lists/${id}`)
     //         .then((res) => res.data)
