@@ -7,12 +7,12 @@ export default {
 
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
-    const [value, setValue] = useState<string>('')
+    const [todolistId, setTodolistId] = useState<string>('')
     const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
     const getTasks = () => {
         setIsDisabled(true)
-        taskAPI.getTasks(value)
+        taskAPI.getTasks(todolistId)
             .then(data => {
                 setState(data.items)
                 setIsDisabled(false)
@@ -25,9 +25,9 @@ export const GetTasks = () => {
             </div>
             <br/>
             <div>Todolist ID
-                <input value={value}
+                <input value={todolistId}
                         placeholder={'Todolist ID'}
-                        onChange={(e) => setValue(e.currentTarget.value)}
+                        onChange={(e) => setTodolistId(e.currentTarget.value)}
             /></div>
             <button disabled={isDisabled} onClick={getTasks}>Get Tasks</button>
         </div>
