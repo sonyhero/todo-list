@@ -69,15 +69,16 @@ export const taskAPI = {
             .then((res) => res.data)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType<{}>>(`todo-lists/${todolistId}/tasks`,{title})
+        return instance.post<ResponseType<{}>>(`todo-lists/${todolistId}/tasks`, {title})
             .then((res) => res.data)
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType<{}>>(`todo-lists/${todolistId}/tasks/${taskId}`)
             .then((res) => res.data)
     },
-    // updateTask(id: string, title: string) {
-    //     return instance.put<ResponseType<{}>>(`todo-lists/${id}`, {title})
-    //         .then((res) => res.data)
-    // }
+    updateTask(todolistId: string, taskId: string, title: string) {
+        return instance.put<ResponseType<{}>>
+        (`todo-lists/${todolistId}/tasks/${taskId}`, {title})
+            .then((res) => res.data)
+    }
 }
