@@ -1,5 +1,4 @@
-import {useAppSelector} from '../../../hooks/hooks';
-import {useDispatch} from 'react-redux';
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useCallback} from 'react';
 import {ChangeTodoListFilterAC, ChangeTodoListTitleAC, RemoveTodoListAC} from '../../../reducers/todoListsReducer';
 import {AddTaskAC} from '../../../reducers/tasksReducer';
@@ -8,7 +7,7 @@ import {FilterValuesType} from '../../../App';
 export const useTodoList = (title: string, todoListId: string, filter: FilterValuesType) => {
 
     const tasks = useAppSelector(state => state.tasks[todoListId])
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     // CRUD operations for TodoLists
     const removeTodoList = useCallback(() => {

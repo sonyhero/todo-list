@@ -4,8 +4,7 @@ import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {AddTodoListAC} from './reducers/todoListsReducer';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
-import {useAppSelector} from './hooks/hooks';
-import {useDispatch} from 'react-redux';
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TaskType = {
@@ -29,7 +28,7 @@ export const App = () => {
     const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
 
     const todoLists = useAppSelector(state => state.todoLists)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const addTodoList = useCallback((newTitle: string) => {
         dispatch(AddTodoListAC(newTitle))
     }, [dispatch])

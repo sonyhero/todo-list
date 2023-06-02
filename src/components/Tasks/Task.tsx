@@ -3,8 +3,8 @@ import s from '../Todolist/Todolist.module.css';
 import {EditableSpan} from '../EditableSpan';
 import {Button} from '../Button/Button';
 import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from '../../reducers/tasksReducer';
-import {useDispatch} from 'react-redux';
 import {CheckBox} from '../CheckBox';
+import {useAppDispatch} from '../../hooks/hooks';
 
 type TaskPropsType = {
     id: string
@@ -15,7 +15,7 @@ type TaskPropsType = {
 
 export const Task: React.FC<TaskPropsType> = memo((props)=>{
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const {id, title, isDone, todoListId} = props
 

@@ -45,7 +45,7 @@ export const CreateTask = () => {
         taskAPI.createTask(todolistId, title).then(data => {
             setState(data)
             setTitle('')
-            setTodolistId('')
+            // setTodolistId('')
             setIsDisabled(false)
         })
     }
