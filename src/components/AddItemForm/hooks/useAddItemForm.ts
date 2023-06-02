@@ -12,7 +12,6 @@ export const useAddItemForm = (addItem: (newTitle: string) => void) => {
         }
         if (event.key === 'Enter') addTaskHandler()
     }
-
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setNewTitle(event.currentTarget.value)
     }

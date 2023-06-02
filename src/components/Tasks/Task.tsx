@@ -25,7 +25,6 @@ export const Task: React.FC<TaskPropsType> = memo((props)=>{
     const onChangeTaskStatusHandler = (taskId: string, e: boolean) => {
         dispatch(ChangeTaskStatusAC(todoListId, taskId, e,))
     }
-
     const changeTaskTitle = (taskId: string, newTitle: string) => {
         dispatch(ChangeTaskTitleAC(todoListId, taskId, newTitle))
     }

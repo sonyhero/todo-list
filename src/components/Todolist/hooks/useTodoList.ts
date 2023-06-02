@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useCallback} from 'react';
-import {ChangeTodoListFilterAC, ChangeTodoListTitleAC, RemoveTodoListAC} from '../../../reducers/todoListsReducer';
+import {changeTodoListFilterAC, changeTodoListTitleAC, removeTodoListAC} from '../../../reducers/todoListsReducer';
 import {AddTaskAC} from '../../../reducers/tasksReducer';
 import {FilterValuesType} from '../../../App';
 
@@ -11,22 +11,21 @@ export const useTodoList = (title: string, todoListId: string, filter: FilterVal
 
     // CRUD operations for TodoLists
     const removeTodoList = useCallback(() => {
-        dispatch(RemoveTodoListAC(todoListId))
+        dispatch(removeTodoListAC(todoListId))
     }, [dispatch, todoListId])
     const changeTodoListTitle = useCallback((newTitle: string) => {
-        dispatch(ChangeTodoListTitleAC(newTitle, todoListId))
+        dispatch(changeTodoListTitleAC(newTitle, todoListId))
     }, [dispatch, todoListId])
 
     const setChangeFilterAll = useCallback(() => {
-        dispatch(ChangeTodoListFilterAC(todoListId, 'all'))
+        dispatch(changeTodoListFilterAC(todoListId, 'all'))
     }, [dispatch, todoListId])
     const setChangeFilterActive = useCallback(() => {
-        dispatch(ChangeTodoListFilterAC(todoListId, 'active'))
+        dispatch(changeTodoListFilterAC(todoListId, 'active'))
     }, [dispatch, todoListId])
     const setChangeFilterCompleted = useCallback(() => {
-        dispatch(ChangeTodoListFilterAC(todoListId, 'completed'))
+        dispatch(changeTodoListFilterAC(todoListId, 'completed'))
     }, [dispatch, todoListId])
-
 
     const filteredTasks = () => {
         return (filter === 'active')
@@ -35,9 +34,7 @@ export const useTodoList = (title: string, todoListId: string, filter: FilterVal
                 ? tasks.filter(t => t.isDone)
                 : tasks
     }
-
     const tasksForTodolist = filteredTasks()
-
     const addTask = useCallback((newTitle: string) => {
         dispatch(AddTaskAC(todoListId, newTitle))
     }, [dispatch, todoListId])

@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
-import {AddTodoListAC} from './reducers/todoListsReducer';
+import {addTodoListAC} from './reducers/todoListsReducer';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -30,7 +30,7 @@ export const App = () => {
     const todoLists = useAppSelector(state => state.todoLists)
     const dispatch = useAppDispatch()
     const addTodoList = useCallback((newTitle: string) => {
-        dispatch(AddTodoListAC(newTitle))
+        dispatch(addTodoListAC(newTitle))
     }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {

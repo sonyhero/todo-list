@@ -1,15 +1,5 @@
-import {AddTodoListACType, RemoveTodoListACType} from './todoListsReducer';
+import {addTodoListAC, removeTodoListAC} from './todoListsReducer';
 import {v1} from 'uuid';
-
-export type InitialStateType = {
-    [key: string]: InitialTaskType[]
-}
-
-export type InitialTaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 const initialState: InitialStateType = {
     ['todoListId_1']: [
@@ -26,7 +16,6 @@ const initialState: InitialStateType = {
         {id: v1(), title: 'Beer', isDone: false},
     ]
 }
-
 
 export const TasksReducer = (state: InitialStateType = initialState, action: TasksReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -79,15 +68,7 @@ export const TasksReducer = (state: InitialStateType = initialState, action: Tas
     return state
 }
 
-type TasksReducerActionType =
-    AddTaskACType |
-    RemoveTaskACType |
-    ChangeTaskStatusACType |
-    ChangeTaskTitleACType |
-    AddTodoListACType |
-    RemoveTodoListACType
-
-type AddTaskACType = ReturnType<typeof AddTaskAC>
+// actions
 export const AddTaskAC = (todoListId: string, newTitle: string) => {
     return {
         type: 'ADD_TASK',
@@ -97,7 +78,6 @@ export const AddTaskAC = (todoListId: string, newTitle: string) => {
         }
     } as const
 }
-type RemoveTaskACType = ReturnType<typeof RemoveTaskAC>
 export const RemoveTaskAC = (todoListId: string, taskId: string) => {
     return {
         type: 'REMOVE_TASK',
@@ -107,8 +87,6 @@ export const RemoveTaskAC = (todoListId: string, taskId: string) => {
         }
     } as const
 }
-
-type ChangeTaskStatusACType = ReturnType<typeof ChangeTaskStatusAC>
 export const ChangeTaskStatusAC = (todoListId: string, taskId: string, newIsDone: boolean) => {
     return {
         type: 'CHANGE_TASK_STATUS',
@@ -119,8 +97,6 @@ export const ChangeTaskStatusAC = (todoListId: string, taskId: string, newIsDone
         }
     } as const
 }
-
-type ChangeTaskTitleACType = ReturnType<typeof ChangeTaskTitleAC>
 export const ChangeTaskTitleAC = (todoListId: string, taskId: string, newTitle: string,) => {
     return {
         type: 'CHANGE_TASK_TITLE',
@@ -130,4 +106,23 @@ export const ChangeTaskTitleAC = (todoListId: string, taskId: string, newTitle: 
             newTitle
         }
     } as const
+}
+
+//types
+type TasksReducerActionType =
+    ReturnType<typeof AddTaskAC>
+    | ReturnType<typeof RemoveTaskAC>
+    | ReturnType<typeof ChangeTaskStatusAC>
+    | ReturnType<typeof ChangeTaskTitleAC>
+    | ReturnType<typeof addTodoListAC>
+    | ReturnType<typeof removeTodoListAC>
+
+export type InitialStateType = {
+    [key: string]: InitialTaskType[]
+}
+
+type InitialTaskType = {
+    id: string
+    title: string
+    isDone: boolean
 }

@@ -98,6 +98,4 @@ export const UpdateTodolistTitle = () => {
             <button onClick={updateTodolist}>Update Todolist</button>
         </div>
     )
-
 }
-

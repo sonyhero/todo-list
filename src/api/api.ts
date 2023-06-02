@@ -8,20 +8,6 @@ const instance = axios.create({
     }
 })
 
-type TodolistAPIType = {
-    id: string
-    addedDate: Date
-    order: number
-    title: string
-}
-
-
-type ResponseType<T = {}> = {
-    resultCode: number
-    messages: string[],
-    data: T
-}
-
 export const todoListAPI = {
     getTodoLists() {
         return instance.get<TodolistAPIType[], AxiosResponse<TodolistAPIType[]>>('todo-lists')
@@ -41,29 +27,6 @@ export const todoListAPI = {
             .then((res) => res.data)
     }
 }
-
-type TaskAPIType = {
-    description: string
-    title: string
-    completed: boolean
-    status: number
-    priority: number
-    startDate: Date
-    deadline: Date
-    id: string
-    todoListId: string
-    order: number
-    addedDate: string
-    totalCount: number
-}
-
-
-type ResponseGetTaskType = {
-    items: TaskAPIType[]
-    totalCount: number
-    error: string
-}
-
 export const taskAPI = {
     getTasks(todolistId: string) {
         return instance.get<ResponseGetTaskType>(`todo-lists/${todolistId}/tasks`)
@@ -83,3 +46,36 @@ export const taskAPI = {
             .then((res) => res.data)
     }
 }
+
+// types
+type ResponseType<T = {}> = {
+    resultCode: number
+    messages: string[],
+    data: T
+}
+type TodolistAPIType = {
+    id: string
+    addedDate: Date
+    order: number
+    title: string
+}
+type TaskAPIType = {
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: Date
+    deadline: Date
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+    totalCount: number
+}
+type ResponseGetTaskType = {
+    items: TaskAPIType[]
+    totalCount: number
+    error: string
+}
+
