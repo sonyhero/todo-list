@@ -10,6 +10,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
 
     const activateEditMode = () => {
         setEditMode(true)
+        setTitle(props.title)
     }
     const activateViewMode = () => {
         setEditMode(false)

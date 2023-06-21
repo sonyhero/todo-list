@@ -1,8 +1,9 @@
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useCallback} from 'react';
-import {changeTodoListFilter, changeTodoListTitle, removeTodoList} from '../../../reducers/todoListsReducer';
-import {addTask} from '../../../reducers/tasksReducer';
+import {changeTodoListFilterAC, changeTodoListTitleAC, removeTodoListAC} from '../../../reducers/todoListsReducer';
+import {createTaskTC} from '../../../reducers/tasksReducer';
 import {FilterValuesType} from '../../../App';
+import {TaskStatuses} from '../../../api/api';
 
 export const useTodoList = (title: string, todoListId: string, filter: FilterValuesType) => {
 
@@ -11,32 +12,32 @@ export const useTodoList = (title: string, todoListId: string, filter: FilterVal
 
     // CRUD operations for TodoLists
     const removeTodos = useCallback(() => {
-        dispatch(removeTodoList(todoListId))
+        dispatch(removeTodoListAC(todoListId))
     }, [dispatch, todoListId])
     const changeTodosTitle = useCallback((newTitle: string) => {
-        dispatch(changeTodoListTitle(newTitle, todoListId))
+        dispatch(changeTodoListTitleAC(newTitle, todoListId))
     }, [dispatch, todoListId])
 
     const setChangeFilterAll = useCallback(() => {
-        dispatch(changeTodoListFilter(todoListId, 'all'))
+        dispatch(changeTodoListFilterAC(todoListId, 'all'))
     }, [dispatch, todoListId])
     const setChangeFilterActive = useCallback(() => {
-        dispatch(changeTodoListFilter(todoListId, 'active'))
+        dispatch(changeTodoListFilterAC(todoListId, 'active'))
     }, [dispatch, todoListId])
     const setChangeFilterCompleted = useCallback(() => {
-        dispatch(changeTodoListFilter(todoListId, 'completed'))
+        dispatch(changeTodoListFilterAC(todoListId, 'completed'))
     }, [dispatch, todoListId])
 
     const filteredTasks = () => {
         return (filter === 'active')
-            ? tasks.filter(t => !t.status)
+            ? tasks.filter(t => t.status === TaskStatuses.New)
             : (filter === 'completed')
-                ? tasks.filter(t => t.status)
+                ? tasks.filter(t => t.status === TaskStatuses.Completed)
                 : tasks
     }
     const tasksForTodolist = filteredTasks()
     const addTaskHandler = useCallback((newTitle: string) => {
-        dispatch(addTask(todoListId, newTitle))
+        dispatch(createTaskTC(todoListId, newTitle))
     }, [dispatch, todoListId])
 
     return {

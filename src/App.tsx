@@ -4,7 +4,7 @@ import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/common/AddItemForm/AddItemForm';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
-import {addTodoList, fetchTodoLists} from './reducers/todoListsReducer';
+import {addTodoListAC, fetchTodoLists} from './reducers/todoListsReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
@@ -20,7 +20,7 @@ export const App = () => {
     }, [])
 
     const addTodos = useCallback((newTitle: string) => {
-        dispatch(addTodoList(newTitle))
+        dispatch(addTodoListAC(newTitle))
     }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {

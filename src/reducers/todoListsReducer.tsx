@@ -41,7 +41,7 @@ export const TodoListsReducer = (state: InitialStateType[] = initialState, actio
 }
 
 // actions
-export const addTodoList = (newTitle: string) => ({
+export const addTodoListAC = (newTitle: string) => ({
     type: 'TODOLIST/ADD_TODOLIST',
     payload: {
         newTitle,
@@ -49,33 +49,33 @@ export const addTodoList = (newTitle: string) => ({
     }
 } as const)
 
-export const removeTodoList = (todoListId: string) => ({
+export const removeTodoListAC = (todoListId: string) => ({
     type: 'TODOLIST/REMOVE_TODOLIST',
     payload: {
         todoListId
     }
 } as const)
-export const changeTodoListTitle = (todoListId: string, newTitle: string) => ({
+export const changeTodoListTitleAC = (todoListId: string, newTitle: string) => ({
     type: 'TODOLIST/CHANGE_TODOLIST_TITLE',
     payload: {
         todoListId,
         newTitle
     }
 } as const)
-export const changeTodoListFilter = (todoListId: string, filerValue: FilterValuesType,) => ({
+export const changeTodoListFilterAC = (todoListId: string, filerValue: FilterValuesType,) => ({
     type: 'TODOLIST/CHANGE_TODOLIST_FILTER',
     payload: {
         todoListId,
         filerValue
     }
 } as const)
-export const setTodolist = (todoLists: TodolistType[]) => ({type: 'TODOLIST/SET_TODOLISTS', todoLists} as const)
+export const setTodolistAC = (todoLists: TodolistType[]) => ({type: 'TODOLIST/SET_TODOLISTS', todoLists} as const)
 
 // thunks
 export const fetchTodoLists = (): AppThunk => async (dispatch) => {
     try{
         const todos = await todoListAPI.getTodoLists()
-        dispatch(setTodolist(todos))
+        dispatch(setTodolistAC(todos))
         todos.forEach((tl)=> dispatch(fetchTasks(tl.id)))
     } catch (e) {
         console.log(e)
@@ -94,8 +94,8 @@ export type TodoListType = TodolistType & {
     filter: FilterValuesType
 }
 type TodoListsActionType =
-    | ReturnType<typeof addTodoList>
-    | ReturnType<typeof removeTodoList>
-    | ReturnType<typeof changeTodoListTitle>
-    | ReturnType<typeof changeTodoListFilter>
-    | ReturnType<typeof setTodolist>
+    | ReturnType<typeof addTodoListAC>
+    | ReturnType<typeof removeTodoListAC>
+    | ReturnType<typeof changeTodoListTitleAC>
+    | ReturnType<typeof changeTodoListFilterAC>
+    | ReturnType<typeof setTodolistAC>

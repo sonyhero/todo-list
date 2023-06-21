@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
-import {taskAPI, todoListAPI} from './api';
+import {taskAPI, TaskPriorities, TaskStatuses, todoListAPI, UpdateTaskModelType} from './api';
+import {RootStateType} from '../redux-store/store';
+import {Dispatch} from 'redux';
 
 export default {
     title: 'API-Tasks'
@@ -26,9 +28,9 @@ export const GetTasks = () => {
             <br/>
             <div>Todolist ID
                 <input value={todolistId}
-                        placeholder={'Todolist ID'}
-                        onChange={(e) => setTodolistId(e.currentTarget.value)}
-            /></div>
+                       placeholder={'Todolist ID'}
+                       onChange={(e) => setTodolistId(e.currentTarget.value)}
+                /></div>
             <button disabled={isDisabled} onClick={getTasks}>Get Tasks</button>
         </div>
     )
@@ -115,17 +117,28 @@ export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     const [todolistId, setTodolistId] = useState<string>('')
     const [taskId, setTaskId] = useState<string>('')
-    const [title, setTitle] = useState<string>('')
+    const [newTitle, setNewTitle] = useState<string>('')
     const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
     const updateTask = () => {
+
+        const model: UpdateTaskModelType = {
+            title: newTitle,
+            deadline: '',
+            priority: TaskPriorities.Low,
+            startDate: '',
+            description: '',
+            status: TaskStatuses.New
+        }
+
+
         setIsDisabled(true)
-        taskAPI.updateTask(todolistId, taskId, title)
+        taskAPI.updateTask(todolistId, taskId, model)
             .then(data => {
                 setState(data)
                 setTodolistId('')
                 setTaskId('')
-                setTitle('')
+                setNewTitle('')
                 setIsDisabled(false)
             })
     }
@@ -149,9 +162,9 @@ export const UpdateTask = () => {
                 />
             </div>
             <div>Task Title
-                <input value={title}
+                <input value={newTitle}
                        placeholder={'Task Title'}
-                       onChange={(e) => setTitle(e.currentTarget.value)}
+                       onChange={(e) => setNewTitle(e.currentTarget.value)}
                 />
             </div>
             <button disabled={isDisabled} onClick={updateTask}>Update Task</button>
