@@ -2,9 +2,9 @@ import React, {memo} from 'react';
 import {FilterValuesType} from '../../App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
-import {AddItemForm} from '../AddItemForm/AddItemForm';
-import {Button} from '../Button/Button';
-import {EditableSpan} from '../EditableSpan';
+import {AddItemForm} from '../common/AddItemForm/AddItemForm';
+import {Button} from '../common/Button/Button';
+import {EditableSpan} from '../common/EditableSpan';
 import {MappedTasks} from '../Tasks/MappedTasks';
 import {useTodoList} from './hooks/useTodoList';
 

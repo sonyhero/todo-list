@@ -1,32 +1,28 @@
 import {addTodoList, removeTodoList, setTodolist} from './todoListsReducer';
 import {v1} from 'uuid';
+import {taskAPI, TaskType} from '../api/api';
+import {Dispatch} from 'redux';
 
-const initialState: InitialStateType = {
-    ['todoListId_1']: [
-        {id: v1(), title: 'HTML&CSS', isDone: true},
-        {id: v1(), title: 'JS', isDone: true},
-        {id: v1(), title: 'ReactJS', isDone: false},
-        {id: v1(), title: 'Rest API', isDone: false},
-        {id: v1(), title: 'GraphQL', isDone: false},
-    ],
-    ['todoListId_2']: [
-        {id: v1(), title: 'Bread', isDone: true},
-        {id: v1(), title: 'Salt', isDone: true},
-        {id: v1(), title: 'Water', isDone: false},
-        {id: v1(), title: 'Beer', isDone: false},
-    ]
-}
+const initialState: InitialStateType = {}
 
 export const TasksReducer = (state: InitialStateType = initialState, action: TasksReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'TASKS/ADD_TASK': {
+            const newTask = {
+                id: v1(),
+                title: action.payload.newTitle,
+                description: '',
+                status: 0,
+                priority: 0,
+                startDate: '',
+                deadline: '',
+                todoListId: action.payload.todoListId,
+                order: 0,
+                addedDate: new Date()
+            }
             return {
                 ...state,
-                [action.payload.todoListId]: [{
-                    id: v1(),
-                    title: action.payload.newTitle,
-                    isDone: false
-                }, ...state[action.payload.todoListId]]
+                [action.payload.todoListId]: [newTask, ...state[action.payload.todoListId]]
             }
         }
         case 'TASKS/REMOVE_TASK': {
@@ -64,12 +60,17 @@ export const TasksReducer = (state: InitialStateType = initialState, action: Tas
             delete stateCopy[action.payload.todoListId]
             return stateCopy
         }
-        case 'TODOLIST/SET-TODOLISTS': {
+        case 'TODOLIST/SET_TODOLISTS': {
             const stateCopy = {...state}
             action.todoLists.forEach((tl) => {
                 stateCopy[tl.id] = []
             })
             return stateCopy;
+        }
+        case 'TASKS/SET_TASKS': {
+            const stateCopy = {...state}
+            stateCopy[action.payload.todoListId] = action.payload.tasks
+            return stateCopy
         }
     }
     return state
@@ -114,6 +115,19 @@ export const changeTaskTitle = (todoListId: string, taskId: string, newTitle: st
         }
     } as const
 }
+export const setTasks = (tasks: TaskType[], todoListId: string) => ({
+    type: 'TASKS/SET_TASKS',
+    payload: {
+        tasks,
+        todoListId
+    }
+} as const)
+
+// thunks
+export const fetchTasks = (todoListId: string) => async (dispatch: Dispatch) => {
+   const data = await taskAPI.getTasks(todoListId)
+            dispatch(setTasks(data.items, todoListId))
+}
 
 //types
 type TasksReducerActionType =
@@ -124,13 +138,8 @@ type TasksReducerActionType =
     | ReturnType<typeof addTodoList>
     | ReturnType<typeof removeTodoList>
     | ReturnType<typeof setTodolist>
+    | ReturnType<typeof setTasks>
 
 export type InitialStateType = {
-    [key: string]: InitialTaskType[]
-}
-
-type InitialTaskType = {
-    id: string
-    title: string
-    isDone: boolean
+    [key: string]: TaskType[]
 }

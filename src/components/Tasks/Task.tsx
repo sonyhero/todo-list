@@ -1,15 +1,16 @@
 import React, {memo} from 'react';
 import s from '../Todolist/Todolist.module.css';
-import {EditableSpan} from '../EditableSpan';
-import {Button} from '../Button/Button';
+import {EditableSpan} from '../common/EditableSpan';
+import {Button} from '../common/Button/Button';
 import {changeTaskStatus, changeTaskTitle, removeTask} from '../../reducers/tasksReducer';
-import {CheckBox} from '../CheckBox';
+import {CheckBox} from '../common/CheckBox';
 import {useAppDispatch} from '../../hooks/hooks';
+import {TaskStatuses} from '../../api/api';
 
 type TaskPropsType = {
     id: string
     title: string
-    isDone: boolean
+    status: TaskStatuses
     todoListId: string
 }
 
@@ -17,7 +18,7 @@ export const Task: React.FC<TaskPropsType> = memo((props)=>{
 
     const dispatch = useAppDispatch()
 
-    const {id, title, isDone, todoListId} = props
+    const {id, title, status, todoListId} = props
 
     const removeTaskHandler = (taskId: string) => {
         dispatch(removeTask(todoListId, taskId))
@@ -30,9 +31,9 @@ export const Task: React.FC<TaskPropsType> = memo((props)=>{
     }
 
     return (
-        <li className={`${s.taskWrap} ${isDone ? s.isDone : ''}`}>
+        <li className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
             <div>
-                <CheckBox checked={isDone} callBack={(e) => onChangeTaskStatusHandler(id, e)}/>
+                <CheckBox checked={status===2} callBack={(e) => onChangeTaskStatusHandler(id, e)}/>
                 <EditableSpan onChange={(newTitle) => changeTaskTitleHandler(id, newTitle)} title={title}/>
             </div>
             <Button name={'x'}

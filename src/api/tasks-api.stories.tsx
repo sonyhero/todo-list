@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {taskAPI} from './api';
+import {taskAPI, todoListAPI} from './api';
 
 export default {
     title: 'API-Tasks'
@@ -81,7 +81,7 @@ export const DeleteTask = () => {
 
     const deleteTodolist = () => {
         setIsDisabled(true)
-        taskAPI.deleteTask(todolistId, taskId)
+        todoListAPI.deleteTodolist(todolistId)
             .then(data => {
                 setState(data)
                 setIsDisabled(false)

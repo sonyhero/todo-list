@@ -10,12 +10,12 @@ const instance = axios.create({
 
 export const todoListAPI = {
     getTodoLists() {
-        return instance.get<TodolistAPIType[], AxiosResponse<TodolistAPIType[]>>('todo-lists')
+        return instance.get<TodolistType[], AxiosResponse<TodolistType[]>>('todo-lists')
             .then((res) => res.data)
     },
     createTodoList(title: string) {
-        return instance.post<ResponseType<{ items: TodolistAPIType }>,
-            AxiosResponse<ResponseType<{ items: TodolistAPIType }>>, { title: string }>('todo-lists', {title})
+        return instance.post<ResponseType<{ items: TodolistType }>,
+            AxiosResponse<ResponseType<{ items: TodolistType }>>, { title: string }>('todo-lists', {title})
             .then((res) => res.data)
     },
     deleteTodolist(id: string) {
@@ -33,7 +33,7 @@ export const taskAPI = {
             .then((res) => res.data)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType<TaskAPIType>>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks`, {title})
             .then((res) => res.data)
     },
     deleteTask(todolistId: string, taskId: string) {
@@ -53,29 +53,44 @@ type ResponseType<T = {}> = {
     messages: string[],
     data: T
 }
-export type TodolistAPIType = {
+export type TodolistType = {
     id: string
     addedDate: Date
     order: number
     title: string
 }
-export type TaskAPIType = {
+
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
+}
+
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
+}
+
+export type TaskType = {
     description: string
     title: string
-    completed: boolean
-    status: number
-    priority: number
-    startDate: Date
-    deadline: Date
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
+    deadline: string
     id: string
     todoListId: string
     order: number
-    addedDate: string
-    totalCount: number
+    addedDate: Date
 }
+
 type ResponseGetTaskType = {
-    items: TaskAPIType[]
+    items: TaskType[]
     totalCount: number
-    error: string
+    error: string | null
 }
 

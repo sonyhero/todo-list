@@ -29,9 +29,9 @@ export const useTodoList = (title: string, todoListId: string, filter: FilterVal
 
     const filteredTasks = () => {
         return (filter === 'active')
-            ? tasks.filter(t => !t.isDone)
+            ? tasks.filter(t => !t.status)
             : (filter === 'completed')
-                ? tasks.filter(t => t.isDone)
+                ? tasks.filter(t => t.status)
                 : tasks
     }
     const tasksForTodolist = filteredTasks()

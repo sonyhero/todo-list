@@ -1,25 +1,15 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from './components/Todolist/Todolist';
-import {AddItemForm} from './components/AddItemForm/AddItemForm';
+import {AddItemForm} from './components/common/AddItemForm/AddItemForm';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 import {addTodoList, fetchTodoLists} from './reducers/todoListsReducer';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
 
 export const App = () => {
-
-    console.log('App render')
 
     const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
     const todoLists = useAppSelector(state => state.todoLists)

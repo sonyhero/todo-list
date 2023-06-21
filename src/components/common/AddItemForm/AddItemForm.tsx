@@ -8,7 +8,6 @@ type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
 }
 export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
-    console.log('AddItemForm render')
 
     const {
         newTitle,

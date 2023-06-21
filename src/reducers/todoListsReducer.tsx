@@ -1,7 +1,8 @@
 import {v1} from 'uuid';
 import {FilterValuesType} from '../App';
-import {Dispatch} from 'redux';
-import {todoListAPI, TodolistAPIType} from '../api/api';
+import {todoListAPI, TodolistType} from '../api/api';
+import {fetchTasks} from './tasksReducer';
+import {AppThunk} from '../redux-store/store';
 
 const initialState: InitialStateType[] = []
 
@@ -29,7 +30,7 @@ export const TodoListsReducer = (state: InitialStateType[] = initialState, actio
                 filter: action.payload.filerValue
             } : el)
         }
-        case 'TODOLIST/SET-TODOLISTS': {
+        case 'TODOLIST/SET_TODOLISTS': {
             return action.todoLists.map(tl => ({
                 ...tl,
                 filter: 'all'
@@ -68,14 +69,18 @@ export const changeTodoListFilter = (todoListId: string, filerValue: FilterValue
         filerValue
     }
 } as const)
-export const setTodolist = (todoLists: TodolistAPIType[]) => ({type: 'TODOLIST/SET-TODOLISTS', todoLists} as const)
+export const setTodolist = (todoLists: TodolistType[]) => ({type: 'TODOLIST/SET_TODOLISTS', todoLists} as const)
 
-//Thunks
-export const fetchTodoLists = () => async (dispatch: Dispatch) => {
-   const data = await todoListAPI.getTodoLists()
-    dispatch(setTodolist(data))
+// thunks
+export const fetchTodoLists = (): AppThunk => async (dispatch) => {
+    try{
+        const todos = await todoListAPI.getTodoLists()
+        dispatch(setTodolist(todos))
+        todos.forEach((tl)=> dispatch(fetchTasks(tl.id)))
+    } catch (e) {
+        console.log(e)
+    }
 }
-
 
 // types
 type InitialStateType = {
@@ -85,7 +90,7 @@ type InitialStateType = {
     title: string
     filter: FilterValuesType
 }
-export type TodoListType = TodolistAPIType & {
+export type TodoListType = TodolistType & {
     filter: FilterValuesType
 }
 type TodoListsActionType =
