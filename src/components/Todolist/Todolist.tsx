@@ -23,21 +23,21 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
     const [listRef] = useAutoAnimate<HTMLUListElement>()
 
     const {
-        removeTodoList,
-        changeTodoListTitle,
+        removeTodos,
+        changeTodosTitle,
         setChangeFilterAll,
         setChangeFilterActive,
         setChangeFilterCompleted,
         tasksForTodolist,
-        addTask
+        addTaskHandler
     } = useTodoList(title, todoListId, filter)
 
     return <div className={s.todoWrapper}>
         <h3>
-            <EditableSpan title={title} onChange={changeTodoListTitle}/>
-            <Button name={'x'} callback={removeTodoList} xType={'red'} className={false}/>
+            <EditableSpan title={title} onChange={changeTodosTitle}/>
+            <Button name={'x'} callback={removeTodos} xType={'red'} className={false}/>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={addTaskHandler}/>
         <ul className={s.tasks} ref={listRef}>
             <MappedTasks tasksForTodolist={tasksForTodolist}
                          todoListId={todoListId}/>

@@ -15,7 +15,7 @@ export const todoListAPI = {
     },
     createTodoList(title: string) {
         return instance.post<ResponseType<{ items: TodolistAPIType }>,
-            AxiosResponse<ResponseType<{items: TodolistAPIType}>>, { title: string }>('todo-lists', {title})
+            AxiosResponse<ResponseType<{ items: TodolistAPIType }>>, { title: string }>('todo-lists', {title})
             .then((res) => res.data)
     },
     deleteTodolist(id: string) {
@@ -53,13 +53,13 @@ type ResponseType<T = {}> = {
     messages: string[],
     data: T
 }
-type TodolistAPIType = {
+export type TodolistAPIType = {
     id: string
     addedDate: Date
     order: number
     title: string
 }
-type TaskAPIType = {
+export type TaskAPIType = {
     description: string
     title: string
     completed: boolean
