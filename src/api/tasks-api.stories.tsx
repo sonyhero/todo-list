@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import {taskAPI, TaskPriorities, TaskStatuses, todoListAPI, UpdateTaskModelType} from './api';
-import {RootStateType} from '../redux-store/store';
-import {Dispatch} from 'redux';
 
 export default {
     title: 'API-Tasks'
