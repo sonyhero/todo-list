@@ -110,11 +110,9 @@ export const updateTaskTC = (todolistId: string, taskId: string, data: AdaptiveT
 
 //types
 type TasksReducerActionType =
-    ReturnType<typeof addTaskAC>
+    | ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof updateTaskAC>
-    // | ReturnType<typeof changeTaskStatus>
-    // | ReturnType<typeof changeTaskTitle>
     | ReturnType<typeof addTodoListAC>
     | ReturnType<typeof removeTodoListAC>
     | ReturnType<typeof setTodolistAC>

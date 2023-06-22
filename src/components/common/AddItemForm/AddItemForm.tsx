@@ -19,7 +19,6 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
     } = useAddItemForm(addItem)
 
     return (
-        <div>
             <div className={s.itemForm}>
                 <Input value={newTitle}
                        onChange={onChangeHandler}
@@ -29,6 +28,5 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
                 <Button name={'Add'} callback={addTaskHandler}/>
                 {error && <div className={s.errorMessage}>{error}</div>}
             </div>
-        </div>
     )
 })

@@ -2,9 +2,9 @@ import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/common/AddItemForm/AddItemForm';
-import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
-import {addTodoListAC, fetchTodoLists} from './reducers/todoListsReducer';
+import {createTodoList, fetchTodoLists} from './reducers/todoListsReducer';
+import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
@@ -19,8 +19,8 @@ export const App = () => {
         dispatch(fetchTodoLists())
     }, [])
 
-    const addTodos = useCallback((newTitle: string) => {
-        dispatch(addTodoListAC(newTitle))
+    const addTodos = useCallback((title: string) => {
+        dispatch(createTodoList(title))
     }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {
@@ -37,10 +37,7 @@ export const App = () => {
 
     return (
         <div className="App">
-            <div className="headerWrap">
-                <AddItemForm addItem={addTodos}/>
-            </div>
-
+            <AddItemForm addItem={addTodos}/>
             <div ref={todoListsRef} className="wrapper">
                 {todoListsComponents}
             </div>

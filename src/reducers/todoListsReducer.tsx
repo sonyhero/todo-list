@@ -73,14 +73,27 @@ export const setTodolistAC = (todoLists: TodolistType[]) => ({type: 'TODOLIST/SE
 
 // thunks
 export const fetchTodoLists = (): AppThunk => async (dispatch) => {
-    try{
+    try {
         const todos = await todoListAPI.getTodoLists()
         dispatch(setTodolistAC(todos))
-        todos.forEach((tl)=> dispatch(fetchTasks(tl.id)))
+        todos.forEach((tl) => dispatch(fetchTasks(tl.id)))
     } catch (e) {
         console.log(e)
     }
 }
+export const deleteTodoList = (todoListId: string): AppThunk => async (dispatch) => {
+    const data = await todoListAPI.deleteTodolist(todoListId)
+    dispatch(removeTodoListAC(todoListId))
+}
+export const createTodoList = (title: string): AppThunk => async (dispatch) => {
+    const data = await todoListAPI.createTodoList(title)
+    dispatch(addTodoListAC(title))
+}
+export const updateTodolist = (todoListId: string, title: string): AppThunk => async (dispatch) => {
+    const data = await todoListAPI.updateTodolist(todoListId, title)
+    dispatch(changeTodoListTitleAC(todoListId, title))
+}
+
 
 // types
 type InitialStateType = {
