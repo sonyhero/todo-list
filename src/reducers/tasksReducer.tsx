@@ -2,10 +2,11 @@ import {addTodoListAC, removeTodoListAC, setTodolistAC} from './todoListsReducer
 import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../api/api';
 import {Dispatch} from 'redux';
 import {AppThunk, RootStateType} from '../app/store';
+import {setAppStatusAC} from '../app/app-reducer';
 
 const initialState: InitialStateType = {}
 
-export const TasksReducer = (state: InitialStateType = initialState, action: TasksReducerActionType): InitialStateType => {
+export const tasksReducer = (state: InitialStateType = initialState, action: TasksReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'TASKS/ADD_TASK': {
             return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
@@ -77,19 +78,38 @@ export const setTasksAC = (todoListId: string, tasks: TaskType[]) => ({
 
 // thunks
 export const fetchTasks = (todoListId: string) => async (dispatch: Dispatch) => {
-    const data = await taskAPI.getTasks(todoListId)
-    dispatch(setTasksAC(todoListId, data.items))
+    dispatch(setAppStatusAC('loading'))
+    try{
+        const data = await taskAPI.getTasks(todoListId)
+        dispatch(setTasksAC(todoListId, data.items))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
 export const deleteTaskTC = (todoListId: string, taskId: string) => async (dispatch: Dispatch) => {
-    const data = await taskAPI.deleteTask(todoListId, taskId)
-    dispatch(removeTaskAC(todoListId, taskId))
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const data = await taskAPI.deleteTask(todoListId, taskId)
+        dispatch(removeTaskAC(todoListId, taskId))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
 export const createTaskTC = (todoListId: string, title: string) => async (dispatch: Dispatch) => {
-    const data = await taskAPI.createTask(todoListId, title)
-    dispatch(addTaskAC(data.data.item))
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const data = await taskAPI.createTask(todoListId, title)
+        dispatch(addTaskAC(data.data.item))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 export const updateTaskTC = (todolistId: string, taskId: string, data: AdaptiveTaskType): AppThunk => async (dispatch, getState: () => RootStateType) => {
+    dispatch(setAppStatusAC('loading'))
 
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
 
@@ -103,8 +123,15 @@ export const updateTaskTC = (todolistId: string, taskId: string, data: AdaptiveT
             status: task.status,
             ...data
         }
-        await taskAPI.updateTask(todolistId, taskId, model)
-        dispatch(updateTaskAC(todolistId, taskId, model))
+
+        try {
+            await taskAPI.updateTask(todolistId, taskId, model)
+            dispatch(updateTaskAC(todolistId, taskId, model))
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 }
 

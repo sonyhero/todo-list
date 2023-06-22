@@ -3,10 +3,11 @@ import {FilterValuesType} from '../app/App';
 import {todoListAPI, TodolistType} from '../api/api';
 import {fetchTasks} from './tasksReducer';
 import {AppThunk} from '../app/store';
+import {setAppStatusAC} from '../app/app-reducer';
 
 const initialState: InitialStateType[] = []
 
-export const TodoListsReducer = (state: InitialStateType[] = initialState, action: TodoListsActionType): InitialStateType[] => {
+export const todoListsReducer = (state: InitialStateType[] = initialState, action: TodoListsActionType): InitialStateType[] => {
     switch (action.type) {
         case 'TODOLIST/ADD_TODOLIST': {
             let newTodoList: TodoListType = {
@@ -73,28 +74,46 @@ export const setTodolistAC = (todoLists: TodolistType[]) => ({type: 'TODOLIST/SE
 
 // thunks
 export const fetchTodoLists = (): AppThunk => async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
         const todos = await todoListAPI.getTodoLists()
         dispatch(setTodolistAC(todos))
         todos.forEach((tl) => dispatch(fetchTasks(tl.id)))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         console.log(e)
     }
 }
 export const deleteTodoList = (todoListId: string): AppThunk => async (dispatch) => {
-    const data = await todoListAPI.deleteTodolist(todoListId)
-    dispatch(removeTodoListAC(todoListId))
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const data = await todoListAPI.deleteTodolist(todoListId)
+        dispatch(removeTodoListAC(todoListId))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
 export const createTodoList = (title: string): AppThunk => async (dispatch) => {
-    const data = await todoListAPI.createTodoList(title)
-    dispatch(addTodoListAC(title))
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const data = await todoListAPI.createTodoList(title)
+        dispatch(addTodoListAC(title))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
 export const updateTodolist = (todoListId: string, title: string): AppThunk => async (dispatch) => {
-    const data = await todoListAPI.updateTodolist(todoListId, title)
-    dispatch(changeTodoListTitleAC(todoListId, title))
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const data = await todoListAPI.updateTodolist(todoListId, title)
+        dispatch(changeTodoListTitleAC(todoListId, title))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        console.log(e)
+    }
 }
-
-
 // types
 type InitialStateType = {
     id: string

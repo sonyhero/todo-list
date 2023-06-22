@@ -1,10 +1,12 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Todolist} from '../features/Todolist/Todolist';
-import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
-import {createTodoList, fetchTodoLists} from '../reducers/todoListsReducer';
+import {fetchTodoLists} from '../reducers/todoListsReducer';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
+import {Header} from '../components/Header/Header';
+import {LinearProgress} from '../components/Loader/LinearProgress';
+import {ErrorBar} from '../components/ErrorBar';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
@@ -13,15 +15,12 @@ export const App = () => {
 
     const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
     const todoLists = useAppSelector(state => state.todoLists)
+    const status = useAppSelector(state => state.app.status)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchTodoLists())
     }, [])
-
-    const addTodos = useCallback((title: string) => {
-        dispatch(createTodoList(title))
-    }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {
             return (
@@ -37,9 +36,12 @@ export const App = () => {
 
     return (
         <div className="App">
-            <div className={'headerWrap'}>
-                <AddItemForm addItem={addTodos}/>
-            </div>
+            <ErrorBar/>
+            <Header/>
+            {status === 'loading'
+                ? <LinearProgress/>
+                : <div style={{height: '5px', backgroundColor: 'rgb(167, 202, 237)'}}></div>
+            }
             <div ref={todoListsRef} className="wrapper">
                 {todoListsComponents}
             </div>

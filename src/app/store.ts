@@ -1,11 +1,13 @@
 import {AnyAction, applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from 'redux';
-import {TodoListsReducer} from '../reducers/todoListsReducer';
-import {TasksReducer} from '../reducers/tasksReducer';
+import {todoListsReducer} from '../reducers/todoListsReducer';
+import {tasksReducer} from '../reducers/tasksReducer';
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {appReducer} from './app-reducer';
 
 export const rootReducer = combineReducers({
-    todoLists: TodoListsReducer,
-    tasks: TasksReducer
+    todoLists: todoListsReducer,
+    tasks: tasksReducer,
+    app: appReducer
 })
 //redux dev tools
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

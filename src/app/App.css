@@ -8,11 +8,8 @@
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
-.headerWrap {
-  margin: 30px;
-}
+
 .wrapper {
   display: flex;
   flex-wrap: wrap;

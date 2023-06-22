@@ -16,8 +16,6 @@ type TodolistPropsType = {
 
 export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
 
-    console.log('Todolist render')
-
     const {title, todoListId, filter} = props
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
