@@ -1,7 +1,7 @@
 import {addTodoListAC, removeTodoListAC, setTodolistAC} from './todoListsReducer';
 import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../api/api';
 import {Dispatch} from 'redux';
-import {AppThunk, RootStateType} from '../redux-store/store';
+import {AppThunk, RootStateType} from '../app/store';
 
 const initialState: InitialStateType = {}
 

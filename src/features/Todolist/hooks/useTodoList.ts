@@ -2,7 +2,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useCallback} from 'react';
 import {changeTodoListFilterAC, deleteTodoList, updateTodolist} from '../../../reducers/todoListsReducer';
 import {createTaskTC} from '../../../reducers/tasksReducer';
-import {FilterValuesType} from '../../../App';
+import {FilterValuesType} from '../../../app/App';
 import {TaskStatuses} from '../../../api/api';
 
 export const useTodoList = (title: string, todoListId: string, filter: FilterValuesType) => {

@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {Task} from './Task';
-import {TaskType} from '../../api/api';
+import {TaskType} from '../../../api/api';
 
 type MappedTasksTyp = {
     tasksForTodolist: TaskType[]

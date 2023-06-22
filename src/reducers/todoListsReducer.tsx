@@ -1,8 +1,8 @@
 import {v1} from 'uuid';
-import {FilterValuesType} from '../App';
+import {FilterValuesType} from '../app/App';
 import {todoListAPI, TodolistType} from '../api/api';
 import {fetchTasks} from './tasksReducer';
-import {AppThunk} from '../redux-store/store';
+import {AppThunk} from '../app/store';
 
 const initialState: InitialStateType[] = []
 
