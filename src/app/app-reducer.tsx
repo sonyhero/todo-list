@@ -22,6 +22,6 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET_ST
 
 export const setAppErrorAC = (error: null | string) => ({type: 'APP/SET_ERROR', error} as const)
 
-type AppReducerActionsType =
+export type AppReducerActionsType =
     | ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setAppErrorAC>

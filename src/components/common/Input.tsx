@@ -5,15 +5,17 @@ type InputType = {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void
     className: string
+    disabled?: boolean
 }
 
 export const Input: React.FC<InputType> = (props) => {
 
-    const {value, onChange, onKeyDown, className} = props
+    const {disabled, value, onChange, onKeyDown, className} = props
 
     return (
         <div>
-            <input value={value}
+            <input disabled={disabled}
+                   value={value}
                    onChange={onChange}
                    onKeyDown={onKeyDown}
                    className={className}

@@ -17,7 +17,7 @@ export const ErrorBar = () => {
         ? <div className={s.errorBar} >
             <div className={s.errorBarContainer}>
                 <div>{error}</div>
-                <div><Button xType={'red'} name={'x'} callback={handleClose}/></div>
+                <div><Button xType={'delete'} name={'x'} callback={handleClose}/></div>
             </div>
         </div>
         : <div></div>

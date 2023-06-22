@@ -6,19 +6,21 @@ import {deleteTaskTC, updateTaskTC} from '../../../reducers/tasksReducer';
 import {CheckBox} from '../../../components/common/CheckBox';
 import {useAppDispatch} from '../../../hooks/hooks';
 import {TaskStatuses} from '../../../api/api';
+import {RequestStatusType} from '../../../app/app-reducer';
 
 type TaskPropsType = {
     taskId: string
     title: string
     status: TaskStatuses
     todoListId: string
+    entityTaskStatus: RequestStatusType
 }
 
 export const Task: React.FC<TaskPropsType> = memo((props) => {
 
-    const dispatch = useAppDispatch()
+    const {taskId, title, status, todoListId, entityTaskStatus} = props
 
-    const {taskId, title, status, todoListId} = props
+    const dispatch = useAppDispatch()
 
     const removeTaskHandler = () => {
         dispatch(deleteTaskTC(todoListId, taskId))
@@ -36,12 +38,15 @@ export const Task: React.FC<TaskPropsType> = memo((props) => {
     return (
         <li className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
             <div>
-                <CheckBox checked={status === TaskStatuses.Completed} callBack={changeTaskStatusHandler}/>
-                <EditableSpan onChange={changeTaskTitleHandler} title={title}/>
+                <CheckBox disabled={entityTaskStatus === 'loading'} checked={status === TaskStatuses.Completed}
+                          callBack={changeTaskStatusHandler}/>
+                <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler}
+                              title={title}/>
             </div>
-            <Button name={'x'}
+            <Button disabled={entityTaskStatus === 'loading'}
+                    name={'x'}
                     callback={removeTaskHandler}
-                    xType={'red'}
+                    xType={'delete'}
                     className={false}/>
         </li>
     )

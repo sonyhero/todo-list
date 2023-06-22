@@ -7,16 +7,18 @@ import {Button} from '../../components/common/Button/Button';
 import {EditableSpan} from '../../components/common/EditableSpan';
 import {MappedTasks} from './Tasks/MappedTasks';
 import {useTodoList} from './hooks/useTodoList';
+import {RequestStatusType} from '../../app/app-reducer';
 
 type TodolistPropsType = {
     title: string
     todoListId: string
     filter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 
 export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
 
-    const {title, todoListId, filter} = props
+    const {title, todoListId, filter, entityStatus} = props
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
 
@@ -33,9 +35,10 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
     return <div className={s.todoWrapper}>
         <h3>
             <EditableSpan title={title} onChange={changeTodosTitle}/>
-            <Button name={'x'} callback={removeTodos} xType={'red'} className={false}/>
+            <Button disabled={entityStatus === 'loading'} name={'x'} callback={removeTodos} xType={'delete'}
+                    className={false}/>
         </h3>
-        <AddItemForm addItem={addTaskHandler}/>
+        <AddItemForm disabled={entityStatus==='loading'} addItem={addTaskHandler}/>
         <ul className={s.tasks} ref={listRef}>
             <MappedTasks tasksForTodolist={tasksForTodolist}
                          todoListId={todoListId}/>

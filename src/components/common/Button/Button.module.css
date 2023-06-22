@@ -17,9 +17,14 @@
     padding: 1px 5px;
 }
 
+/*.disabled {*/
+/*    color: #002e5c;*/
+/*    background: #004d99;*/
+/*    opacity: 0.5;*/
+/*}*/
+
 .disabled {
-    color: #002e5c;
-    background: #004d99;
+    background: #888e9f;
     opacity: 0.5;
 }
 
@@ -50,19 +55,16 @@
     background: #E5F0FA;
 }
 
-
 .default:active {
     background: #0059b3;
 }
-
 .secondary:active {
     background: #C9E5FF;
 }
-
 .red:active {
     background: #b31232;
 }
-
 .button:disabled {
     cursor: default;
+    background: #888e9f;
 }

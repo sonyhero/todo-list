@@ -29,6 +29,7 @@ export const App = () => {
                     todoListId={tl.id}
                     title={tl.title}
                     filter={tl.filter}
+                    entityStatus={tl.entityStatus}
                 />
             )
         }

@@ -1,24 +1,26 @@
-import {removeTodoListAC, todoListsReducer, TodoListType} from './todoListsReducer';
+import {removeTodoListAC, todoListsReducer, TodoListDomainType} from './todoListsReducer';
 import {v1} from 'uuid';
 
 test('correct todolist should be removed', () => {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    const startState: Array<TodoListType> = [
+    const startState: Array<TodoListDomainType> = [
         {
             id: todolistId1,
             title: 'What to learn',
             addedDate: new Date(),
             order: 0,
-            filter: 'all'
+            filter: 'all',
+            entityStatus: 'idle'
         },
         {
             id: todolistId2,
             title: 'What to buy',
             addedDate: new Date(),
             order: 1,
-            filter: 'all'
+            filter: 'all',
+            entityStatus: 'idle'
         }
     ]
 

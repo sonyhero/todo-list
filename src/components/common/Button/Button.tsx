@@ -3,23 +3,28 @@ import s from './Button.module.css';
 
 type ButtonType = {
     name: string
-    callback: () => void
+    disabled?: boolean
+    callback?: () => void
     className?: boolean
     xType?: string
 }
 
-export const Button = memo((props: ButtonType) => {
+export const Button: React.FC<ButtonType> = memo((props) => {
+
+    const {name, disabled, callback, className, xType} = props
 
     const finalClassName = `
     ${s.button}
-    ${props.xType === 'red' ? `${s.red} ${s.deleteTask}` : ''} 
-    ${props.className ? s.secondary : s.default}
+    ${xType === 'delete' ? `${s.red} ${s.deleteTask}` : ''}
+    ${xType === 'red' ? `${s.red}` : ''} 
+    ${className ? s.secondary : s.default}
     `
 
     const onClickHandler = () => {
-        props.callback()
+        if (callback)
+        callback()
     }
     return (
-        <button className={finalClassName} onClick={onClickHandler}>{props.name}</button>
+        <button disabled={disabled} className={finalClassName} onClick={onClickHandler}>{name}</button>
     )
 })

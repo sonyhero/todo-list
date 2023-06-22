@@ -3,26 +3,30 @@ import React, {ChangeEvent, memo, useState} from 'react';
 type EditableSpanPropsType = {
     title: string
     onChange: (newTitle: string) => void
+    disabled?: boolean
 }
 export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
+
+    const {title, onChange, disabled} = props
     const [editMode, setEditMode] = useState(false)
-    const [title, setTitle] = useState(props.title)
+    const [newTitle, setNewTitle] = useState(props.title)
 
     const activateEditMode = () => {
         setEditMode(true)
-        setTitle(props.title)
+        setNewTitle(title)
     }
     const activateViewMode = () => {
         setEditMode(false)
-        props.onChange(title)
+        onChange(newTitle)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+        setNewTitle(e.currentTarget.value)
     }
 
-    return (
-        editMode
+    const finalStyle = disabled ? {color: 'gray'} : {color: 'black'}
+
+    return !disabled && editMode
             ? <input onChange={onChangeHandler} onBlur={activateViewMode} value={title} autoFocus/>
-            : <span onDoubleClick={activateEditMode}>{title}</span>
-    )
+            : <span style={finalStyle} onDoubleClick={activateEditMode}>{title}</span>
+
 })

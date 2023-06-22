@@ -6,8 +6,9 @@ import {useAddItemForm} from './hooks/useAddItemForm';
 
 type AddItemFormPropsType = {
     addItem: (newTitle: string) => void
+    disabled?: boolean
 }
-export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem, disabled}) => {
 
     const {
         newTitle,
@@ -20,12 +21,12 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({addItem}) => {
 
     return (
             <div className={s.itemForm}>
-                <Input value={newTitle}
+                <Input disabled={disabled} value={newTitle}
                        onChange={onChangeHandler}
                        onKeyDown={onKeyDownHandler}
                        className={finalInputClassName}
                 />
-                <Button name={'Add'} callback={addTaskHandler}/>
+                <Button disabled={disabled} name={'Add'} callback={addTaskHandler}/>
                 {error && <div className={s.errorMessage}>{error}</div>}
             </div>
     )

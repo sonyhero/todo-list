@@ -13,7 +13,7 @@ export const MappedTasks: React.FC<MappedTasksTyp> = memo((props) => {
 
     const task = tasksForTodolist.map(t => {
         return (
-            <Task key={t.id} taskId={t.id} title={t.title} status={t.status} todoListId={todoListId}/>
+            <Task key={t.id} taskId={t.id} title={t.title} status={t.status}  todoListId={todoListId} entityTaskStatus={t.entityTaskStatus}/>
         )
     })
     return (
