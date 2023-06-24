@@ -13,12 +13,16 @@ export const ErrorBar = () => {
         dispatch(setAppErrorAC(null))
     }
 
-    return (error !== null)
-        ? <div className={s.errorBar} >
-            <div className={s.errorBarContainer}>
+    if (error) {
+        setTimeout(handleClose, 5000)
+    }
+
+    const finalClassname = (error === null) ? s.errorBar : `${s.errorBar} ${s.errorBarActive}`
+
+    return <div className={finalClassname} >
+            <div className={s.errorBarContent}>
                 <div>{error}</div>
                 <div><Button xType={'delete'} name={'x'} callback={handleClose}/></div>
             </div>
         </div>
-        : <div></div>
 }
