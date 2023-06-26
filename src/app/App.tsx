@@ -36,14 +36,14 @@ export const App = () => {
     )
 
     return (
-        <div className="App">
+        <div className={'App'}>
             <ErrorBar/>
             <Header/>
             {status === 'loading'
                 ? <LinearProgress/>
                 : <div style={{height: '5px', backgroundColor: 'rgb(167, 202, 237)'}}></div>
             }
-            <div ref={todoListsRef} className="wrapper">
+            <div ref={todoListsRef} className={'wrapper'}>
                 {todoListsComponents}
             </div>
         </div>

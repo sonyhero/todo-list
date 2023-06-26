@@ -1,15 +1,11 @@
 .todoWrapper {
     border: 1px solid #1575bb;
+    border-radius: 3px;
     padding: 10px;
     margin: 10px;
 }
 
-.tasks li {
-    margin: 5px 0;
-}
-
-.status {
-    opacity: 0.5;
+.container {
 }
 
 .taskWrap {

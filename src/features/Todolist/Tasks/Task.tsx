@@ -3,7 +3,7 @@ import s from '../Todolist.module.css';
 import {EditableSpan} from '../../../components/common/EditableSpan';
 import {Button} from '../../../components/common/Button/Button';
 import {deleteTaskTC, updateTaskTC} from '../../../reducers/tasksReducer';
-import {CheckBox} from '../../../components/common/CheckBox';
+import {CheckBox} from '../../../components/common/CheckBox/CheckBox';
 import {useAppDispatch} from '../../../hooks/hooks';
 import {TaskStatuses} from '../../../api/api';
 import {RequestStatusType} from '../../../app/app-reducer';
@@ -37,7 +37,7 @@ export const Task: React.FC<TaskPropsType> = memo((props) => {
 
     return (
         <li className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
-            <div>
+            <div className={s.container}>
                 <CheckBox disabled={entityTaskStatus === 'loading'} checked={status === TaskStatuses.Completed}
                           callBack={changeTaskStatusHandler}/>
                 <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler}
