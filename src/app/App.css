@@ -8,14 +8,7 @@
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: column;
-}
 
-.wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  /*gap: 20px;*/
-  padding: 0 20px;
-  margin-top: 20px;
 }
 
 body {

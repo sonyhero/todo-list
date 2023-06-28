@@ -4,6 +4,7 @@ import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {Navigate} from "react-router-dom";
 import {fetchTodoLists} from "../reducers/todoListsReducer";
+import s from './TodolistsList.module.css'
 
 export const TodolistsList = () => {
 
@@ -34,7 +35,7 @@ export const TodolistsList = () => {
 
     return (!isLoggedIn)
         ? <Navigate to={'/login'}/>
-        : <div ref={todoListsRef} className={'wrapper'}>
+        : <div ref={todoListsRef} className={s.wrapper}>
             {todoListsComponents}
         </div>
 }
