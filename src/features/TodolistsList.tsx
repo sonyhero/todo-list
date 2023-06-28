@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Todolist} from "./Todolist/Todolist";
 import {useAutoAnimate} from "@formkit/auto-animate/react";
-import {useAppSelector} from "../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../hooks/hooks";
+import {Navigate} from "react-router-dom";
+import {fetchTodoLists} from "../reducers/todoListsReducer";
 
 export const TodolistsList = () => {
 
     const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
     const todoLists = useAppSelector(state => state.todoLists)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            return
+        }
+        dispatch(fetchTodoLists())
+    }, [])
 
     const todoListsComponents = todoLists.map(tl => {
             return (
@@ -21,9 +32,9 @@ export const TodolistsList = () => {
         }
     )
 
-    return (
-        <div ref={todoListsRef} className={'wrapper'}>
+    return (!isLoggedIn)
+        ? <Navigate to={'/login'}/>
+        : <div ref={todoListsRef} className={'wrapper'}>
             {todoListsComponents}
         </div>
-    )
 }

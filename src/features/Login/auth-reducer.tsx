@@ -1,7 +1,7 @@
-import {Dispatch} from 'redux'
 import {AppReducerActionsType, setAppStatusAC} from '../../app/app-reducer'
 import {authAPI, LoginParamsType} from "../../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {AppThunk} from "../../app/store";
 
 const initialState = {
     isLoggedIn: false
@@ -21,7 +21,7 @@ export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'LOGIN/SET_IS_LOGGED_IN', value} as const)
 
 // thunks
-export const loginTC = (params: LoginParamsType) => async (dispatch: Dispatch<AuthReducerActionsType>) => {
+export const loginTC = (params: LoginParamsType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const data = await authAPI.login(params)

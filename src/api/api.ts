@@ -51,8 +51,16 @@ export const taskAPI = {
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post<ResponseType<{userId: number}>>('auth/login', data)
+        return instance.post<ResponseType<{ userId: number }>>('auth/login', data)
             .then((res) => res.data)
+    },
+    me() {
+        return instance.get<ResponseType<{
+            id: number,
+            email: string,
+            login: string
+        }>>('auth/me')
+            .then(res => res.data)
     }
 }
 

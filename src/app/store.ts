@@ -3,11 +3,13 @@ import {todoListsReducer} from '../reducers/todoListsReducer';
 import {tasksReducer} from '../reducers/tasksReducer';
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {appReducer} from './app-reducer';
+import {authReducer} from "../features/Login/auth-reducer";
 
 export const rootReducer = combineReducers({
     todoLists: todoListsReducer,
     tasks: tasksReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer,
 })
 //redux dev tools
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
