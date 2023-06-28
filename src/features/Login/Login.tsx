@@ -2,6 +2,9 @@ import React from 'react';
 import {useFormik} from "formik";
 import s from './Login.module.css'
 import {Button} from "../../components/common/Button/Button";
+import {useAppDispatch} from "../../hooks/hooks";
+import {loginTC} from "./auth-reducer";
+import {LoginParamsType} from "../../api/api";
 type FormikErrorType = {
     email?: string
     password?: string
@@ -26,6 +29,8 @@ const validate = (values: FormikErrorType) => {
 
 export const Login = () => {
 
+    const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -33,8 +38,14 @@ export const Login = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-
+            const params: LoginParamsType = {
+                email: values.email,
+                password: values.password,
+                rememberMe: true,
+                captcha: true
+            }
+            dispatch(loginTC(params))
+            formik.resetForm()
         },
     });
     return (

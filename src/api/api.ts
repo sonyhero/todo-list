@@ -50,8 +50,8 @@ export const taskAPI = {
 }
 
 export const authAPI = {
-    login(params: LoginParamsType) {
-        return instance.post<ResponseType<{userId: number}>>('auth/login', params)
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{userId: number}>>('auth/login', data)
             .then((res) => res.data)
     }
 }
@@ -62,7 +62,7 @@ export type ResponseType<T = {}> = {
     messages: string[],
     data: T
 }
-type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe: boolean
