@@ -7,11 +7,12 @@ type ButtonType = {
     callback?: () => void
     className?: boolean
     xType?: string
+    type?: "button" | "submit" | "reset" | undefined
 }
 
 export const Button: React.FC<ButtonType> = memo((props) => {
 
-    const {name, disabled, callback, className, xType} = props
+    const {name, disabled, callback, className, xType,type} = props
 
     const finalClassName = `
     ${s.button}
@@ -24,7 +25,8 @@ export const Button: React.FC<ButtonType> = memo((props) => {
         if (callback)
         callback()
     }
+
     return (
-        <button disabled={disabled} className={finalClassName} onClick={onClickHandler}>{name}</button>
+        <button type={type} disabled={disabled} className={finalClassName} onClick={onClickHandler}>{name}</button>
     )
 })

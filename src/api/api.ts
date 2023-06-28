@@ -49,11 +49,24 @@ export const taskAPI = {
     }
 }
 
+export const authAPI = {
+    login(params: LoginParamsType) {
+        return instance.post<ResponseType<{userId: number}>>('auth/login', params)
+            .then((res) => res.data)
+    }
+}
+
 // types
 export type ResponseType<T = {}> = {
     resultCode: number
     messages: string[],
     data: T
+}
+type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
 }
 export type TodolistType = {
     id: string
