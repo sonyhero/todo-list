@@ -1,4 +1,4 @@
-import {addTodoListAC, removeTodoListAC, setTodolistAC} from './todoListsReducer';
+import {addTodoListAC, clearStateAC, removeTodoListAC, setTodolistAC} from './todoListsReducer';
 import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../api/api';
 import {Dispatch} from 'redux';
 import {AppThunk, RootStateType} from '../app/store';
@@ -49,6 +49,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
                 [action.todoListId]: state[action.todoListId]
                     .map(t => t.id === action.taskId ? {...t, entityTaskStatus: action.entityTaskStatus} : t)
             }
+        case "TODOLIST/CLEAR_STATE": return {}
     }
     return state
 }
@@ -163,6 +164,17 @@ export const updateTaskTC = (todoListId: string, taskId: string, data: AdaptiveT
 }
 
 //types
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
+type AdaptiveTaskType = {
+    title?: string
+    deadline?: string
+    priority?: TaskPriorities
+    status?: TaskStatuses
+    startDate?: string
+    description?: string
+}
 type TasksReducerActionType =
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTaskAC>
@@ -172,16 +184,5 @@ type TasksReducerActionType =
     | ReturnType<typeof setTodolistAC>
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof changeEntityTaskAC>
+    | ReturnType<typeof clearStateAC>
 
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
-
-type AdaptiveTaskType = {
-    title?: string
-    deadline?: string
-    priority?: TaskPriorities
-    status?: TaskStatuses
-    startDate?: string
-    description?: string
-}

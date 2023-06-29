@@ -36,7 +36,7 @@ export const loginTC = (params: LoginParamsType): AppThunk => async (dispatch) =
         handleServerNetworkError(error, dispatch)
     }
 }
-export const logoutTC = ():AppThunk => async (dispatch) => {
+export const logoutTC = (): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const data = await authAPI.logout()
