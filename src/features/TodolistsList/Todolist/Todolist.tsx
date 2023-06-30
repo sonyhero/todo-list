@@ -1,13 +1,13 @@
 import React, {memo} from 'react';
-import {FilterValuesType} from '../../app/App'
+import {FilterValuesType} from '../../../app/App'
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import s from './Todolist.module.css'
-import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
-import {Button} from '../../components/common/Button/Button';
-import {EditableSpan} from '../../components/common/EditableSpan';
-import {MappedTasks} from './Tasks/MappedTasks';
-import {useTodoList} from './hooks/useTodoList';
-import {RequestStatusType} from '../../app/app-reducer';
+import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
+import {Button} from '../../../components/common/Button/Button';
+import {EditableSpan} from '../../../components/common/EditableSpan';
+import {MappedTasks} from '../Tasks/MappedTasks';
+import {useTodoList} from '../hooks/useTodoList';
+import {RequestStatusType} from '../../../app/app-reducer';
 
 type TodolistPropsType = {
     title: string

@@ -6,7 +6,7 @@ import {
     changeTodoListTitleAC, changeTodoListFilterAC
 } from './todoListsReducer';
 import {v1} from 'uuid';
-import {FilterValuesType} from '../app/App';
+import {FilterValuesType} from '../../app/App';
 
 let startState: Array<TodoListDomainType>;
 let todolistId1 = v1();
