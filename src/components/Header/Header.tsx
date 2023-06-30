@@ -18,6 +18,7 @@ export const Header = () => {
 
     const logOutHandler = () => {
         dispatch(logoutTC())
+        dispatch(clearStateAC())
     }
 
     return (
