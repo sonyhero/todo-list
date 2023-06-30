@@ -1,7 +1,7 @@
 import s from './Header.module.css'
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {useCallback} from 'react';
-import {createTodoList} from '../../features/TodolistsList/todoListsReducer';
+import {clearStateAC, createTodoList} from '../../features/TodolistsList/todoListsReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {Button} from '../common/Button/Button';
 import {logoutTC} from '../../features/Login/auth-reducer';
