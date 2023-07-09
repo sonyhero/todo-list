@@ -16,18 +16,18 @@ export const Login = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            rememberMe: false
         },
         validate,
         onSubmit: values => {
             const params: LoginParamsType = {
                 email: values.email,
                 password: values.password,
-                rememberMe: true,
+                rememberMe: values.rememberMe,
                 captcha: true
             }
             dispatch(loginTC(params))
-            formik.resetForm()
         },
     })
 
@@ -50,7 +50,12 @@ export const Login = () => {
                     {...formik.getFieldProps('password')}
                 />
                 {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
-
+                <label htmlFor="rememberMe">Remember Me</label>
+                <input
+                    id="rememberMe"
+                    type="checkbox"
+                    {...formik.getFieldProps('checkbox')}
+                />
                 <Button type="submit" name={'Login'}/>
             </form>
         </div>
