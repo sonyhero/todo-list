@@ -1,9 +1,9 @@
 import {addTodoListAC, clearStateAC, removeTodoListAC, setTodolistAC} from './todoListsReducer';
-import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../api/api';
+import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../../api/api';
 import {Dispatch} from 'redux';
-import {AppThunk, RootStateType} from '../app/store';
-import {RequestStatusType, setAppStatusAC} from '../app/app-reducer';
-import {handleServerAppError, handleServerNetworkError} from '../utils/error-utils';
+import {AppRootStateType, AppThunk} from '../../app/store';
+import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 
 const initialState: TasksStateType = {}
 
@@ -126,7 +126,7 @@ export const createTaskTC = (todoListId: string, title: string) => async (dispat
         handleServerNetworkError(error, dispatch)
     }
 }
-export const updateTaskTC = (todoListId: string, taskId: string, data: AdaptiveTaskType): AppThunk => async (dispatch, getState: () => RootStateType) => {
+export const updateTaskTC = (todoListId: string, taskId: string, data: AdaptiveTaskType): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
 
 
     const task = getState().tasks[todoListId].find(t => t.id === taskId)
@@ -164,17 +164,6 @@ export const updateTaskTC = (todoListId: string, taskId: string, data: AdaptiveT
 }
 
 //types
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
-type AdaptiveTaskType = {
-    title?: string
-    deadline?: string
-    priority?: TaskPriorities
-    status?: TaskStatuses
-    startDate?: string
-    description?: string
-}
 type TasksReducerActionType =
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTaskAC>
@@ -185,4 +174,18 @@ type TasksReducerActionType =
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof changeEntityTaskAC>
     | ReturnType<typeof clearStateAC>
+
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
+
+type AdaptiveTaskType = {
+    title?: string
+    deadline?: string
+    priority?: TaskPriorities
+    status?: TaskStatuses
+    startDate?: string
+    description?: string
+}
+
 

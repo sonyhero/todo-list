@@ -1,8 +1,8 @@
 import React, {memo} from 'react';
-import s from '../Todolist.module.css';
+import s from '../Todolist/Todolist.module.css';
 import {EditableSpan} from '../../../components/common/EditableSpan';
 import {Button} from '../../../components/common/Button/Button';
-import {deleteTaskTC, updateTaskTC} from '../../../reducers/tasksReducer';
+import {deleteTaskTC, updateTaskTC} from '../tasksReducer';
 import {CheckBox} from '../../../components/common/CheckBox/CheckBox';
 import {useAppDispatch} from '../../../hooks/hooks';
 import {TaskStatuses} from '../../../api/api';
