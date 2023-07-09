@@ -5,9 +5,9 @@ import {Button} from "../../components/common/Button/Button";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {loginTC} from "./auth-reducer";
 import {LoginParamsType} from "../../api/api";
-import {validate} from "./validate";
 import {Navigate} from "react-router-dom";
 import {selectIsLoggedIn} from './auth-selectors';
+import {BasicFormSchema} from "./BasicShema";
 
 export const Login = () => {
 
@@ -20,7 +20,8 @@ export const Login = () => {
             password: '',
             rememberMe: false
         },
-        validate,
+        // validate,
+        validationSchema: BasicFormSchema,
         onSubmit: values => {
             const params: LoginParamsType = {
                 email: values.email,
