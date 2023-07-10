@@ -4,7 +4,7 @@
     display: block;
     height: 5px;
     z-index: 0;
-    background-color: rgb(167, 202, 237);
+    background-color: transparent;
 }
 
 .linear1 {
