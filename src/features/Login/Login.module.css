@@ -37,29 +37,46 @@
 }
 .formContainer label {
     display: block;
-    margin-top: 30px;
+    margin: 30px 0 10px 0;
     font-size: 16px;
     font-weight: 500;
 }
 .input input{
     display: block;
+    margin-bottom: 10px;
     height: 50px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.07);
-    /*background-color: #1575bb;*/
+    background-color: #C9E5FF;
     border-radius: 3px;
+    border: 1px solid #FFFFFF11;
     padding: 0 10px;
-    margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
+}
+.input input[type='checkbox'] {
+
+}
+
+.input input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #C9E5FF inset !important;
+}
+
+.input input:focus,
+.input input:hover,
+.input input:active {
+    border: 1px solid #FFFFFF11;
+    background-color: #C9E5FF;
 }
 
 
 .formContainer button {
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
-    color: #080710;
+    background-color: #C9E5FF;
+    color: white;
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
