@@ -1,5 +1,5 @@
 import {authAPI} from '../api/api';
-import {handleServerAppError, handleServerNetworkError} from '../utils/error-utils';
+import {handleServerNetworkError} from '../utils/error-utils';
 import {setIsLoggedInAC} from '../features/Login/auth-reducer';
 import {AppThunk} from './store';
 
@@ -40,7 +40,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))
         } else {
-            handleServerAppError(data, dispatch)
+            // handleServerAppError(data, dispatch)
         }
     } catch (e) {
         const error = (e as Error)

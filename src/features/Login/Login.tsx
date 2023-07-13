@@ -3,7 +3,6 @@ import {useFormik} from 'formik';
 import s from './Login.module.css'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {loginTC} from './auth-reducer';
-import {LoginParamsType} from '../../api/api';
 import {Navigate} from 'react-router-dom';
 import {selectCaptchaUrl, selectIsLoggedIn} from './auth-selectors';
 import {BasicFormSchema} from './BasicShema';
@@ -24,13 +23,13 @@ export const Login = () => {
         // validate,
         validationSchema: BasicFormSchema,
         onSubmit: values => {
-            const params: LoginParamsType = {
-                email: values.email,
-                password: values.password,
-                rememberMe: values.rememberMe,
-                captcha:  values.captcha
-            }
-            dispatch(loginTC(params))
+            // const params: LoginParamsType = {
+            //     email: values.email,
+            //     password: values.password,
+            //     rememberMe: values.rememberMe,
+            //     captcha:  values.captcha
+            // }
+            dispatch(loginTC(values))
         },
     })
 
@@ -66,7 +65,7 @@ export const Login = () => {
                         {...formik.getFieldProps('captcha')}
                     /></div></>}
                 {captcha && <img src={`${captcha}`} alt="captcha img"/>}
-                <button type={'submit'}>Login</button>
+                <button disabled={Object.keys(formik.errors).length !== 0} type={'submit'}>Login</button>
                 {/*<Button type="submit" name={'Login'}/>*/}
             </form>
         </div>
