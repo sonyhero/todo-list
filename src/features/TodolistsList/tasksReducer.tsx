@@ -2,7 +2,7 @@ import {addTodoListAC, clearStateAC, removeTodoListAC, setTodolistAC} from './to
 import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../../api/api';
 import {Dispatch} from 'redux';
 import {AppRootStateType, AppThunk} from '../../app/store';
-import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
+import {RequestStatusType, setAppStatus} from '../../app/app-reducer';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 
 const initialState: TasksStateType = {}
@@ -88,23 +88,23 @@ export const changeEntityTaskAC = (taskId: string, todoListId: string, entityTas
 
 // thunks
 export const fetchTasks = (todoListId: string) => async (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatus({status:'loading'}))
     try {
         const data = await taskAPI.getTasks(todoListId)
         dispatch(setTasksAC(todoListId, data.items))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatus({status:'succeeded'}))
     } catch (e) {
         const error = (e as Error)
         handleServerNetworkError(error, dispatch)
     }
 }
 export const deleteTaskTC = (todoListId: string, taskId: string) => async (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatus({status:'loading'}))
     dispatch(changeEntityTaskAC(taskId,todoListId, 'loading'))
     try {
-        const data = await taskAPI.deleteTask(todoListId, taskId)
+        await taskAPI.deleteTask(todoListId, taskId)
         dispatch(removeTaskAC(todoListId, taskId))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatus({status:'succeeded'}))
     } catch (e) {
         const error = (e as Error)
         dispatch(changeEntityTaskAC(taskId,todoListId, 'failed'))
@@ -112,12 +112,12 @@ export const deleteTaskTC = (todoListId: string, taskId: string) => async (dispa
     }
 }
 export const createTaskTC = (todoListId: string, title: string) => async (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatus({status:'loading'}))
     try {
         const data = await taskAPI.createTask(todoListId, title)
         if (data.resultCode === 0) {
             dispatch(addTaskAC(data.data.item))
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppStatus({status:'succeeded'}))
         } else {
             handleServerAppError(data, dispatch)
         }
@@ -142,13 +142,13 @@ export const updateTaskTC = (todoListId: string, taskId: string, data: AdaptiveT
             ...data
         }
 
-        dispatch(setAppStatusAC('loading'))
+        dispatch(setAppStatus({status:'loading'}))
         dispatch(changeEntityTaskAC(taskId,todoListId, 'loading'))
         try {
             const data = await taskAPI.updateTask(todoListId, taskId, model)
             if (data.resultCode === 0){
                 dispatch(updateTaskAC(todoListId, taskId, model))
-                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setAppStatus({status:'succeeded'}))
                 dispatch(changeEntityTaskAC(taskId,todoListId, 'succeeded'))
             } else {
                 handleServerAppError(data, dispatch)

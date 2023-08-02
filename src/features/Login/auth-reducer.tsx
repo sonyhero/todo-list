@@ -1,4 +1,4 @@
-import {setAppStatusAC} from '../../app/app-reducer'
+import {setAppStatus} from '../../app/app-reducer'
 import {authAPI, LoginParamsType, securityAPI} from '../../api/api';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 import {AppThunk} from '../../app/store';
@@ -44,12 +44,12 @@ export const authActions = slice.actions
 
 // thunks
 export const loginTC = (params: LoginParamsType): AppThunk => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatus({status:'loading'}))
     try {
         const data = await authAPI.login(params)
         if (data.resultCode === 0) {
             dispatch(setIsLoggedIn({isLoggedIn: true}))
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppStatus({status:'succeeded'}))
         } else {
             if (data.resultCode === 10) {
                 dispatch(getCaptcha())
@@ -62,12 +62,12 @@ export const loginTC = (params: LoginParamsType): AppThunk => async (dispatch) =
     }
 }
 export const logoutTC = (): AppThunk => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatus({status:'loading'}))
     try {
         const data = await authAPI.logout()
         if (data.resultCode === 0) {
             dispatch(setIsLoggedIn({isLoggedIn: false}))
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppStatus({status:'succeeded'}))
         } else {
             handleServerAppError(data, dispatch)
         }

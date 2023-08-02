@@ -2,7 +2,7 @@ import React from 'react';
 import s from './ErrorBar.module.css'
 import {Button} from '../common/Button/Button';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {setAppErrorAC} from '../../app/app-reducer';
+import {setAppError} from '../../app/app-reducer';
 import {selectAppError} from '../../app/app-selectors';
 
 export const ErrorBar = () => {
@@ -11,7 +11,7 @@ export const ErrorBar = () => {
     const dispatch = useAppDispatch()
 
     const handleClose = () => {
-        dispatch(setAppErrorAC(null))
+        dispatch(setAppError({error:null}))
     }
 
     if (error) {
