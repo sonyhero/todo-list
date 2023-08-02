@@ -1,20 +1,20 @@
 .button {
-    overflow: hidden;
-    /*padding: 5px 24px;*/
-    padding: 5px 15px;
-    margin: 5px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    cursor: pointer;
+  overflow: hidden;
+  /*padding: 5px 24px;*/
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
 }
 
 .deleteTask {
-    padding: 1px 5px;
+  padding: 1px 5px;
 }
 
 /*.disabled {*/
@@ -24,47 +24,47 @@
 /*}*/
 
 .disabled {
-    background: #888e9f;
-    opacity: 0.5;
+  background: #888e9f;
+  opacity: 0.5;
 }
 
 .secondary {
-    color: #0066CC;
-    background: transparent;
-    border: 1px solid #0066CC;
-    border-radius: 3px;
+  color: #0066cc;
+  background: transparent;
+  border: 1px solid #0066cc;
+  border-radius: 3px;
 }
 
 .default {
-    background: #06c;
+  background: #06c;
 }
 
 .red {
-    background: #cc1439;
+  background: #cc1439;
 }
 
 .default:hover {
-    background: #0080ff;
+  background: #0080ff;
 }
 
 .red:hover {
-    background: #ff1a47;
+  background: #ff1a47;
 }
 
 .secondary:hover {
-    background: #E5F0FA;
+  background: #e5f0fa;
 }
 
 .default:active {
-    background: #0059b3;
+  background: #0059b3;
 }
 .secondary:active {
-    background: #C9E5FF;
+  background: #c9e5ff;
 }
 .red:active {
-    background: #b31232;
+  background: #b31232;
 }
 .button:disabled {
-    cursor: default;
-    background: #888e9f;
+  cursor: default;
+  background: #888e9f;
 }

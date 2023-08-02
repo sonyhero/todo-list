@@ -1,20 +1,20 @@
 .todoWrapper {
-    border: 1px solid #1575bb;
-    border-radius: 3px;
-    padding: 10px;
-    margin: 10px;
+  border: 1px solid #1575bb;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .container {
 }
 
 .taskWrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .btwWrap {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
