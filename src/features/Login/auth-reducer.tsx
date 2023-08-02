@@ -3,6 +3,7 @@ import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
 import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
 import { AppThunk } from '../../app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
 
 const initialState = {
   isLoggedIn: false,
@@ -69,6 +70,7 @@ export const logoutTC = (): AppThunk => async (dispatch) => {
     const data = await authAPI.logout()
     if (data.resultCode === 0) {
       dispatch(setIsLoggedIn({ isLoggedIn: false }))
+      dispatch(clearTasksAndTodolists())
       dispatch(setAppStatus({ status: 'succeeded' }))
     } else {
       handleServerAppError(data, dispatch)

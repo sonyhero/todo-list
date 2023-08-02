@@ -1,35 +1,35 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { useCallback } from 'react'
-import { changeTodoListFilterAC, deleteTodoList, updateTodolist } from '../todoListsReducer'
+import { todolistActions, deleteTodoList, updateTodolist } from '../todoListsReducer'
 import { createTaskTC } from '../tasksReducer'
 import { FilterValuesType } from '../../../app/App'
 import { TaskStatuses } from '../../../api/api'
 import { selectTasks } from '../tasks-selectors'
 
-export const useTodoList = (title: string, todoListId: string, filter: FilterValuesType) => {
-  const tasks = useAppSelector(selectTasks)[todoListId]
+export const useTodoList = (title: string, todolistId: string, filter: FilterValuesType) => {
+  const tasks = useAppSelector(selectTasks)[todolistId]
   const dispatch = useAppDispatch()
 
   // CRUD operations for TodoLists
   const removeTodos = useCallback(() => {
-    dispatch(deleteTodoList(todoListId))
-  }, [dispatch, todoListId])
+    dispatch(deleteTodoList(todolistId))
+  }, [dispatch, todolistId])
   const changeTodosTitle = useCallback(
     (newTitle: string) => {
-      dispatch(updateTodolist(todoListId, newTitle))
+      dispatch(updateTodolist(todolistId, newTitle))
     },
-    [dispatch, todoListId],
+    [dispatch, todolistId],
   )
 
   const setChangeFilterAll = useCallback(() => {
-    dispatch(changeTodoListFilterAC(todoListId, 'all'))
-  }, [dispatch, todoListId])
+    dispatch(todolistActions.changeTodoListFilter({ todolistId, filter: 'all' }))
+  }, [dispatch, todolistId])
   const setChangeFilterActive = useCallback(() => {
-    dispatch(changeTodoListFilterAC(todoListId, 'active'))
-  }, [dispatch, todoListId])
+    dispatch(todolistActions.changeTodoListFilter({ todolistId, filter: 'active' }))
+  }, [dispatch, todolistId])
   const setChangeFilterCompleted = useCallback(() => {
-    dispatch(changeTodoListFilterAC(todoListId, 'completed'))
-  }, [dispatch, todoListId])
+    dispatch(todolistActions.changeTodoListFilter({ todolistId, filter: 'completed' }))
+  }, [dispatch, todolistId])
 
   const filteredTasks = () => {
     return filter === 'active'
@@ -41,9 +41,9 @@ export const useTodoList = (title: string, todoListId: string, filter: FilterVal
   const tasksForTodolist = filteredTasks()
   const addTaskHandler = useCallback(
     (newTitle: string) => {
-      dispatch(createTaskTC(todoListId, newTitle))
+      dispatch(createTaskTC(todolistId, newTitle))
     },
-    [dispatch, todoListId],
+    [dispatch, todolistId],
   )
 
   return {

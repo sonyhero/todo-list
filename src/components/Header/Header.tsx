@@ -1,7 +1,7 @@
 import s from './Header.module.css'
 import { AddItemForm } from '../AddItemForm/AddItemForm'
 import { useCallback } from 'react'
-import { clearStateAC, createTodoList } from '../../features/TodolistsList/todoListsReducer'
+import { createTodoList } from '../../features/TodolistsList/todoListsReducer'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { Button } from '../common/Button/Button'
 import { logoutTC } from '../../features/Login/auth-reducer'
@@ -20,7 +20,6 @@ export const Header = () => {
 
   const logOutHandler = () => {
     dispatch(logoutTC())
-    dispatch(clearStateAC())
   }
 
   return (
