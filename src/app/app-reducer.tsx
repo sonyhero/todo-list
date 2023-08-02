@@ -1,6 +1,6 @@
 import {authAPI} from '../api/api';
 import {handleServerNetworkError} from '../utils/error-utils';
-import {setIsLoggedInAC} from '../features/Login/auth-reducer';
+import {setIsLoggedIn} from '../features/Login/auth-reducer';
 import {AppThunk} from './store';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -37,7 +37,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
     try {
         const data = await authAPI.me()
         if (data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true))
+            dispatch(setIsLoggedIn({isLoggedIn: true}))
             dispatch(setAppStatusAC('succeeded'))
         } else {
             // handleServerAppError(data, dispatch)
