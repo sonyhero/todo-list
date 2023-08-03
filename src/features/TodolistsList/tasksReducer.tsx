@@ -1,11 +1,45 @@
-import { addTodoListAC, clearStateAC, removeTodoListAC, setTodolistAC } from './todoListsReducer'
+import { todolistActions } from './todoListsReducer'
 import { taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType } from '../../api/api'
 import { Dispatch } from 'redux'
 import { AppRootStateType, AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: TasksStateType = {}
+
+const slice = createSlice({
+  name: 'task',
+  initialState,
+  reducers: {
+    addTask: (state, action: PayloadAction<{ task: TaskType }>) => {
+      const tasks = state[action.payload.task.todoListId]
+      tasks.unshift(action.payload.task)
+    },
+    removeTask: (state, action: PayloadAction<{ todolistId: string; taskId: string }>) => {
+      const tasks = state[action.payload.todolistId]
+      const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+      if (index !== -1) tasks.slice(index, 1)
+    },
+    updateTask: (
+      state,
+      action: PayloadAction<{
+        taskId: string
+        model: UpdateTaskModelType
+        todolistId: string
+      }>,
+    ) => {
+      const tasks = state[action.payload.todolistId]
+      const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+      if (index !== -1) {
+        tasks[index] = { ...tasks[index], ...action.payload.model }
+      }
+    },
+    setTasks: (state, action: PayloadAction<{ tasks: TaskType[]; todolistId: string }>) => {
+      state[action.payload.todolistId] = action.payload.tasks
+    },
+  },
+})
 
 export const tasksReducer = (state: TasksStateType = initialState, action: TasksReducerActionType): TasksStateType => {
   switch (action.type) {
@@ -176,12 +210,8 @@ type TasksReducerActionType =
   | ReturnType<typeof addTaskAC>
   | ReturnType<typeof removeTaskAC>
   | ReturnType<typeof updateTaskAC>
-  | ReturnType<typeof addTodoListAC>
-  | ReturnType<typeof removeTodoListAC>
-  | ReturnType<typeof setTodolistAC>
   | ReturnType<typeof setTasksAC>
   | ReturnType<typeof changeEntityTaskAC>
-  | ReturnType<typeof clearStateAC>
 
 export type TasksStateType = {
   [key: string]: TaskType[]
