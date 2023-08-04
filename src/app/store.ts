@@ -22,7 +22,8 @@ export const store = configureStore({
 })
 
 // types
-export type AppRootStateType = ReturnType<typeof store.getState>
-export type RootReducerType = ReturnType<typeof rootReducer>
+// export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppRootStateType = ReturnType<typeof rootReducer>
+// export type RootReducerType = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction> // для санок
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
