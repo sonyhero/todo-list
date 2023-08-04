@@ -1,6 +1,6 @@
 import { FilterValuesType } from '../../app/App'
 import { todoListAPI, TodolistType } from '../../api/api'
-import { fetchTasks } from './tasksReducer'
+import { tasksThunks } from './tasksReducer'
 import { AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
@@ -60,7 +60,7 @@ export const fetchTodoLists = (): AppThunk => async (dispatch) => {
   try {
     const todolists = await todoListAPI.getTodoLists()
     dispatch(setTodolist({ todolists }))
-    todolists.forEach((tl) => dispatch(fetchTasks(tl.id)))
+    todolists.forEach((tl) => dispatch(tasksThunks.fetchTasks(tl.id)))
     dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
     const error = e as Error

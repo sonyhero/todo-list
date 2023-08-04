@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { useCallback } from 'react'
 import { todolistActions, deleteTodoList, updateTodolist } from '../todoListsReducer'
-import { createTaskTC } from '../tasksReducer'
+import { tasksThunks } from '../tasksReducer'
 import { FilterValuesType } from '../../../app/App'
 import { TaskStatuses } from '../../../api/api'
 import { selectTasks } from '../tasks-selectors'
@@ -40,8 +40,8 @@ export const useTodoList = (title: string, todolistId: string, filter: FilterVal
   }
   const tasksForTodolist = filteredTasks()
   const addTaskHandler = useCallback(
-    (newTitle: string) => {
-      dispatch(createTaskTC(todolistId, newTitle))
+    (title: string) => {
+      dispatch(tasksThunks.createTask({ todolistId, title }))
     },
     [dispatch, todolistId],
   )
