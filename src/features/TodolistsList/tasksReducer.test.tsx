@@ -1,7 +1,7 @@
 import { taskActions, tasksReducer, TasksStateType } from './tasksReducer'
 import { TaskPriorities, TaskStatuses, TaskType } from '../../api/api'
 import { v1 } from 'uuid'
-import { todolistActions, TodoListDomainType, todolistReducer } from './todoListsReducer'
+import { todolistActions, TodoListDomainType, todolistsReducer } from './todoListsReducer'
 
 let startState: TasksStateType
 
@@ -53,7 +53,7 @@ beforeEach(() => {
         id: '1',
         title: 'Bread',
         order: 0,
-        todoListId: 'todolistId1',
+        todoListId: 'todolistId2',
         status: TaskStatuses.New,
         priority: TaskPriorities.Low,
         startDate: '',
@@ -66,7 +66,7 @@ beforeEach(() => {
         id: '2',
         title: 'Milk',
         order: 1,
-        todoListId: 'todolistId1',
+        todoListId: 'todolistId2',
         status: TaskStatuses.Completed,
         priority: TaskPriorities.Low,
         startDate: '',
@@ -79,7 +79,7 @@ beforeEach(() => {
         id: '3',
         title: 'Tea',
         order: 2,
-        todoListId: 'todolistId1',
+        todoListId: 'todolistId2',
         status: TaskStatuses.New,
         priority: TaskPriorities.Low,
         startDate: '',
@@ -188,7 +188,7 @@ test('ids should be equals', () => {
   const action = todolistActions.addTodolist({ todolist })
 
   const endTasksState = tasksReducer(startTasksState, action)
-  const endTodolistsState = todolistReducer(startTodolistsState, action)
+  const endTodolistsState = todolistsReducer(startTodolistsState, action)
 
   const keys = Object.keys(endTasksState)
   const idFromTasks = keys[0]

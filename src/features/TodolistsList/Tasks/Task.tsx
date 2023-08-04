@@ -12,24 +12,24 @@ type TaskPropsType = {
   taskId: string
   title: string
   status: TaskStatuses
-  todoListId: string
+  todolistId: string
   entityTaskStatus: RequestStatusType
 }
 
 export const Task: React.FC<TaskPropsType> = memo((props) => {
-  const { taskId, title, status, todoListId, entityTaskStatus } = props
+  const { taskId, title, status, todolistId, entityTaskStatus } = props
 
   const dispatch = useAppDispatch()
 
   const removeTaskHandler = () => {
-    dispatch(deleteTaskTC(todoListId, taskId))
+    dispatch(deleteTaskTC(todolistId, taskId))
   }
   const changeTaskStatusHandler = (e: boolean) => {
     const taskStatusValue = e ? TaskStatuses.Completed : TaskStatuses.New
-    dispatch(updateTaskTC(todoListId, taskId, { status: taskStatusValue }))
+    dispatch(updateTaskTC(todolistId, taskId, { status: taskStatusValue }))
   }
   const changeTaskTitleHandler = (newTitle: string) => {
-    dispatch(updateTaskTC(todoListId, taskId, { title: newTitle }))
+    dispatch(updateTaskTC(todolistId, taskId, { title: newTitle }))
   }
 
   return (

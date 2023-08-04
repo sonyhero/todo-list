@@ -9,26 +9,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 const initialState: TasksStateType = {}
 
 const slice = createSlice({
-  name: 'task',
+  name: 'tasks',
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<{ task: TaskType }>) => {
+    removeTask(state, action: PayloadAction<{ taskId: string; todolistId: string }>) {
+      const tasks = state[action.payload.todolistId]
+      const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+      if (index !== -1) tasks.splice(index, 1)
+    },
+    addTask(state, action: PayloadAction<{ task: TaskType }>) {
       const tasks = state[action.payload.task.todoListId]
       tasks.unshift(action.payload.task)
     },
-    removeTask: (state, action: PayloadAction<{ todolistId: string; taskId: string }>) => {
-      const tasks = state[action.payload.todolistId]
-      const index = tasks.findIndex((t) => t.id === action.payload.taskId)
-      if (index !== -1) tasks.slice(index, 1)
-    },
-    updateTask: (
+    updateTask(
       state,
       action: PayloadAction<{
         taskId: string
         model: UpdateTaskModelType
         todolistId: string
       }>,
-    ) => {
+    ) {
       const tasks = state[action.payload.todolistId]
       const index = tasks.findIndex((t) => t.id === action.payload.taskId)
       if (index !== -1) {
@@ -44,9 +44,7 @@ const slice = createSlice({
     ) => {
       const tasks = state[action.payload.todolistId]
       const index = tasks.findIndex((t) => t.id === action.payload.taskId)
-      if (index !== -1) {
-        tasks[index].entityTaskStatus = action.payload.entityTaskStatus
-      }
+      if (index !== -1) tasks[index].entityTaskStatus = action.payload.entityTaskStatus
     },
   },
   extraReducers: (builder) =>
@@ -63,96 +61,8 @@ const slice = createSlice({
 })
 
 export const tasksReducer = slice.reducer
-export const { removeTask, setTasks, updateTask, addTask, changeEntityTask } = slice.actions
+export const { setTasks, updateTask, addTask, changeEntityTask, removeTask } = slice.actions
 export const taskActions = slice.actions
-
-// export const tasksReducer = (state: TasksStateType = initialState, action: TasksReducerActionType): TasksStateType => {
-//   switch (action.type) {
-//     case 'TASKS/ADD_TASK': {
-//       return { ...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]] }
-//     }
-//     case 'TASKS/REMOVE_TASK': {
-//       return {
-//         ...state,
-//         [action.payload.todoListId]: state[action.payload.todoListId].filter((el) => el.id !== action.payload.taskId),
-//       }
-//     }
-//     case 'TASKS/UPDATE_TASK': {
-//       state[action.todolistId] = state[action.todolistId].map((t) =>
-//         t.id === action.taskId ? { ...t, ...action.model } : t,
-//       )
-//       return { ...state }
-//     }
-//     case 'TODOLIST/ADD_TODOLIST': {
-//       return {
-//         ...state,
-//         [action.todoList.id]: [],
-//       }
-//     }
-//     case 'TODOLIST/REMOVE_TODOLIST': {
-//       let stateCopy = { ...state }
-//       delete stateCopy[action.todoListId]
-//       return stateCopy
-//     }
-//     case 'TODOLIST/SET_TODOLISTS': {
-//       const stateCopy = { ...state }
-//       action.todoLists.forEach((tl) => {
-//         stateCopy[tl.id] = []
-//       })
-//       return stateCopy
-//     }
-//     case 'TASKS/SET_TASKS': {
-//       return {
-//         ...state,
-//         [action.payload.todoListId]: action.payload.tasks.map((t) => ({ ...t, entityTaskStatus: 'idle' })),
-//       }
-//     }
-//     case 'TASKS/CHANGE_ENTITY_TASK_STATUS':
-//       return {
-//         ...state,
-//         [action.todoListId]: state[action.todoListId].map((t) =>
-//           t.id === action.taskId ? { ...t, entityTaskStatus: action.entityTaskStatus } : t,
-//         ),
-//       }
-//     case 'TODOLIST/CLEAR_STATE':
-//       return {}
-//   }
-//   return state
-// }
-
-// // actions
-// export const addTaskAC = (task: TaskType) => {
-//   return {
-//     type: 'TASKS/ADD_TASK',
-//     task,
-//   } as const
-// }
-// export const removeTaskAC = (todoListId: string, taskId: string) => {
-//   return {
-//     type: 'TASKS/REMOVE_TASK',
-//     payload: {
-//       todoListId,
-//       taskId,
-//     },
-//   } as const
-// }
-// export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateTaskModelType) =>
-//   ({
-//     type: 'TASKS/UPDATE_TASK',
-//     model,
-//     todolistId,
-//     taskId,
-//   }) as const
-// export const setTasksAC = (todoListId: string, tasks: TaskType[]) =>
-//   ({
-//     type: 'TASKS/SET_TASKS',
-//     payload: {
-//       tasks,
-//       todoListId,
-//     },
-//   }) as const
-// export const changeEntityTaskAC = (taskId: string, todoListId: string, entityTaskStatus: RequestStatusType) =>
-//   ({ type: 'TASKS/CHANGE_ENTITY_TASK_STATUS', taskId, todoListId, entityTaskStatus }) as const
 
 // thunks
 export const fetchTasks = (todolistId: string) => async (dispatch: Dispatch) => {
@@ -179,6 +89,7 @@ export const deleteTaskTC = (todolistId: string, taskId: string) => async (dispa
     handleServerNetworkError(error, dispatch)
   }
 }
+
 export const createTaskTC = (todolistId: string, title: string) => async (dispatch: Dispatch) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
@@ -229,14 +140,6 @@ export const updateTaskTC =
       }
     }
   }
-
-//types
-// type TasksReducerActionType =
-//   | ReturnType<typeof addTaskAC>
-//   | ReturnType<typeof removeTaskAC>
-//   | ReturnType<typeof updateTaskAC>
-//   | ReturnType<typeof setTasksAC>
-//   | ReturnType<typeof changeEntityTaskAC>
 
 export type TasksStateType = {
   [key: string]: TaskType[]

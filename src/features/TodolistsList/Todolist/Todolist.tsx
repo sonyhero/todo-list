@@ -11,13 +11,13 @@ import { RequestStatusType } from '../../../app/app-reducer'
 
 type TodolistPropsType = {
   title: string
-  todoListId: string
+  todolistId: string
   filter: FilterValuesType
   entityStatus: RequestStatusType
 }
 
 export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
-  const { title, todoListId, filter, entityStatus } = props
+  const { title, todolistId, filter, entityStatus } = props
 
   const [listRef] = useAutoAnimate<HTMLUListElement>()
 
@@ -29,7 +29,7 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
     setChangeFilterCompleted,
     tasksForTodolist,
     addTaskHandler,
-  } = useTodoList(title, todoListId, filter)
+  } = useTodoList(title, todolistId, filter)
 
   return (
     <div className={s.todoWrapper}>
@@ -45,7 +45,7 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
       </h3>
       <AddItemForm disabled={entityStatus === 'loading'} addItem={addTaskHandler} />
       <ul className={s.tasks} ref={listRef}>
-        <MappedTasks tasksForTodolist={tasksForTodolist} todoListId={todoListId} />
+        <MappedTasks tasksForTodolist={tasksForTodolist} todolistId={todolistId} />
       </ul>
       <div className={s.btwWrap}>
         <Button className={filter === 'all'} name={'All'} callback={setChangeFilterAll} />

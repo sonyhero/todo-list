@@ -4,11 +4,11 @@ import { TaskType } from '../../../api/api'
 
 type MappedTasksTyp = {
   tasksForTodolist: TaskType[]
-  todoListId: string
+  todolistId: string
 }
 
 export const MappedTasks: React.FC<MappedTasksTyp> = memo((props) => {
-  const { tasksForTodolist, todoListId } = props
+  const { tasksForTodolist, todolistId } = props
 
   const task = tasksForTodolist.map((t) => {
     return (
@@ -17,7 +17,7 @@ export const MappedTasks: React.FC<MappedTasksTyp> = memo((props) => {
         taskId={t.id}
         title={t.title}
         status={t.status}
-        todoListId={todoListId}
+        todolistId={todolistId}
         entityTaskStatus={t.entityTaskStatus}
       />
     )

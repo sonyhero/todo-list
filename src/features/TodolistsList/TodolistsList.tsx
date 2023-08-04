@@ -27,7 +27,7 @@ export const TodolistsList = () => {
 
   const todoListsComponents = todoLists.map((tl) => {
     return (
-      <Todolist key={tl.id} todoListId={tl.id} title={tl.title} filter={tl.filter} entityStatus={tl.entityStatus} />
+      <Todolist key={tl.id} todolistId={tl.id} title={tl.title} filter={tl.filter} entityStatus={tl.entityStatus} />
     )
   })
 
