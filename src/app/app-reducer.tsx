@@ -1,8 +1,8 @@
 import { authAPI } from '../api/api'
-import { handleServerNetworkError } from '../utils/error-utils'
 import { setIsLoggedIn } from '../features/Login/auth-reducer'
 import { AppThunk } from './store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { handleServerNetworkError } from '../utils/handle-server-network-error'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -63,8 +63,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
       // handleServerAppError(data, dispatch)
     }
   } catch (e) {
-    const error = e as Error
-    handleServerNetworkError(error, dispatch)
+    handleServerNetworkError(e, dispatch)
   } finally {
     dispatch(setAppInitialized({ isInitialized: true }))
   }

@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
 import { EditableSpan } from '../../../components/common/EditableSpan'
 import { Button } from '../../../components/common/Button/Button'
-import { tasksThunks, updateTaskTC } from '../tasksReducer'
+import { tasksThunks } from '../tasksReducer'
 import { CheckBox } from '../../../components/common/CheckBox/CheckBox'
 import { useAppDispatch } from '../../../hooks/hooks'
 import { TaskStatuses } from '../../../api/api'
@@ -26,10 +26,10 @@ export const Task: React.FC<TaskPropsType> = memo((props) => {
   }
   const changeTaskStatusHandler = (e: boolean) => {
     const taskStatusValue = e ? TaskStatuses.Completed : TaskStatuses.New
-    dispatch(updateTaskTC(todolistId, taskId, { status: taskStatusValue }))
+    dispatch(tasksThunks.updateTask({ todolistId, taskId, data: { status: taskStatusValue } }))
   }
-  const changeTaskTitleHandler = (newTitle: string) => {
-    dispatch(updateTaskTC(todolistId, taskId, { title: newTitle }))
+  const changeTaskTitleHandler = (title: string) => {
+    dispatch(tasksThunks.updateTask({ todolistId, taskId, data: { title } }))
   }
 
   return (

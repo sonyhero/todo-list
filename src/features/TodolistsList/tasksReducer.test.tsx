@@ -1,4 +1,4 @@
-import { taskActions, tasksReducer, TasksStateType } from './tasksReducer'
+import { tasksReducer, TasksStateType, tasksThunks } from './tasksReducer'
 import { TaskPriorities, TaskStatuses, TaskType } from '../../api/api'
 import { v1 } from 'uuid'
 import { todolistActions, TodoListDomainType, todolistsReducer } from './todoListsReducer'
@@ -93,7 +93,12 @@ beforeEach(() => {
 })
 
 test('correct task should be deleted from correct array', () => {
-  const action = taskActions.removeTask({ todolistId: 'todolistId2', taskId: '2' })
+  // const action = tasksThunks.deleteTask.fulfilled({ todolistId: 'todolistId2', taskId: '2' },)
+
+  const action = tasksThunks.deleteTask.fulfilled({ todolistId: 'todolistId2', taskId: '2' }, '', {
+    todolistId: 'todolistId2',
+    taskId: '2',
+  })
 
   const endState = tasksReducer(startState, action)
 
@@ -115,7 +120,7 @@ test('correct task should be added to correct array', () => {
     entityTaskStatus: 'idle',
   }
 
-  const action = taskActions.addTask({ task })
+  const action = tasksThunks.createTask.fulfilled({ task }, '', { title: task.title, todolistId: task.id })
 
   const endState = tasksReducer(startState, action)
 
@@ -127,9 +132,13 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  const model = { ...startState['todolistId2'][1], status: TaskStatuses.New }
+  const model = {
+    taskId: '2',
+    data: { status: TaskStatuses.New },
+    todolistId: 'todolistId2',
+  }
 
-  const action = taskActions.updateTaskModel({ todolistId: 'todolistId2', taskId: '2', model })
+  const action = tasksThunks.updateTask.fulfilled(model, '', model)
 
   const endState = tasksReducer(startState, action)
 
@@ -138,9 +147,9 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  const model = { ...startState['todolistId2'][1], title: 'beer' }
+  const model = { taskId: '2', data: { title: 'beer' }, todolistId: 'todolistId2' }
 
-  const action = taskActions.updateTaskModel({ todolistId: 'todolistId2', taskId: '2', model })
+  const action = tasksThunks.updateTask.fulfilled(model, '', model)
 
   const endState = tasksReducer(startState, action)
 

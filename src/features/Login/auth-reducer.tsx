@@ -1,9 +1,10 @@
 import { setAppStatus } from '../../app/app-reducer'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
 import { AppThunk } from '../../app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
+import { handleServerAppError } from '../../utils/handle-server-app-error'
+import { handleServerNetworkError } from '../../utils/handle-server-network-error'
 
 const initialState = {
   isLoggedIn: false,
@@ -60,8 +61,7 @@ export const loginTC =
         handleServerAppError(data, dispatch)
       }
     } catch (e) {
-      const error = e as Error
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(e, dispatch)
     }
   }
 export const logoutTC = (): AppThunk => async (dispatch) => {
@@ -76,8 +76,7 @@ export const logoutTC = (): AppThunk => async (dispatch) => {
       handleServerAppError(data, dispatch)
     }
   } catch (e) {
-    const error = e as Error
-    handleServerNetworkError(error, dispatch)
+    handleServerNetworkError(e, dispatch)
   }
 }
 export const getCaptcha = (): AppThunk => async (dispatch) => {
@@ -86,8 +85,7 @@ export const getCaptcha = (): AppThunk => async (dispatch) => {
     const captchaUrl = data.url
     dispatch(getCaptchaUrl({ captchaUrl }))
   } catch (e) {
-    const error = e as Error
-    handleServerNetworkError(error, dispatch)
+    handleServerNetworkError(e, dispatch)
   }
 }
 

@@ -3,8 +3,9 @@ import { todoListAPI, TodolistType } from '../../api/api'
 import { tasksThunks } from './tasksReducer'
 import { AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
-import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { handleServerNetworkError } from '../../utils/handle-server-network-error'
+import { handleServerAppError } from '../../utils/handle-server-app-error'
 
 export const clearTasksAndTodolists = createAction('common/clear-tasks-todolists')
 
@@ -63,8 +64,7 @@ export const fetchTodoLists = (): AppThunk => async (dispatch) => {
     todolists.forEach((tl) => dispatch(tasksThunks.fetchTasks(tl.id)))
     dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
-    const error = e as Error
-    handleServerNetworkError(error, dispatch)
+    handleServerNetworkError(e, dispatch)
   }
 }
 export const deleteTodoList =
@@ -77,8 +77,7 @@ export const deleteTodoList =
       dispatch(removeTodoList({ todolistId }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
-      const error = e as Error
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(e, dispatch)
       dispatch(changeTodoListEntityStatus({ todolistId, status: 'failed' }))
     }
   }
@@ -95,8 +94,7 @@ export const createTodoList =
         handleServerAppError(data, dispatch)
       }
     } catch (e) {
-      const error = e as Error
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(e, dispatch)
     }
   }
 export const updateTodolist =
@@ -112,8 +110,7 @@ export const updateTodolist =
         handleServerAppError(data, dispatch)
       }
     } catch (e) {
-      const error = e as Error
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(e, dispatch)
     }
   }
 // types
