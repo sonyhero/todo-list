@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios'
 import { RequestStatusType } from '../app/app-reducer'
 import { instance } from '../common/api'
 import { TaskPriorities, TaskStatuses } from '../common/enums'
+import { ResponseType } from '../common/types'
 
 export const todoListAPI = {
   getTodoLists() {
@@ -75,11 +76,6 @@ export const securityAPI = {
 }
 
 // types
-export type ResponseType<T = {}> = {
-  resultCode: number
-  messages: string[]
-  data: T
-}
 export type LoginParamsType = {
   email: string
   password: string

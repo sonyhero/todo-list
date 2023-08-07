@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import s from './Login.module.css'
-import { useAppSelector, useAppDispatch } from '../../hooks'
+import { useAppSelector, useAppDispatch } from '../../common/hooks'
 import { loginTC } from './auth-reducer'
 import { Navigate } from 'react-router-dom'
 import { selectCaptchaUrl, selectIsLoggedIn } from './auth-selectors'
@@ -60,7 +60,7 @@ export const Login = () => {
         <button disabled={Object.keys(formik.errors).length !== 0} type={'submit'}>
           Login
         </button>
-        {/*<Button type="submit" name={'Login'}/>*/}
+        {/*<Button type="submit" name={'auth'}/>*/}
       </form>
     </div>
   )

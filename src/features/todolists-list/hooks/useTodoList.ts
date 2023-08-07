@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks'
 import { FilterValuesType } from '../../../app/App'
 import { selectTasks } from '../tasks-selectors'
 import { useCallback } from 'react'

@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
-import { useAppDispatch } from '../../../hooks'
+import { useAppDispatch } from '../../../common/hooks'
 import { TaskStatuses } from '../../../common/enums'
 import { RequestStatusType } from '../../../app/app-reducer'
 import { tasksThunks } from '../tasksReducer'

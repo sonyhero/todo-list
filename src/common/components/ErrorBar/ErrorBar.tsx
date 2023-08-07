@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './ErrorBar.module.css'
-import { Button } from '../common/Button/Button'
-import { useAppSelector, useAppDispatch } from '../../../hooks'
+import { Button } from '../common'
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import { setAppError } from '../../../app/app-reducer'
 import { selectAppError } from '../../../app/app-selectors'
 

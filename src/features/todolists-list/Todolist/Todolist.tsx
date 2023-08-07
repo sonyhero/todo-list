@@ -2,12 +2,10 @@ import React, { memo } from 'react'
 import { FilterValuesType } from '../../../app/App'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import s from './Todolist.module.css'
-import { AddItemForm } from '../../../common/components/AddItemForm/AddItemForm'
-import { Button } from '../../../common/components/common/Button/Button'
-import { EditableSpan } from '../../../common/components/common/EditableSpan'
 import { MappedTasks } from '../Tasks/MappedTasks'
 import { useTodoList } from '../hooks/useTodoList'
 import { RequestStatusType } from '../../../app/app-reducer'
+import { AddItemForm, Button, EditableSpan } from '../../../common/components'
 
 type TodolistPropsType = {
   title: string

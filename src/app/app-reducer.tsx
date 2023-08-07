@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from './store'
 import { authAPI } from '../api/api'
 import { ResultCode } from '../common/enums'
-import { setIsLoggedIn } from '../features/Login/auth-reducer'
+import { setIsLoggedIn } from '../features/auth/auth-reducer'
 import { handleServerNetworkError } from '../common/utils'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

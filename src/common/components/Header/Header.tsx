@@ -1,11 +1,11 @@
 import s from './Header.module.css'
 import { AddItemForm } from '../AddItemForm/AddItemForm'
 import { useCallback } from 'react'
-import { createTodoList } from '../../../features/TodolistsList/todoListsReducer'
-import { useAppSelector, useAppDispatch } from '../../../hooks'
+import { createTodoList } from '../../../features/todolists-list/todoListsReducer'
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import { Button } from '../common'
-import { logoutTC } from '../../../features/Login/auth-reducer'
-import { selectIsLoggedIn } from '../../../features/Login/auth-selectors'
+import { logoutTC } from '../../../features/auth/auth-reducer'
+import { selectIsLoggedIn } from '../../../features/auth/auth-selectors'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)

@@ -4,7 +4,7 @@ import { AppThunk } from '../../app/store'
 import { setAppStatus } from '../../app/app-reducer'
 import { ResultCode } from '../../common/enums'
 import { handleServerAppError, handleServerNetworkError } from '../../common/utils'
-import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
+import { clearTasksAndTodolists } from '../../common/actions'
 
 const initialState = {
   isLoggedIn: false,
