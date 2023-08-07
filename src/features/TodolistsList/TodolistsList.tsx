@@ -7,8 +7,8 @@ import { fetchTodoLists } from './todoListsReducer'
 import s from './TodolistsList.module.css'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../Login/auth-selectors'
-import { Header } from '../../common/components/Header/Header'
-import { LinearProgress } from '../../common/components/Loader/LinearProgress'
+import { Header } from '../../common/components'
+import { LinearProgress } from '../../common/components'
 import { selectAppStatus } from '../../app/app-selectors'
 
 export const TodolistsList = () => {

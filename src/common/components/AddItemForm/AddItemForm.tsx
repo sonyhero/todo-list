@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import s from './AddItemForm.module.css'
-import { Button } from '../common/Button/Button'
-import { Input } from '../common/Input'
+import { Button, Input } from '../common'
 import { useAddItemForm } from './hooks/useAddItemForm'
 
 type AddItemFormPropsType = {

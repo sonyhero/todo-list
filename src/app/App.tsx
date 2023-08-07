@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import './App.css'
-import { useAppSelector, useAppDispatch } from '../hooks'
-import { LinearProgress } from '../common/components/Loader/LinearProgress'
-import { ErrorBar } from '../common/components/ErrorBar/ErrorBar'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { selectIsInitialized } from './app-selectors'
+import { initializeAppTC } from './app-reducer'
+import { Error404, ErrorBar, LinearProgress } from '../common/components'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { TodolistsList } from '../features/TodolistsList/TodolistsList'
 import { Login } from '../features/Login/Login'
-import { Error404 } from '../common/components/Error404/Error404'
-import { initializeAppTC } from './app-reducer'
-import { selectIsInitialized } from './app-selectors'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 

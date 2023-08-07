@@ -3,7 +3,7 @@ import { AddItemForm } from '../AddItemForm/AddItemForm'
 import { useCallback } from 'react'
 import { createTodoList } from '../../../features/TodolistsList/todoListsReducer'
 import { useAppSelector, useAppDispatch } from '../../../hooks'
-import { Button } from '../common/Button/Button'
+import { Button } from '../common'
 import { logoutTC } from '../../../features/Login/auth-reducer'
 import { selectIsLoggedIn } from '../../../features/Login/auth-selectors'
 
