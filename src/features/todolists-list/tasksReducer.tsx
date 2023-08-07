@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RequestStatusType, setAppError, setAppStatus } from '../../app/app-reducer'
-import { todolistActions } from './todoListsReducer'
+import { todolistsThunks } from './todoListsReducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
 import { taskAPI, TaskType, UpdateTaskModelType } from '../../api/api'
 import { ResultCode, TaskPriorities, TaskStatuses } from '../../common/enums'
@@ -41,13 +41,13 @@ const slice = createSlice({
           tasks[index] = { ...tasks[index], ...action.payload.data }
         }
       })
-      .addCase(todolistActions.addTodolist, (state, action) => {
+      .addCase(todolistsThunks.createTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
-      .addCase(todolistActions.removeTodoList, (state, action) => {
+      .addCase(todolistsThunks.deleteTodolist.fulfilled, (state, action) => {
         delete state[action.payload.todolistId]
       })
-      .addCase(todolistActions.setTodolist, (state, action) => {
+      .addCase(todolistsThunks.fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => (state[tl.id] = []))
       })
   },
@@ -162,7 +162,6 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
 
 export const tasksReducer = slice.reducer
 export const { changeEntityTask } = slice.actions
-export const taskActions = slice.actions
 export const tasksThunks = { fetchTasks, deleteTask, createTask, updateTask }
 
 export type TasksStateType = {

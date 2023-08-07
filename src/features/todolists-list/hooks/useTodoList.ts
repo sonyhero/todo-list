@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks'
 import { FilterValuesType } from '../../../app/App'
 import { selectTasks } from '../tasks-selectors'
 import { useCallback } from 'react'
-import { deleteTodoList, todolistActions, updateTodolist } from '../todoListsReducer'
+import { todolistsThunks, todolistActions } from '../todoListsReducer'
 import { TaskStatuses } from '../../../common/enums'
 import { tasksThunks } from '../tasksReducer'
 
@@ -12,11 +12,11 @@ export const useTodoList = (title: string, todolistId: string, filter: FilterVal
 
   // CRUD operations for TodoLists
   const removeTodos = useCallback(() => {
-    dispatch(deleteTodoList(todolistId))
+    dispatch(todolistsThunks.deleteTodolist({ todolistId }))
   }, [dispatch, todolistId])
   const changeTodosTitle = useCallback(
-    (newTitle: string) => {
-      dispatch(updateTodolist(todolistId, newTitle))
+    (title: string) => {
+      dispatch(todolistsThunks.changeTodolistTitle({ todolistId, title }))
     },
     [dispatch, todolistId],
   )

@@ -25,7 +25,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
   const finalStyle = disabled ? { color: 'gray' } : { color: 'black' }
 
   return !disabled && editMode ? (
-    <input onChange={onChangeHandler} onBlur={activateViewMode} value={title} autoFocus />
+    <input onChange={onChangeHandler} onBlur={activateViewMode} value={newTitle} autoFocus />
   ) : (
     <span style={finalStyle} onDoubleClick={activateEditMode}>
       {title}

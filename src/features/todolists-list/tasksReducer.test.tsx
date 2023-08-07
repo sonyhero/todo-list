@@ -1,6 +1,6 @@
 import { tasksReducer, TasksStateType, tasksThunks } from './tasksReducer'
 import { v1 } from 'uuid'
-import { todolistActions, TodoListDomainType, todolistsReducer } from './todoListsReducer'
+import { TodoListDomainType, todolistsReducer, todolistsThunks } from './todoListsReducer'
 import { TaskPriorities, TaskStatuses } from '../../common/enums'
 import { TaskType } from '../../api/api'
 
@@ -168,7 +168,7 @@ test('new array should be added when new todolist is added', () => {
     entityStatus: 'idle',
   }
 
-  const action = todolistActions.addTodolist({ todolist })
+  const action = todolistsThunks.createTodolist.fulfilled({ todolist }, '', { title: todolist.title })
 
   const endState = tasksReducer(startState, action)
 
@@ -195,7 +195,7 @@ test('ids should be equals', () => {
     entityStatus: 'idle',
   }
 
-  const action = todolistActions.addTodolist({ todolist })
+  const action = todolistsThunks.createTodolist.fulfilled({ todolist }, '', { title: todolist.title })
 
   const endTasksState = tasksReducer(startTasksState, action)
   const endTodolistsState = todolistsReducer(startTodolistsState, action)
@@ -209,7 +209,9 @@ test('ids should be equals', () => {
 })
 
 test('property with todolistId should be deleted', () => {
-  const action = todolistActions.removeTodoList({ todolistId: 'todolistId2' })
+  const action = todolistsThunks.deleteTodolist.fulfilled({ todolistId: 'todolistId2' }, '', {
+    todolistId: 'todolistId2',
+  })
 
   const endState = tasksReducer(startState, action)
 

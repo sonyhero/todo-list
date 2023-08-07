@@ -1,7 +1,7 @@
 import s from './Header.module.css'
 import { AddItemForm } from '../AddItemForm/AddItemForm'
 import { useCallback } from 'react'
-import { createTodoList } from '../../../features/todolists-list/todoListsReducer'
+import { todolistsThunks } from '../../../features/todolists-list/todoListsReducer'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { Button } from '../common'
 import { logoutTC } from '../../../features/auth/auth-reducer'
@@ -13,7 +13,7 @@ export const Header = () => {
 
   const addTodos = useCallback(
     (title: string) => {
-      dispatch(createTodoList(title))
+      dispatch(todolistsThunks.createTodolist({ title }))
     },
     [dispatch],
   )

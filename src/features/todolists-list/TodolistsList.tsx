@@ -5,7 +5,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../auth/auth-selectors'
 import { selectAppStatus } from '../../app/app-selectors'
-import { fetchTodoLists } from './todoListsReducer'
+import { todolistsThunks } from './todoListsReducer'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { Header, LinearProgress } from '../../common/components'
@@ -21,7 +21,7 @@ export const TodolistsList = () => {
     if (!isLoggedIn) {
       return
     }
-    dispatch(fetchTodoLists())
+    dispatch(todolistsThunks.fetchTodolists())
   }, [])
 
   const todoListsComponents = todoLists.map((tl) => {
