@@ -1,10 +1,11 @@
 import { FilterValuesType } from '../../app/App'
-import { ResultCode, todoListAPI, TodolistType } from '../../api/api'
 import { tasksThunks } from './tasksReducer'
 import { AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { handleServerNetworkError, handleServerAppError } from '../../common/utils'
+import { todoListAPI, TodolistType } from '../../api/api'
+import { ResultCode } from '../../common/enums'
 
 export const clearTasksAndTodolists = createAction('common/clear-tasks-todolists')
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { taskAPI, TaskPriorities, TaskStatuses, todoListAPI, UpdateTaskModelType } from './api'
+import { useState } from 'react'
+import { taskAPI, todoListAPI, UpdateTaskModelType } from './api'
+import { TaskPriorities, TaskStatuses } from '../common/enums'
 
 export default {
   title: 'API-Tasks',

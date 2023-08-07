@@ -1,12 +1,10 @@
 import React, { memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
-import { EditableSpan } from '../../../common/components/common/EditableSpan'
-import { Button } from '../../../common/components/common/Button/Button'
-import { tasksThunks } from '../tasksReducer'
-import { CheckBox } from '../../../common/components/common/CheckBox/CheckBox'
-import { TaskStatuses } from '../../../api/api'
-import { RequestStatusType } from '../../../app/app-reducer'
 import { useAppDispatch } from '../../../hooks'
+import { TaskStatuses } from '../../../common/enums'
+import { RequestStatusType } from '../../../app/app-reducer'
+import { tasksThunks } from '../tasksReducer'
+import { Button, CheckBox, EditableSpan } from '../../../common/components'
 
 type TaskPropsType = {
   taskId: string

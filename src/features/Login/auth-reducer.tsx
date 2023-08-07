@@ -1,9 +1,10 @@
-import { setAppStatus } from '../../app/app-reducer'
-import { authAPI, LoginParamsType, ResultCode, securityAPI } from '../../api/api'
-import { AppThunk } from '../../app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
+import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
+import { AppThunk } from '../../app/store'
+import { setAppStatus } from '../../app/app-reducer'
+import { ResultCode } from '../../common/enums'
 import { handleServerAppError, handleServerNetworkError } from '../../common/utils'
+import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
 
 const initialState = {
   isLoggedIn: false,

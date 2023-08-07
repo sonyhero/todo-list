@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { RequestStatusType } from '../app/app-reducer'
 import { instance } from '../common/api'
+import { TaskPriorities, TaskStatuses } from '../common/enums'
 
 export const todoListAPI = {
   getTodoLists() {
@@ -90,24 +91,6 @@ export type TodolistType = {
   addedDate: Date
   order: number
   title: string
-}
-export const ResultCode = {
-  success: 0,
-  error: 1,
-  captcha: 10,
-} as const
-export enum TaskStatuses {
-  New = 0,
-  InProgress = 1,
-  Completed = 2,
-  Draft = 3,
-}
-export enum TaskPriorities {
-  Low = 0,
-  Middle = 1,
-  Hi = 2,
-  Urgently = 3,
-  Later = 4,
 }
 export type TaskType = {
   description: string

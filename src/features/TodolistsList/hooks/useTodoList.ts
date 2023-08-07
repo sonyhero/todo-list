@@ -1,10 +1,10 @@
-import { useAppSelector, useAppDispatch } from '../../../hooks'
-import { useCallback } from 'react'
-import { todolistActions, deleteTodoList, updateTodolist } from '../todoListsReducer'
-import { tasksThunks } from '../tasksReducer'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { FilterValuesType } from '../../../app/App'
-import { TaskStatuses } from '../../../api/api'
 import { selectTasks } from '../tasks-selectors'
+import { useCallback } from 'react'
+import { deleteTodoList, todolistActions, updateTodolist } from '../todoListsReducer'
+import { TaskStatuses } from '../../../common/enums'
+import { tasksThunks } from '../tasksReducer'
 
 export const useTodoList = (title: string, todolistId: string, filter: FilterValuesType) => {
   const tasks = useAppSelector(selectTasks)[todolistId]

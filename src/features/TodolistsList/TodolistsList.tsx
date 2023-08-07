@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
-import { Todolist } from './Todolist/Todolist'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { useAppSelector, useAppDispatch } from '../../hooks'
-import { Navigate } from 'react-router-dom'
-import { fetchTodoLists } from './todoListsReducer'
 import s from './TodolistsList.module.css'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../Login/auth-selectors'
-import { Header } from '../../common/components'
-import { LinearProgress } from '../../common/components'
 import { selectAppStatus } from '../../app/app-selectors'
+import { fetchTodoLists } from './todoListsReducer'
+import { Todolist } from './Todolist/Todolist'
+import { Navigate } from 'react-router-dom'
+import { Header, LinearProgress } from '../../common/components'
 
 export const TodolistsList = () => {
   const [todoListsRef] = useAutoAnimate<HTMLDivElement>()

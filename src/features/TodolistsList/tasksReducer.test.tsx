@@ -1,7 +1,8 @@
 import { tasksReducer, TasksStateType, tasksThunks } from './tasksReducer'
-import { TaskPriorities, TaskStatuses, TaskType } from '../../api/api'
 import { v1 } from 'uuid'
 import { todolistActions, TodoListDomainType, todolistsReducer } from './todoListsReducer'
+import { TaskPriorities, TaskStatuses } from '../../common/enums'
+import { TaskType } from '../../api/api'
 
 let startState: TasksStateType
 

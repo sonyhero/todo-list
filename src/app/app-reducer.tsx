@@ -1,7 +1,8 @@
-import { authAPI, ResultCode } from '../api/api'
-import { setIsLoggedIn } from '../features/Login/auth-reducer'
-import { AppThunk } from './store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppThunk } from './store'
+import { authAPI } from '../api/api'
+import { ResultCode } from '../common/enums'
+import { setIsLoggedIn } from '../features/Login/auth-reducer'
 import { handleServerNetworkError } from '../common/utils'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
