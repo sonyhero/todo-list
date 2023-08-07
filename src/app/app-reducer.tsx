@@ -1,4 +1,4 @@
-import { authAPI } from '../api/api'
+import { authAPI, ResultCode } from '../api/api'
 import { setIsLoggedIn } from '../features/Login/auth-reducer'
 import { AppThunk } from './store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -56,7 +56,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const data = await authAPI.me()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCode.success) {
       dispatch(setIsLoggedIn({ isLoggedIn: true }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } else {

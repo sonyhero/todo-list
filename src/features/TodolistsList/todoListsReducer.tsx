@@ -1,5 +1,5 @@
 import { FilterValuesType } from '../../app/App'
-import { todoListAPI, TodolistType } from '../../api/api'
+import { ResultCode, todoListAPI, TodolistType } from '../../api/api'
 import { tasksThunks } from './tasksReducer'
 import { AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
@@ -87,7 +87,7 @@ export const createTodoList =
     dispatch(setAppStatus({ status: 'loading' }))
     try {
       const data = await todoListAPI.createTodoList(title)
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCode.success) {
         dispatch(addTodolist({ todolist: data.data.item }))
         dispatch(setAppStatus({ status: 'succeeded' }))
       } else {
@@ -103,7 +103,7 @@ export const updateTodolist =
     dispatch(setAppStatus({ status: 'loading' }))
     try {
       const data = await todoListAPI.updateTodolist(todolistId, title)
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCode.success) {
         dispatch(changeTodoListTitle({ todolistId, title }))
         dispatch(setAppStatus({ status: 'succeeded' }))
       } else {

@@ -1,5 +1,5 @@
 import { setAppStatus } from '../../app/app-reducer'
-import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
+import { authAPI, LoginParamsType, ResultCode, securityAPI } from '../../api/api'
 import { AppThunk } from '../../app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
@@ -51,11 +51,11 @@ export const loginTC =
     dispatch(setAppStatus({ status: 'loading' }))
     try {
       const data = await authAPI.login(params)
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCode.success) {
         dispatch(setIsLoggedIn({ isLoggedIn: true }))
         dispatch(setAppStatus({ status: 'succeeded' }))
       } else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === ResultCode.captcha) {
           dispatch(getCaptcha())
         }
         handleServerAppError(data, dispatch)
@@ -68,7 +68,7 @@ export const logoutTC = (): AppThunk => async (dispatch) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const data = await authAPI.logout()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCode.success) {
       dispatch(setIsLoggedIn({ isLoggedIn: false }))
       dispatch(clearTasksAndTodolists())
       dispatch(setAppStatus({ status: 'succeeded' }))

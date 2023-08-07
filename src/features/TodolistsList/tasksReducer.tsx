@@ -1,5 +1,5 @@
 import { todolistActions } from './todoListsReducer'
-import { taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType } from '../../api/api'
+import { ResultCode, taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType } from '../../api/api'
 import { RequestStatusType, setAppError, setAppStatus } from '../../app/app-reducer'
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -109,7 +109,7 @@ const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
       dispatch(setAppStatus({ status: 'loading' }))
       const data = await taskAPI.createTask(arg.todolistId, arg.title)
       const task = data.data.item
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCode.success) {
         dispatch(setAppStatus({ status: 'succeeded' }))
         return { task }
       } else {
@@ -165,7 +165,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
 
       const data = await taskAPI.updateTask(arg.todolistId, arg.taskId, model)
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCode.success) {
         dispatch(setAppStatus({ status: 'succeeded' }))
         dispatch(
           changeEntityTask({
