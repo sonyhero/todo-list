@@ -13,8 +13,6 @@ const initialState = {
   isInitialized: false,
 }
 
-// type InitialStateType = typeof initialState
-
 const slice = createSlice({
   name: 'app',
   initialState,
@@ -34,25 +32,6 @@ const slice = createSlice({
 export const appReducer = slice.reducer
 export const { setAppStatus, setAppInitialized, setAppError } = slice.actions
 
-// export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
-//     switch (action.type) {
-//         case 'APP/SET_STATUS':
-//             return {...state, status: action.status}
-//         case 'APP/SET_ERROR':
-//             return {...state, error: action.error}
-//         case 'APP/SET_INITIALIZED':
-//             return {...state, isInitialized: action.isInitialized}
-//         default:
-//             return state
-//     }
-// }
-
-// export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET_STATUS', status} as const)
-//
-// export const setAppInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET_INITIALIZED', isInitialized} as const)
-//
-// export const setAppErrorAC = (error: null | string) => ({type: 'APP/SET_ERROR', error} as const)
-
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
   dispatch(setAppStatus({ status: 'loading' }))
   try {
@@ -69,8 +48,3 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
     dispatch(setAppInitialized({ isInitialized: true }))
   }
 }
-
-// export type AppReducerActionsType =
-//     | ReturnType<typeof setAppStatusAC>
-//     | ReturnType<typeof setAppErrorAC>
-//     | ReturnType<typeof setAppInitializedAC>

@@ -30,6 +30,7 @@ export const todoListAPI = {
       .then((res) => res.data)
   },
 }
+
 export const taskAPI = {
   getTasks(todolistId: string) {
     return instance.get<ResponseGetTaskType>(`todo-lists/${todolistId}/tasks`).then((res) => res.data)

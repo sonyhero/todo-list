@@ -112,8 +112,8 @@ export const updateTodolist =
       handleServerNetworkError(e, dispatch)
     }
   }
-// types
 
+// types
 export type TodoListDomainType = TodolistType & {
   filter: FilterValuesType
   entityStatus: RequestStatusType
