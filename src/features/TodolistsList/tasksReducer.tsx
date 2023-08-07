@@ -3,9 +3,9 @@ import { ResultCode, taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTask
 import { RequestStatusType, setAppError, setAppStatus } from '../../app/app-reducer'
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { handleServerNetworkError } from '../../utils/handle-server-network-error'
-import { handleServerAppError } from '../../utils/handle-server-app-error'
-import { createAppAsyncThunk } from '../../utils/create-app-async-thunk'
+import { handleServerNetworkError } from '../../common/utils'
+import { handleServerAppError } from '../../common/utils'
+import { createAppAsyncThunk } from '../../common/utils'
 
 const initialState: TasksStateType = {}
 

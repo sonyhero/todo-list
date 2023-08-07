@@ -1,9 +1,9 @@
 import React from 'react'
 import s from './ErrorBar.module.css'
 import { Button } from '../common/Button/Button'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import { setAppError } from '../../app/app-reducer'
-import { selectAppError } from '../../app/app-selectors'
+import { useAppSelector, useAppDispatch } from '../../../hooks'
+import { setAppError } from '../../../app/app-reducer'
+import { selectAppError } from '../../../app/app-selectors'
 
 export const ErrorBar = () => {
   const error = useAppSelector(selectAppError)

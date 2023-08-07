@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { Todolist } from './Todolist/Todolist'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import { Navigate } from 'react-router-dom'
 import { fetchTodoLists } from './todoListsReducer'
 import s from './TodolistsList.module.css'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../Login/auth-selectors'
-import { Header } from '../../components/Header/Header'
-import { LinearProgress } from '../../components/Loader/LinearProgress'
+import { Header } from '../../common/components/Header/Header'
+import { LinearProgress } from '../../common/components/Loader/LinearProgress'
 import { selectAppStatus } from '../../app/app-selectors'
 
 export const TodolistsList = () => {

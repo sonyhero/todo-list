@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../../../hooks'
 import { useCallback } from 'react'
 import { todolistActions, deleteTodoList, updateTodolist } from '../todoListsReducer'
 import { tasksThunks } from '../tasksReducer'

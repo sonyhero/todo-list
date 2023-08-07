@@ -3,8 +3,7 @@ import { authAPI, LoginParamsType, ResultCode, securityAPI } from '../../api/api
 import { AppThunk } from '../../app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from '../TodolistsList/todoListsReducer'
-import { handleServerAppError } from '../../utils/handle-server-app-error'
-import { handleServerNetworkError } from '../../utils/handle-server-network-error'
+import { handleServerAppError, handleServerNetworkError } from '../../common/utils'
 
 const initialState = {
   isLoggedIn: false,

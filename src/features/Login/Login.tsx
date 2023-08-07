@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import s from './Login.module.css'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import { loginTC } from './auth-reducer'
 import { Navigate } from 'react-router-dom'
 import { selectCaptchaUrl, selectIsLoggedIn } from './auth-selectors'
@@ -19,15 +19,8 @@ export const Login = () => {
       rememberMe: false,
       captcha: '',
     },
-    // validate,
     validationSchema: BasicFormSchema,
     onSubmit: (values) => {
-      // const params: LoginParamsType = {
-      //     email: values.email,
-      //     password: values.password,
-      //     rememberMe: values.rememberMe,
-      //     captcha:  values.captcha
-      // }
       dispatch(loginTC(values))
     },
   })

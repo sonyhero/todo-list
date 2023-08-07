@@ -4,8 +4,7 @@ import { tasksThunks } from './tasksReducer'
 import { AppThunk } from '../../app/store'
 import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { handleServerNetworkError } from '../../utils/handle-server-network-error'
-import { handleServerAppError } from '../../utils/handle-server-app-error'
+import { handleServerNetworkError, handleServerAppError } from '../../common/utils'
 
 export const clearTasksAndTodolists = createAction('common/clear-tasks-todolists')
 
