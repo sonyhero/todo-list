@@ -1,11 +1,11 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import s from './Login.module.css'
-import { useAppSelector, useAppDispatch } from '../../common/hooks'
-import { loginTC } from './auth-reducer'
+import s from './login.module.css'
+import { useAppSelector, useAppDispatch } from '../../../common/hooks'
+import { authThunks } from '../auth-reducer'
 import { Navigate } from 'react-router-dom'
-import { selectCaptchaUrl, selectIsLoggedIn } from './auth-selectors'
-import { BasicFormSchema } from './BasicShema'
+import { selectCaptchaUrl, selectIsLoggedIn } from '../auth-selectors'
+import { BasicFormSchema } from '../BasicShema'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +21,7 @@ export const Login = () => {
     },
     validationSchema: BasicFormSchema,
     onSubmit: (values) => {
-      dispatch(loginTC(values))
+      dispatch(authThunks.login(values))
     },
   })
 
@@ -60,7 +60,6 @@ export const Login = () => {
         <button disabled={Object.keys(formik.errors).length !== 0} type={'submit'}>
           Login
         </button>
-        {/*<Button type="submit" name={'auth'}/>*/}
       </form>
     </div>
   )

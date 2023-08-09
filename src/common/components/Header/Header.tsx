@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { todolistsThunks } from '../../../features/todolists-list/todoListsReducer'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { Button } from '../common'
-import { logoutTC } from '../../../features/auth/auth-reducer'
+import { authThunks } from '../../../features/auth/auth-reducer'
 import { selectIsLoggedIn } from '../../../features/auth/auth-selectors'
 
 export const Header = () => {
@@ -19,7 +19,7 @@ export const Header = () => {
   )
 
   const logOutHandler = () => {
-    dispatch(logoutTC())
+    dispatch(authThunks.logout())
   }
 
   return (

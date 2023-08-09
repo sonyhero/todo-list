@@ -6,7 +6,7 @@ import { initializeAppTC } from './app-reducer'
 import { Error404, ErrorBar, LinearProgress } from '../common/components'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { TodolistsList } from '../features/todolists-list/TodolistsList'
-import { Login } from '../features/auth/Login'
+import { Login } from '../features/auth/login'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 

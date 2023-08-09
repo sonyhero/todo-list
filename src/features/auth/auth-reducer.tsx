@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { AppThunk } from '../../app/store'
 import { setAppStatus } from '../../app/app-reducer'
 import { ResultCode } from '../../common/enums'
-import { handleServerAppError, handleServerNetworkError } from '../../common/utils'
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'
 
 const initialState = {
@@ -18,79 +17,77 @@ const slice = createSlice({
     setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
       state.isLoggedIn = action.payload.isLoggedIn
     },
-    getCaptchaUrl: (state, action: PayloadAction<{ captchaUrl: string }>) => {
-      state.captchaUrl = action.payload.captchaUrl
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn
+      })
+      .addCase(getCaptcha.fulfilled, (state, action) => {
+        state.captchaUrl = action.payload.captchaUrl
+      })
   },
 })
 
-export const authReducer = slice.reducer
-export const { setIsLoggedIn, getCaptchaUrl } = slice.actions
-export const authActions = slice.actions
-
-// export const authReducer = (state: InitialStateType = initialState, action: AuthReducerActionsType): InitialStateType => {
-//     switch (action.type) {
-//         case 'LOGIN/SET_IS_LOGGED_IN':
-//             return {...state, isLoggedIn: action.value}
-//         case 'LOGIN/GET_CUPTCHA_URL_SUCCESS':
-//             return {...state, captchaUrl: action.captchaUrl}
-//         default:
-//             return state
-//     }
-// }
-// // actions
-// export const setIsLoggedInAC = (value: boolean) =>
-//     ({type: 'LOGIN/SET_IS_LOGGED_IN', value} as const)
-// export const getCaptchaUrlSuccess = (captchaUrl: string) =>
-//     ({type: 'LOGIN/GET_CUPTCHA_URL_SUCCESS', captchaUrl} as const)
-
-// thunks
-export const loginTC =
-  (params: LoginParamsType): AppThunk =>
-  async (dispatch) => {
-    dispatch(setAppStatus({ status: 'loading' }))
-    try {
-      const data = await authAPI.login(params)
-      if (data.resultCode === ResultCode.success) {
-        dispatch(setIsLoggedIn({ isLoggedIn: true }))
-        dispatch(setAppStatus({ status: 'succeeded' }))
-      } else {
-        if (data.resultCode === ResultCode.captcha) {
-          dispatch(getCaptcha())
-        }
-        handleServerAppError(data, dispatch)
-      }
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
-  }
-export const logoutTC = (): AppThunk => async (dispatch) => {
-  dispatch(setAppStatus({ status: 'loading' }))
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
   try {
-    const data = await authAPI.logout()
+    dispatch(setAppStatus({ status: 'loading' }))
+    const data = await authAPI.login(arg)
     if (data.resultCode === ResultCode.success) {
-      dispatch(setIsLoggedIn({ isLoggedIn: false }))
-      dispatch(clearTasksAndTodolists())
       dispatch(setAppStatus({ status: 'succeeded' }))
+      return { isLoggedIn: true }
     } else {
+      if (data.resultCode === ResultCode.captcha) {
+        dispatch(getCaptcha())
+      }
       handleServerAppError(data, dispatch)
+      return rejectWithValue(null)
     }
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+    return rejectWithValue(null)
   }
-}
-export const getCaptcha = (): AppThunk => async (dispatch) => {
+})
+
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+  try {
+    dispatch(setAppStatus({ status: 'loading' }))
+    const data = await authAPI.logout()
+    if (data.resultCode === ResultCode.success) {
+      dispatch(clearTasksAndTodolists())
+      dispatch(setAppStatus({ status: 'succeeded' }))
+      return { isLoggedIn: false }
+    } else {
+      if (data.resultCode === ResultCode.captcha) {
+        dispatch(getCaptcha())
+      }
+      handleServerAppError(data, dispatch)
+      return rejectWithValue(null)
+    }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
+    return rejectWithValue(null)
+  }
+})
+
+const getCaptcha = createAppAsyncThunk<{ captchaUrl: string }, void>('auth/getCaptcha', async (_, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
   try {
     const data = await securityAPI.getCaptchaUrl()
     const captchaUrl = data.url
-    dispatch(getCaptchaUrl({ captchaUrl }))
+    return { captchaUrl }
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+    return rejectWithValue(null)
   }
-}
+})
 
-// types
-// type AuthReducerActionsType =
-//     | ReturnType<typeof setIsLoggedInAC>
-//     | ReturnType<typeof getCaptchaUrlSuccess>
-//     | AppReducerActionsType
+export const authReducer = slice.reducer
+export const { setIsLoggedIn } = slice.actions
+export const authActions = slice.actions
+export const authThunks = { login, logout, getCaptcha }
