@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { setAppStatus } from '../../app/app-reducer'
+import { setAppInitialized, setAppStatus } from '../../app/app-reducer'
 import { ResultCode } from '../../common/enums'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'
@@ -13,11 +13,7 @@ const initialState = {
 const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
-      state.isLoggedIn = action.payload.isLoggedIn
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
@@ -28,6 +24,9 @@ const slice = createSlice({
       })
       .addCase(getCaptcha.fulfilled, (state, action) => {
         state.captchaUrl = action.payload.captchaUrl
+      })
+      .addCase(initializeApp.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn
       })
   },
 })
@@ -75,6 +74,25 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout',
   }
 })
 
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/initializeApp', async (_, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+  try {
+    dispatch(setAppStatus({ status: 'loading' }))
+    const data = await authAPI.me()
+    if (data.resultCode === ResultCode.success) {
+      dispatch(setAppStatus({ status: 'succeeded' }))
+      return { isLoggedIn: true }
+    } else {
+      return rejectWithValue(null)
+    }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
+    return rejectWithValue(null)
+  } finally {
+    dispatch(setAppInitialized({ isInitialized: true }))
+  }
+})
+
 const getCaptcha = createAppAsyncThunk<{ captchaUrl: string }, void>('auth/getCaptcha', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
@@ -88,6 +106,4 @@ const getCaptcha = createAppAsyncThunk<{ captchaUrl: string }, void>('auth/getCa
 })
 
 export const authReducer = slice.reducer
-export const { setIsLoggedIn } = slice.actions
-export const authActions = slice.actions
-export const authThunks = { login, logout, getCaptcha }
+export const authThunks = { login, logout, getCaptcha, initializeApp }
