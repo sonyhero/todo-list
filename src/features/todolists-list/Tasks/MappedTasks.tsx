@@ -1,16 +1,29 @@
-import React, { memo } from 'react'
+import React, { FC, memo } from 'react'
 import { Task } from './Task'
-import { TaskType } from '../../../api/api'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { FilterValuesType } from '../../../app/App'
+import { TaskStatuses } from '../../../common/enums'
+import { useAppSelector } from '../../../common/hooks'
+import { selectTasks } from '../tasks-selectors'
 
-type MappedTasksTyp = {
-  tasksForTodolist: TaskType[]
+type Props = {
   todolistId: string
+  filter: FilterValuesType
 }
 
-export const MappedTasks: React.FC<MappedTasksTyp> = memo((props) => {
-  const { tasksForTodolist, todolistId } = props
+export const MappedTasks: FC<Props> = memo(({ todolistId, filter }) => {
+  const tasks = useAppSelector(selectTasks)[todolistId]
+  const [listRef] = useAutoAnimate<HTMLUListElement>()
 
-  const task = tasksForTodolist.map((t) => {
+  const filteredTasks = () => {
+    return filter === 'active'
+      ? tasks.filter((t) => t.status === TaskStatuses.New)
+      : filter === 'completed'
+      ? tasks.filter((t) => t.status === TaskStatuses.Completed)
+      : tasks
+  }
+
+  const task = filteredTasks().map((t) => {
     return (
       <Task
         key={t.id}
@@ -22,5 +35,5 @@ export const MappedTasks: React.FC<MappedTasksTyp> = memo((props) => {
       />
     )
   })
-  return <>{task}</>
+  return <ul ref={listRef}>{task}</ul>
 })
