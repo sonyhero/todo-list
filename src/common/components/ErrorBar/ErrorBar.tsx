@@ -1,21 +1,17 @@
 import React from 'react'
 import s from './ErrorBar.module.css'
 import { Button } from '../common'
-import { useAppSelector, useAppDispatch } from '../../hooks'
-import { setAppError } from '../../../app/app-reducer'
+import { useActions, useAppSelector } from '../../hooks'
+import { appActions } from '../../../app/app-reducer'
 import { selectAppError } from '../../../app/app-selectors'
 
 export const ErrorBar = () => {
   const error = useAppSelector(selectAppError)
-  const dispatch = useAppDispatch()
+  const { setAppError } = useActions(appActions)
 
-  const handleClose = () => {
-    dispatch(setAppError({ error: null }))
-  }
+  const handleClose = () => setAppError({ error: null })
 
-  if (error) {
-    setTimeout(handleClose, 5000)
-  }
+  if (error) setTimeout(handleClose, 5000)
 
   const finalClassname = error === null ? s.errorBar : `${s.errorBar} ${s.errorBarActive}`
 

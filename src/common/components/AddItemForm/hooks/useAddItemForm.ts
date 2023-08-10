@@ -6,14 +6,11 @@ export const useAddItemForm = (addItem: (newTitle: string) => void) => {
   const [error, setError] = useState<string | null>(null)
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (error) {
-      setError(null)
-    }
+    if (error) setError(null)
     if (event.key === 'Enter') addTaskHandler()
   }
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.currentTarget.value)
-  }
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => setNewTitle(event.currentTarget.value)
+
   const addTaskHandler = useCallback(() => {
     if (newTitle.trim() !== '') {
       addItem(newTitle.trim())

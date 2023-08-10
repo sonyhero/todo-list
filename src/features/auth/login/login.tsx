@@ -1,16 +1,17 @@
 import React from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import s from './login.module.css'
-import { useAppSelector, useAppDispatch } from '../../../common/hooks'
+import { useAppSelector } from '../../../common/hooks'
 import { authThunks } from '../auth-reducer'
 import { Navigate } from 'react-router-dom'
 import { selectCaptchaUrl, selectIsLoggedIn } from '../auth-selectors'
 import { BasicFormSchema } from '../BasicShema'
 import { LoginParamsType } from '../../../api/api'
 import { ResponseAppType } from '../../../common/types'
+import { useActions } from '../../../common/hooks'
 
 export const Login = () => {
-  const dispatch = useAppDispatch()
+  const { login } = useActions(authThunks)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const captcha = useAppSelector(selectCaptchaUrl)
 
@@ -23,7 +24,7 @@ export const Login = () => {
     },
     validationSchema: BasicFormSchema,
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-      dispatch(authThunks.login(values))
+      login(values)
         .unwrap()
         .catch((reason: ResponseAppType) => {
           reason.fieldsErrors?.forEach((fieldError) => {

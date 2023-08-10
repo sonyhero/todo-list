@@ -14,13 +14,13 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
     setEditMode(true)
     setNewTitle(title)
   }
+
   const activateViewMode = () => {
     setEditMode(false)
     onChange(newTitle)
   }
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(e.currentTarget.value)
-  }
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
 
   const finalStyle = disabled ? { color: 'gray' } : { color: 'black' }
 

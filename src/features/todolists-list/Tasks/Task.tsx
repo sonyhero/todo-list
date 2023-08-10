@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
-import { useAppDispatch } from '../../../common/hooks'
 import { TaskStatuses } from '../../../common/enums'
 import { RequestStatusType } from '../../../app/app-reducer'
 import { tasksThunks } from '../tasksReducer'
 import { Button, CheckBox, EditableSpan } from '../../../common/components'
+import { useActions } from '../../../common/hooks'
 
 type TaskPropsType = {
   taskId: string
@@ -16,19 +16,16 @@ type TaskPropsType = {
 
 export const Task: React.FC<TaskPropsType> = memo((props) => {
   const { taskId, title, status, todolistId, entityTaskStatus } = props
+  const { deleteTask, updateTask } = useActions(tasksThunks)
 
-  const dispatch = useAppDispatch()
+  const removeTaskHandler = () => deleteTask({ todolistId, taskId })
 
-  const removeTaskHandler = () => {
-    dispatch(tasksThunks.deleteTask({ todolistId, taskId }))
-  }
   const changeTaskStatusHandler = (e: boolean) => {
     const taskStatusValue = e ? TaskStatuses.Completed : TaskStatuses.New
-    dispatch(tasksThunks.updateTask({ todolistId, taskId, data: { status: taskStatusValue } }))
+    updateTask({ todolistId, taskId, data: { status: taskStatusValue } })
   }
-  const changeTaskTitleHandler = (title: string) => {
-    dispatch(tasksThunks.updateTask({ todolistId, taskId, data: { title } }))
-  }
+
+  const changeTaskTitleHandler = (title: string) => updateTask({ todolistId, taskId, data: { title } })
 
   return (
     <li className={`${s.taskWrap} ${status ? s.isDone : ''}`}>

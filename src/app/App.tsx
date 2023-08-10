@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './App.css'
-import { useAppDispatch, useAppSelector } from '../common/hooks'
+import { useActions, useAppSelector } from '../common/hooks'
 import { selectIsInitialized } from './app-selectors'
 import { Error404, ErrorBar, LinearProgress } from '../common/components'
 import { Navigate, Route, Routes } from 'react-router-dom'
@@ -12,10 +12,10 @@ export type FilterValuesType = 'all' | 'active' | 'completed'
 
 export const App = () => {
   const isInitialized = useAppSelector(selectIsInitialized)
-  const dispatch = useAppDispatch()
+  const { initializeApp } = useActions(authThunks)
 
   useEffect(() => {
-    dispatch(authThunks.initializeApp())
+    initializeApp({})
   }, [])
 
   return !isInitialized ? (
