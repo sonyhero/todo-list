@@ -1,38 +1,14 @@
 import React from 'react'
-import { FormikHelpers, useFormik } from 'formik'
 import s from './login.module.css'
 import { useAppSelector } from '../../../common/hooks'
-import { authThunks } from '../auth-reducer'
 import { Navigate } from 'react-router-dom'
 import { selectCaptchaUrl, selectIsLoggedIn } from '../auth-selectors'
-import { BasicFormSchema } from '../BasicShema'
-import { LoginParamsType } from '../../../api/api'
-import { ResponseAppType } from '../../../common/types'
-import { useActions } from '../../../common/hooks'
+import { useLogin } from './hooks/useLogin'
 
 export const Login = () => {
-  const { login } = useActions(authThunks)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const captcha = useAppSelector(selectCaptchaUrl)
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-      captcha: '',
-    },
-    validationSchema: BasicFormSchema,
-    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-      login(values)
-        .unwrap()
-        .catch((reason: ResponseAppType) => {
-          reason.fieldsErrors?.forEach((fieldError) => {
-            formikHelpers.setFieldError(fieldError.field, fieldError.error)
-          })
-        })
-    },
-  })
+  const { formik } = useLogin()
 
   return isLoggedIn ? (
     <Navigate to={'/'} />

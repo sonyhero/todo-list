@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-export const BasicFormSchema = Yup.object().shape({
+export const basicFormSchema = Yup.object().shape({
   email: Yup.string()
     //Проверяем, корректный ли адрес.
     //Если нет, то выводится сообщение в скобках

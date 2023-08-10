@@ -11,7 +11,6 @@ export const useTodoList = (title: string, todolistId: string, filter: FilterVal
   const { deleteTodolist, changeTodolistTitle } = useActions(todolistsThunks)
   const { createTask } = useActions(tasksThunks)
 
-  // CRUD operations for TodoLists
   const removeTodos = useCallback(() => {
     deleteTodolist({ todolistId })
   }, [todolistId])
@@ -31,10 +30,5 @@ export const useTodoList = (title: string, todolistId: string, filter: FilterVal
     createTask({ todolistId, title })
   }, [todolistId])
 
-  return {
-    removeTodos,
-    changeTodosTitle,
-    tasksForTodolist,
-    addTaskHandler,
-  }
+  return { removeTodos, changeTodosTitle, tasksForTodolist, addTaskHandler }
 }
