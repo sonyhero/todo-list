@@ -1,22 +1,30 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
 import s from '../AddItemForm.module.css'
+import { RejectValueType } from '../../../utils/create-app-async-thunk'
 
-export const useAddItemForm = (addItem: (newTitle: string) => void) => {
+export const useAddItemForm = (addItem: (newTitle: string) => Promise<any>) => {
   const [newTitle, setNewTitle] = useState('')
   const [error, setError] = useState<string | null>(null)
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (error) setError(null)
-    if (event.key === 'Enter') addTaskHandler()
+    if (event.key === 'Enter') addItemHandler()
   }
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => setNewTitle(event.currentTarget.value)
 
-  const addTaskHandler = useCallback(() => {
+  const addItemHandler = useCallback(() => {
     if (newTitle.trim() !== '') {
       addItem(newTitle.trim())
-      setNewTitle('')
+        .then(() => setNewTitle(''))
+        .catch((err: RejectValueType) => {
+          debugger
+          if (err.data) {
+            const messages = err.data.messages
+            setError(messages.length ? messages[0] : 'Some error occurred')
+          }
+        })
     } else {
-      setError('Ошибка')
+      setError('Title is required')
     }
   }, [newTitle, addItem])
 
@@ -28,6 +36,6 @@ export const useAddItemForm = (addItem: (newTitle: string) => void) => {
     onKeyDownHandler,
     onChangeHandler,
     finalInputClassName,
-    addTaskHandler,
+    addItemHandler,
   }
 }

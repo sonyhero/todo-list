@@ -4,11 +4,11 @@ import { Button, Input } from '../common'
 import { useAddItemForm } from './hooks/useAddItemForm'
 
 type AddItemFormPropsType = {
-  addItem: (newTitle: string) => void
+  addItem: (newTitle: string) => Promise<any>
   disabled?: boolean
 }
 export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({ addItem, disabled }) => {
-  const { newTitle, error, onKeyDownHandler, onChangeHandler, finalInputClassName, addTaskHandler } =
+  const { newTitle, error, onKeyDownHandler, onChangeHandler, finalInputClassName, addItemHandler } =
     useAddItemForm(addItem)
 
   return (
@@ -20,7 +20,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({ addItem, disa
         onKeyDown={onKeyDownHandler}
         className={finalInputClassName}
       />
-      <Button disabled={disabled} name={'Add'} callback={addTaskHandler} />
+      <Button disabled={disabled} name={'Add'} callback={addItemHandler} />
       {error && <div className={s.errorMessage}>{error}</div>}
     </div>
   )

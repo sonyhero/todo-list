@@ -13,7 +13,7 @@ export const Header = () => {
   const { logout } = useActions(authThunks)
 
   const addTodos = useCallback((title: string) => {
-    createTodolist({ title })
+    return createTodolist({ title }).unwrap()
   }, [])
 
   const logOutHandler = () => logout({})

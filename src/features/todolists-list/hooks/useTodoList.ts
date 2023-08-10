@@ -26,9 +26,13 @@ export const useTodoList = (title: string, todolistId: string, filter: FilterVal
       : tasks
   }
   const tasksForTodolist = filteredTasks()
-  const addTaskHandler = useCallback(() => {
-    createTask({ todolistId, title })
-  }, [todolistId])
+
+  const addTaskHandler = useCallback(
+    (newTitle: string) => {
+      return createTask({ todolistId, title: newTitle }).unwrap()
+    },
+    [todolistId],
+  )
 
   return { removeTodos, changeTodosTitle, tasksForTodolist, addTaskHandler }
 }
