@@ -1,4 +1,3 @@
-import React from 'react'
 import s from './ErrorBar.module.css'
 import { Button } from '../common'
 import { useActions, useAppSelector } from '../../hooks'

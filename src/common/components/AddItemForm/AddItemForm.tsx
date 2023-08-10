@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import s from './AddItemForm.module.css'
 import { Button, Input } from '../common'
 import { useAddItemForm } from './hooks/useAddItemForm'
@@ -7,7 +7,7 @@ type AddItemFormPropsType = {
   addItem: (newTitle: string) => Promise<any>
   disabled?: boolean
 }
-export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({ addItem, disabled }) => {
+export const AddItemForm: FC<AddItemFormPropsType> = memo(({ addItem, disabled }) => {
   const { newTitle, error, onKeyDownHandler, onChangeHandler, finalInputClassName, addItemHandler } =
     useAddItemForm(addItem)
 

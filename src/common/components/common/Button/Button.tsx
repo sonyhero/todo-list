@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import s from './Button.module.css'
 
-type ButtonType = {
+type Props = {
   name: string
   disabled?: boolean
   callback?: () => void
@@ -10,7 +10,7 @@ type ButtonType = {
   type?: 'button' | 'submit' | 'reset' | undefined
 }
 
-export const Button: React.FC<ButtonType> = memo((props) => {
+export const Button: FC<Props> = memo((props) => {
   const { name, disabled, callback, className, xType, type } = props
 
   const finalClassName = `

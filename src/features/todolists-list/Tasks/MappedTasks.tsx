@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { Task } from './Task'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { FilterValuesType } from '../../../app/App'

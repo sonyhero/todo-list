@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import { FC, ChangeEvent } from 'react'
 import s from './CheckBox.module.css'
 
 type PropsType = {
@@ -6,7 +6,7 @@ type PropsType = {
   callBack: (e: boolean) => void
   disabled?: boolean
 }
-export const CheckBox: React.FC<PropsType> = (props) => {
+export const CheckBox: FC<PropsType> = (props) => {
   const { checked, callBack, disabled } = props
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     callBack(e.currentTarget.checked)

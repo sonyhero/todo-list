@@ -1,4 +1,3 @@
-import React from 'react'
 import s from './login.module.css'
 import { useAppSelector } from '../../../common/hooks'
 import { Navigate } from 'react-router-dom'

@@ -1,11 +1,11 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+import { FC, ChangeEvent, memo, useState } from 'react'
 
 type EditableSpanPropsType = {
   title: string
   onChange: (newTitle: string) => void
   disabled?: boolean
 }
-export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
+export const EditableSpan: FC<EditableSpanPropsType> = memo((props) => {
   const { title, onChange, disabled } = props
   const [editMode, setEditMode] = useState(false)
   const [newTitle, setNewTitle] = useState(props.title)

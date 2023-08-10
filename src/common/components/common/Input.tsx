@@ -1,6 +1,6 @@
-import React, { ChangeEvent, KeyboardEvent } from 'react'
+import { FC, ChangeEvent, KeyboardEvent } from 'react'
 
-type InputType = {
+type Props = {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void
@@ -8,7 +8,7 @@ type InputType = {
   disabled?: boolean
 }
 
-export const Input: React.FC<InputType> = (props) => {
+export const Input: FC<Props> = (props) => {
   const { disabled, value, onChange, onKeyDown, className } = props
 
   return (

@@ -5,12 +5,12 @@ import { todolistActions } from '../../todoListsReducer'
 import { Button } from '../../../../common/components'
 import s from './filter-button-block.module.css'
 
-type FilterButtonBlockType = {
+type Props = {
   todolistId: string
   filter: FilterValuesType
 }
 
-export const FilterButtonBlock: FC<FilterButtonBlockType> = memo(({ filter, todolistId }) => {
+export const FilterButtonBlock: FC<Props> = memo(({ filter, todolistId }) => {
   const { changeTodoListFilter } = useActions(todolistActions)
 
   const changeFilter = (filterValue: FilterValuesType) => () => {

@@ -9,14 +9,14 @@ import { TodolistTitle } from './todolist-title/todolist-title'
 import { useActions } from '../../../common/hooks'
 import { tasksThunks } from '../tasksReducer'
 
-type TodolistPropsType = {
+type Props = {
   title: string
   todolistId: string
   filter: FilterValuesType
   entityStatus: RequestStatusType
 }
 
-export const Todolist: FC<TodolistPropsType> = memo((props) => {
+export const Todolist: FC<Props> = memo((props) => {
   const { title, todolistId, filter, entityStatus } = props
   const { createTask } = useActions(tasksThunks)
   const addTaskHandler = useCallback(

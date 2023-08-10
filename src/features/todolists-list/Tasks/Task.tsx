@@ -6,7 +6,7 @@ import { tasksThunks } from '../tasksReducer'
 import { Button, CheckBox, EditableSpan } from '../../../common/components'
 import { useActions } from '../../../common/hooks'
 
-type TaskPropsType = {
+type Props = {
   taskId: string
   title: string
   status: TaskStatuses
@@ -14,7 +14,7 @@ type TaskPropsType = {
   entityTaskStatus: RequestStatusType
 }
 
-export const Task: FC<TaskPropsType> = memo((props) => {
+export const Task: FC<Props> = memo((props) => {
   const { taskId, title, status, todolistId, entityTaskStatus } = props
   const { deleteTask, updateTask } = useActions(tasksThunks)
 

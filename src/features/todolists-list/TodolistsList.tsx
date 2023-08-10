@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import s from './TodolistsList.module.css'
 import { useAppSelector } from '../../common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
