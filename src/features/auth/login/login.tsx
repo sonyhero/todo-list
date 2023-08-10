@@ -1,11 +1,13 @@
 import React from 'react'
-import { useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import s from './login.module.css'
 import { useAppSelector, useAppDispatch } from '../../../common/hooks'
 import { authThunks } from '../auth-reducer'
 import { Navigate } from 'react-router-dom'
 import { selectCaptchaUrl, selectIsLoggedIn } from '../auth-selectors'
 import { BasicFormSchema } from '../BasicShema'
+import { LoginParamsType } from '../../../api/api'
+import { ResponseAppType } from '../../../common/types'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
@@ -20,8 +22,14 @@ export const Login = () => {
       captcha: '',
     },
     validationSchema: BasicFormSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       dispatch(authThunks.login(values))
+        .unwrap()
+        .catch((reason: ResponseAppType) => {
+          reason.fieldsErrors?.forEach((fieldError) => {
+            formikHelpers.setFieldError(fieldError.field, fieldError.error)
+          })
+        })
     },
   })
 
@@ -30,6 +38,17 @@ export const Login = () => {
   ) : (
     <div className={s.container}>
       <form onSubmit={formik.handleSubmit} className={s.formContainer}>
+        <div>
+          <p>
+            To log in get registered{' '}
+            <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
+              here
+            </a>
+          </p>
+          <p>or use common test account credentials:</p>
+          <p> Email: free@samuraijs.com</p>
+          <p>Password: free</p>
+        </div>
         <h3>Login Here</h3>
         <label htmlFor="email">Email Address</label>
         <div className={s.input}>

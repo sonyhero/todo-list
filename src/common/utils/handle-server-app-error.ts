@@ -1,12 +1,10 @@
-import { ResponseType } from '../types'
+import { ResponseAppType } from '../types'
 import { Dispatch } from 'redux'
 import { setAppError, setAppStatus } from '../../app/app-reducer'
 
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch) => {
-  if (data.messages.length) {
-    dispatch(setAppError({ error: data.messages[0] }))
-  } else {
-    dispatch(setAppError({ error: 'Some error occurred' }))
+export const handleServerAppError = <D>(data: ResponseAppType<D>, dispatch: Dispatch, showError: boolean = true) => {
+  if (showError) {
+    dispatch(setAppError({ error: data.messages.length ? data.messages[0] : 'Some error occurred' }))
   }
   dispatch(setAppStatus({ status: 'failed' }))
 }

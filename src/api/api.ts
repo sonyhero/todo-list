@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { RequestStatusType } from '../app/app-reducer'
 import { instance } from '../common/api'
 import { TaskPriorities, TaskStatuses } from '../common/enums'
-import { ResponseType } from '../common/types'
+import { ResponseAppType } from '../common/types'
 
 export const todoListAPI = {
   getTodoLists() {
@@ -11,9 +11,9 @@ export const todoListAPI = {
   createTodoList(title: string) {
     return instance
       .post<
-        ResponseType<{ item: TodolistType }>,
+        ResponseAppType<{ item: TodolistType }>,
         AxiosResponse<
-          ResponseType<{
+          ResponseAppType<{
             item: TodolistType
           }>
         >,
@@ -22,11 +22,11 @@ export const todoListAPI = {
       .then((res) => res.data)
   },
   deleteTodolist(id: string) {
-    return instance.delete<ResponseType, AxiosResponse<ResponseType>>(`todo-lists/${id}`).then((res) => res.data)
+    return instance.delete<ResponseAppType, AxiosResponse<ResponseAppType>>(`todo-lists/${id}`).then((res) => res.data)
   },
   updateTodolist(id: string, title: string) {
     return instance
-      .put<ResponseType, AxiosResponse<ResponseType>, { title: string }>(`todo-lists/${id}`, { title })
+      .put<ResponseAppType, AxiosResponse<ResponseAppType>, { title: string }>(`todo-lists/${id}`, { title })
       .then((res) => res.data)
   },
 }
@@ -37,27 +37,27 @@ export const taskAPI = {
   },
   createTask(todolistId: string, title: string) {
     return instance
-      .post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title })
+      .post<ResponseAppType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title })
       .then((res) => res.data)
   },
   deleteTask(todolistId: string, taskId: string) {
-    return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`).then((res) => res.data)
+    return instance.delete<ResponseAppType>(`todo-lists/${todolistId}/tasks/${taskId}`).then((res) => res.data)
   },
   updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
     return instance
-      .put<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+      .put<ResponseAppType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
       .then((res) => res.data)
   },
 }
 
 export const authAPI = {
   login(data: LoginParamsType) {
-    return instance.post<ResponseType<{ userId: number }>>('auth/login', data).then((res) => res.data)
+    return instance.post<ResponseAppType<{ userId: number }>>('auth/login', data).then((res) => res.data)
   },
   me() {
     return instance
       .get<
-        ResponseType<{
+        ResponseAppType<{
           id: number
           email: string
           login: string
@@ -66,7 +66,7 @@ export const authAPI = {
       .then((res) => res.data)
   },
   logout() {
-    return instance.delete<ResponseType>('auth/login').then((res) => res.data)
+    return instance.delete<ResponseAppType>('auth/login').then((res) => res.data)
   },
 }
 

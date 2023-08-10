@@ -22,11 +22,11 @@ const slice = createSlice({
       .addCase(logout.fulfilled, (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
       })
-      .addCase(getCaptcha.fulfilled, (state, action) => {
-        state.captchaUrl = action.payload.captchaUrl
-      })
       .addCase(initializeApp.fulfilled, (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
+      })
+      .addCase(getCaptcha.fulfilled, (state, action) => {
+        state.captchaUrl = action.payload.captchaUrl
       })
   },
 })
@@ -43,7 +43,8 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('aut
       if (data.resultCode === ResultCode.captcha) {
         dispatch(getCaptcha())
       }
-      handleServerAppError(data, dispatch)
+      const isShowAppError = !data.fieldsErrors.length
+      handleServerAppError(data, dispatch, isShowAppError)
       return rejectWithValue(null)
     }
   } catch (e) {
