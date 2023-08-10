@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import { FilterValuesType } from '../../../app/App'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import s from './Todolist.module.css'
@@ -6,6 +6,7 @@ import { MappedTasks } from '../Tasks/MappedTasks'
 import { useTodoList } from '../hooks/useTodoList'
 import { RequestStatusType } from '../../../app/app-reducer'
 import { AddItemForm, Button, EditableSpan } from '../../../common/components'
+import { FilterButtonBlock } from './filtered-buttun-block/filter-button-block'
 
 type TodolistPropsType = {
   title: string
@@ -14,20 +15,12 @@ type TodolistPropsType = {
   entityStatus: RequestStatusType
 }
 
-export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
+export const Todolist: FC<TodolistPropsType> = memo((props) => {
   const { title, todolistId, filter, entityStatus } = props
 
   const [listRef] = useAutoAnimate<HTMLUListElement>()
 
-  const {
-    removeTodos,
-    changeTodosTitle,
-    setChangeFilterAll,
-    setChangeFilterActive,
-    setChangeFilterCompleted,
-    tasksForTodolist,
-    addTaskHandler,
-  } = useTodoList(title, todolistId, filter)
+  const { removeTodos, changeTodosTitle, tasksForTodolist, addTaskHandler } = useTodoList(title, todolistId, filter)
 
   return (
     <div className={s.todoWrapper}>
@@ -45,11 +38,7 @@ export const Todolist: React.FC<TodolistPropsType> = memo((props) => {
       <ul className={s.tasks} ref={listRef}>
         <MappedTasks tasksForTodolist={tasksForTodolist} todolistId={todolistId} />
       </ul>
-      <div className={s.btwWrap}>
-        <Button className={filter === 'all'} name={'All'} callback={setChangeFilterAll} />
-        <Button className={filter === 'active'} name={'Active'} callback={setChangeFilterActive} />
-        <Button className={filter === 'completed'} name={'Completed'} callback={setChangeFilterCompleted} />
-      </div>
+      <FilterButtonBlock todolistId={todolistId} filter={filter} />
     </div>
   )
 })

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
 import { TaskStatuses } from '../../../common/enums'
 import { RequestStatusType } from '../../../app/app-reducer'
@@ -14,7 +14,7 @@ type TaskPropsType = {
   entityTaskStatus: RequestStatusType
 }
 
-export const Task: React.FC<TaskPropsType> = memo((props) => {
+export const Task: FC<TaskPropsType> = memo((props) => {
   const { taskId, title, status, todolistId, entityTaskStatus } = props
   const { deleteTask, updateTask } = useActions(tasksThunks)
 
