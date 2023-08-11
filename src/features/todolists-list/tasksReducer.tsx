@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RequestStatusType, setAppError, setAppStatus } from '../../app/app-reducer'
+import { RequestStatusType, setAppError } from '../../app/app-reducer'
 import { todolistsThunks } from './todoListsReducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
 import { taskAPI, TaskType, UpdateTaskModelType } from '../../api/api'
@@ -62,10 +62,8 @@ const fetchTasks = createAppAsyncThunk<
 >('tasks/fetchTasks', async (todolistId, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    dispatch(setAppStatus({ status: 'loading' }))
     const data = await taskAPI.getTasks(todolistId)
     const tasks = data.items
-    dispatch(setAppStatus({ status: 'succeeded' }))
     return { todolistId, tasks }
   } catch (e) {
     handleServerNetworkError(e, dispatch)
@@ -78,11 +76,9 @@ const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
-      dispatch(setAppStatus({ status: 'loading' }))
       const data = await taskAPI.createTask(arg.todolistId, arg.title)
       const task = data.data.item
       if (data.resultCode === ResultCode.success) {
-        dispatch(setAppStatus({ status: 'succeeded' }))
         return { task }
       } else {
         handleServerAppError(data, dispatch)
@@ -100,10 +96,8 @@ const deleteTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
-      dispatch(setAppStatus({ status: 'loading' }))
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
       await taskAPI.deleteTask(arg.todolistId, arg.taskId)
-      dispatch(setAppStatus({ status: 'succeeded' }))
       return { todolistId: arg.todolistId, taskId: arg.taskId }
     } catch (e) {
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
@@ -133,12 +127,10 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
         ...arg.data,
       }
 
-      dispatch(setAppStatus({ status: 'loading' }))
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
 
       const data = await taskAPI.updateTask(arg.todolistId, arg.taskId, model)
       if (data.resultCode === ResultCode.success) {
-        dispatch(setAppStatus({ status: 'succeeded' }))
         dispatch(
           changeEntityTask({
             taskId: arg.taskId,

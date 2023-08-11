@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { setAppInitialized, setAppStatus } from '../../app/app-reducer'
+import { setAppInitialized } from '../../app/app-reducer'
 import { ResultCode } from '../../common/enums'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'
@@ -34,10 +34,8 @@ const slice = createSlice({
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    dispatch(setAppStatus({ status: 'loading' }))
     const data = await authAPI.login(arg)
     if (data.resultCode === ResultCode.success) {
-      dispatch(setAppStatus({ status: 'succeeded' }))
       return { isLoggedIn: true }
     } else {
       if (data.resultCode === ResultCode.captcha) {
@@ -56,11 +54,9 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('aut
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    dispatch(setAppStatus({ status: 'loading' }))
     const data = await authAPI.logout()
     if (data.resultCode === ResultCode.success) {
       dispatch(clearTasksAndTodolists())
-      dispatch(setAppStatus({ status: 'succeeded' }))
       return { isLoggedIn: false }
     } else {
       if (data.resultCode === ResultCode.captcha) {
@@ -78,10 +74,8 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout',
 const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/initializeApp', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    dispatch(setAppStatus({ status: 'loading' }))
     const data = await authAPI.me()
     if (data.resultCode === ResultCode.success) {
-      dispatch(setAppStatus({ status: 'succeeded' }))
       return { isLoggedIn: true }
     } else {
       return rejectWithValue(null)

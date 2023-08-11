@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import s from './TodolistsList.module.css'
 import { useAppSelector } from '../../common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
@@ -10,6 +9,7 @@ import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { Header, LinearProgress } from '../../common/components'
 import { useActions } from '../../common/hooks'
+import s from './TodolistsList.module.css'
 
 export const TodolistsList = () => {
   const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
