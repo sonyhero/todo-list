@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
 import { setAppInitialized } from '../../app/app-reducer'
 import { ResultCode } from '../../common/enums'
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
+import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'
 
 const initialState = {
@@ -31,9 +31,7 @@ const slice = createSlice({
   },
 })
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  try {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, { dispatch, rejectWithValue }) => {
     const data = await authAPI.login(arg)
     if (data.resultCode === ResultCode.success) {
       return { isLoggedIn: true }
@@ -42,18 +40,11 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('aut
         dispatch(getCaptcha())
       }
       const isShowAppError = !data.fieldsErrors.length
-      handleServerAppError(data, dispatch, isShowAppError)
-      return rejectWithValue(null)
+      return rejectWithValue({data, showGlobalError: isShowAppError} )
     }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    return rejectWithValue(null)
-  }
 })
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  try {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, { dispatch, rejectWithValue }) => {
     const data = await authAPI.logout()
     if (data.resultCode === ResultCode.success) {
       dispatch(clearTasksAndTodolists())
@@ -62,17 +53,11 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout',
       if (data.resultCode === ResultCode.captcha) {
         dispatch(getCaptcha())
       }
-      handleServerAppError(data, dispatch)
-      return rejectWithValue(null)
+      return rejectWithValue({ data, showGlobalError: true })
     }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    return rejectWithValue(null)
-  }
 })
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/initializeApp', async (_, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/initializeApp', async (_, { dispatch, rejectWithValue }) => {
   try {
     const data = await authAPI.me()
     if (data.resultCode === ResultCode.success) {
