@@ -38,7 +38,18 @@ const slice = createSlice({
       )
       .addMatcher(
         (action: AnyAction) => {
-          return action.type.endsWith('/rejected')
+       return   action.type === "todolists/deleteTodolist/rejected"
+        },
+        (state, _) => {
+          state.status = 'failed'
+        }
+      )
+      .addMatcher(
+        (action: AnyAction) => {
+          if( action.type === "todolists/deleteTodolist/rejected") {
+            return false
+          }
+          else return action.type.endsWith('/rejected')
         },
         (state, action) => {
           const { payload, error } = action
