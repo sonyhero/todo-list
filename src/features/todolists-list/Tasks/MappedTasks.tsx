@@ -1,10 +1,10 @@
 import { FC, memo } from 'react'
 import { Task } from './Task'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { FilterValuesType } from '../../../app/App'
 import { TaskStatuses } from '../../../common/enums'
 import { useAppSelector } from '../../../common/hooks'
 import { selectTasks } from '../tasks-selectors'
+import { FilterValuesType } from '../todoListsReducer'
 
 type Props = {
   todolistId: string

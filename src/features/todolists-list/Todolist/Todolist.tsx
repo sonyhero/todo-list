@@ -1,5 +1,4 @@
 import { FC, memo, useCallback } from 'react'
-import { FilterValuesType } from '../../../app/App'
 import s from './Todolist.module.css'
 import { MappedTasks } from '../Tasks/MappedTasks'
 import { RequestStatusType } from '../../../app/app-reducer'
@@ -8,6 +7,7 @@ import { FilterButtonBlock } from './filtered-buttun-block/filter-button-block'
 import { TodolistTitle } from './todolist-title/todolist-title'
 import { useActions } from '../../../common/hooks'
 import { tasksThunks } from '../tasksReducer'
+import { FilterValuesType } from '../todoListsReducer'
 
 type Props = {
   title: string

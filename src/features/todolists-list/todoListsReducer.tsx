@@ -1,4 +1,3 @@
-import { FilterValuesType } from '../../app/App'
 import { tasksThunks } from './tasksReducer'
 import { RequestStatusType } from '../../app/app-reducer'
 import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
@@ -111,3 +110,4 @@ export type TodoListDomainType = TodolistType & {
   filter: FilterValuesType
   entityStatus: RequestStatusType
 }
+export type FilterValuesType = 'all' | 'active' | 'completed'

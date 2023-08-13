@@ -1,6 +1,11 @@
-import { todolistActions, TodoListDomainType, todolistsReducer, todolistsThunks } from './todoListsReducer'
+import {
+  FilterValuesType,
+  todolistActions,
+  TodoListDomainType,
+  todolistsReducer,
+  todolistsThunks
+} from './todoListsReducer'
 import { v1 } from 'uuid'
-import { FilterValuesType } from '../../app/App'
 
 let startState: Array<TodoListDomainType>
 let todolistId1 = v1()
@@ -82,3 +87,4 @@ test('correct filter of todolist should be changed', () => {
   expect(endState[0].filter).toBe('all')
   expect(endState[1].filter).toBe(filter)
 })
+
