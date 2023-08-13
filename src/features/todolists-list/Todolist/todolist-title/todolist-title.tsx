@@ -15,9 +15,10 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   const removeTodos = useCallback(() => {
     deleteTodolist({ todolistId })
   }, [todolistId])
-  const changeTodosTitle = useCallback(() => {
-    changeTodolistTitle({ todolistId, title })
-  }, [todolistId])
+  const changeTodosTitle = useCallback((newTitle: string) => {
+    changeTodolistTitle({ todolistId, title: newTitle })
+  }, [todolistId, title])
+
 
   return (
     <h3>
