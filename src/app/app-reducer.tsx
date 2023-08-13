@@ -1,4 +1,5 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -76,10 +77,14 @@ const slice = createSlice({
           const { payload, error } = action
           if (payload) {
             if (payload.showGlobalError) {
-              state.error = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
+              const err = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
+              state.error = err
+              toast.error(err)
             }
           } else {
-            state.error = error.message ? error.message : 'Some error occurred'
+            const err = error.message ? error.message : 'Some error occurred'
+            state.error = err
+            toast.error(err)
           }
           state.status = 'failed'
         }
