@@ -38,7 +38,7 @@ const slice = createSlice({
       )
       .addMatcher(
         (action: AnyAction) => {
-       return   action.type === "todolists/deleteTodolist/rejected"
+          return action.type === 'todolists/deleteTodolist/rejected'
         },
         (state, _) => {
           state.status = 'failed'
@@ -46,10 +46,31 @@ const slice = createSlice({
       )
       .addMatcher(
         (action: AnyAction) => {
-          if( action.type === "todolists/deleteTodolist/rejected") {
+          return action.type === 'tasks/deleteTasks/rejected'
+        },
+        (state, _) => {
+          state.status = 'failed'
+        }
+      )
+      .addMatcher(
+        (action: AnyAction) => {
+          return action.type === 'tasks/updateTasks/rejected'
+        },
+        (state, _) => {
+          state.status = 'failed'
+        }
+      )
+      .addMatcher(
+        (action: AnyAction) => {
+          if (action.type === 'todolists/deleteTodolist/rejected') {
             return false
           }
-          else return action.type.endsWith('/rejected')
+          if (action.type === 'tasks/deleteTasks/rejected') {
+            return false
+          }
+          if (action.type === 'tasks/updateTasks/rejected') {
+            return false
+          } else return action.type.endsWith('/rejected')
         },
         (state, action) => {
           const { payload, error } = action

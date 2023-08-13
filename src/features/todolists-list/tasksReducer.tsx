@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RequestStatusType, setAppError } from '../../app/app-reducer'
 import { todolistsThunks } from './todoListsReducer'
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from '../../common/utils'
+import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { taskAPI, TaskType, UpdateTaskModelType } from '../../api/api'
 import { ResultCode, TaskPriorities, TaskStatuses } from '../../common/enums'
 
@@ -13,12 +13,12 @@ const slice = createSlice({
   reducers: {
     changeEntityTask: (
       state,
-      action: PayloadAction<{ taskId: string; todolistId: string; entityTaskStatus: RequestStatusType }>,
+      action: PayloadAction<{ taskId: string; todolistId: string; entityTaskStatus: RequestStatusType }>
     ) => {
       const tasks = state[action.payload.todolistId]
       const index = tasks.findIndex((t) => t.id === action.payload.taskId)
       if (index !== -1) tasks[index].entityTaskStatus = action.payload.entityTaskStatus
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -50,67 +50,45 @@ const slice = createSlice({
       .addCase(todolistsThunks.fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => (state[tl.id] = []))
       })
-  },
-})
-
-const fetchTasks = createAppAsyncThunk<
-  {
-    todolistId: string
-    tasks: TaskType[]
-  },
-  string
->('tasks/fetchTasks', async (todolistId, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  try {
-    const data = await taskAPI.getTasks(todolistId)
-    const tasks = data.items
-    return { todolistId, tasks }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    return rejectWithValue(null)
   }
 })
 
+const fetchTasks = createAppAsyncThunk<{ todolistId: string, tasks: TaskType[] },
+  string>('tasks/fetchTasks', async (todolistId, _) => {
+  const data = await taskAPI.getTasks(todolistId)
+  const tasks = data.items
+  return { todolistId, tasks }
+})
 const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
   'tasks/createTask',
-  async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
-    try {
-      const data = await taskAPI.createTask(arg.todolistId, arg.title)
-      const task = data.data.item
-      if (data.resultCode === ResultCode.success) {
-        return { task }
-      } else {
-        handleServerAppError(data, dispatch)
-        return rejectWithValue(null)
-      }
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
+  async (arg, { rejectWithValue }) => {
+    const data = await taskAPI.createTask(arg.todolistId, arg.title)
+    const task = data.data.item
+    if (data.resultCode === ResultCode.success) {
+      return { task }
+    } else {
       return rejectWithValue(null)
     }
-  },
+  }
 )
-
 const deleteTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
   'tasks/deleteTasks',
-  async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+  async (arg, { dispatch, rejectWithValue }) => {
     try {
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
       await taskAPI.deleteTask(arg.todolistId, arg.taskId)
       return { todolistId: arg.todolistId, taskId: arg.taskId }
     } catch (e) {
-      dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
       handleServerNetworkError(e, dispatch)
+      dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
       return rejectWithValue(null)
     }
-  },
+  }
 )
 
 const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
   'tasks/updateTasks',
-  async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue, getState } = thunkAPI
+  async (arg, { dispatch, rejectWithValue, getState }) => {
     try {
       const task = getState().tasks[arg.todolistId].find((t) => t.id === arg.taskId)
       if (!task) {
@@ -124,24 +102,26 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
         startDate: task.startDate,
         description: task.description,
         status: task.status,
-        ...arg.data,
+        ...arg.data
       }
 
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
 
       const data = await taskAPI.updateTask(arg.todolistId, arg.taskId, model)
+
       if (data.resultCode === ResultCode.success) {
-        dispatch(
-          changeEntityTask({
-            taskId: arg.taskId,
-            todolistId: arg.todolistId,
-            entityTaskStatus: 'succeeded',
-          }),
+        dispatch(changeEntityTask({
+            taskId: arg.taskId, todolistId: arg.todolistId,
+            entityTaskStatus: 'succeeded'
+          })
         )
         return arg
       } else {
-        handleServerAppError(data, dispatch)
-        dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
+        // handleServerAppError(data, dispatch)
+        dispatch(changeEntityTask({
+          taskId: arg.taskId, todolistId: arg.todolistId,
+          entityTaskStatus: 'failed'
+        }))
         return rejectWithValue(null)
       }
     } catch (e) {
@@ -149,7 +129,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
       return rejectWithValue(null)
     }
-  },
+  }
 )
 
 export const tasksReducer = slice.reducer
@@ -159,7 +139,6 @@ export const tasksThunks = { fetchTasks, deleteTask, createTask, updateTask }
 export type TasksStateType = {
   [key: string]: TaskType[]
 }
-
 type AddTaskArgType = { todolistId: string; title: string }
 type RemoveTaskArgType = { todolistId: string; taskId: string }
 type UpdateTaskArgType = { todolistId: string; taskId: string; data: AdaptiveTaskType }
