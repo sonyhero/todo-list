@@ -1,9 +1,8 @@
 import { FC, memo } from 'react'
 import { Task } from './Task'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { TaskStatuses } from '../../../common/enums'
 import { useAppSelector } from '../../../common/hooks'
-import { selectTasks } from '../tasks-selectors'
+import { selectFilteredTasks } from '../tasks-selectors'
 import { FilterValuesType } from '../todoListsReducer'
 
 type Props = {
@@ -12,18 +11,10 @@ type Props = {
 }
 
 export const MappedTasks: FC<Props> = memo(({ todolistId, filter }) => {
-  const tasks = useAppSelector(selectTasks)[todolistId]
+  const tasks = useAppSelector(selectFilteredTasks(todolistId, filter))
   const [listRef] = useAutoAnimate<HTMLUListElement>()
 
-  const filteredTasks = () => {
-    return filter === 'active'
-      ? tasks.filter((t) => t.status === TaskStatuses.New)
-      : filter === 'completed'
-      ? tasks.filter((t) => t.status === TaskStatuses.Completed)
-      : tasks
-  }
-
-  const task = filteredTasks().map((t) => {
+  const task = tasks.map((t) => {
     return (
       <Task
         key={t.id}
