@@ -24,11 +24,13 @@ export const todoListAPI = {
   deleteTodolist(id: string) {
     return instance.delete<ResponseAppType, AxiosResponse<ResponseAppType>>(`todo-lists/${id}`).then((res) => res.data)
   },
-  updateTodolist(id: string, title: string) {
+  updateTodolist(arg: UpdateTodolistTitleArgType) {
     return instance
-      .put<ResponseAppType, AxiosResponse<ResponseAppType>, { title: string }>(`todo-lists/${id}`, { title })
+      .put<ResponseAppType, AxiosResponse<ResponseAppType>, {
+        title: string
+      }>(`todo-lists/${arg.todolistId}`, { title: arg.title })
       .then((res) => res.data)
-  },
+  }
 }
 
 export const taskAPI = {
@@ -47,7 +49,7 @@ export const taskAPI = {
     return instance
       .put<ResponseAppType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
       .then((res) => res.data)
-  },
+  }
 }
 
 export const authAPI = {
@@ -67,13 +69,13 @@ export const authAPI = {
   },
   logout() {
     return instance.delete<ResponseAppType>('auth/login').then((res) => res.data)
-  },
+  }
 }
 
 export const securityAPI = {
   getCaptchaUrl() {
     return instance.get<{ url: string }>(`security/get-captcha-url`).then((res) => res.data)
-  },
+  }
 }
 
 // types
@@ -114,4 +116,9 @@ type ResponseGetTaskType = {
   items: TaskType[]
   totalCount: number
   error: string | null
+}
+
+export type UpdateTodolistTitleArgType = {
+  todolistId: string
+  title: string
 }
