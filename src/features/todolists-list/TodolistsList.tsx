@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAppSelector } from '../../common/hooks'
+import { useActions, useAppSelector } from '../../common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../auth/auth-selectors'
@@ -8,7 +8,6 @@ import { todolistsThunks } from './todoListsReducer'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { Header, LinearProgress } from '../../common/components'
-import { useActions } from '../../common/hooks'
 import s from './TodolistsList.module.css'
 
 export const TodolistsList = () => {

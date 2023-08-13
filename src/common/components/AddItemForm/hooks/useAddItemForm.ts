@@ -17,7 +17,6 @@ export const useAddItemForm = (addItem: (newTitle: string) => Promise<any>) => {
       addItem(newTitle.trim())
         .then(() => setNewTitle(''))
         .catch((err: RejectValueType) => {
-          debugger
           if (err.data) {
             const messages = err.data.messages
             setError(messages.length ? messages[0] : 'Some error occurred')

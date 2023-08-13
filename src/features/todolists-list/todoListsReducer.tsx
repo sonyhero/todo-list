@@ -71,7 +71,7 @@ const createTodolist = createAppAsyncThunk<
     const todolist = data.data.item
     return { todolist }
   } else {
-    return rejectWithValue(null)
+    return rejectWithValue({ data, showGlobalError: false })
   }
 })
 const deleteTodolist = createAppAsyncThunk<{ todolistId: string }, { todolistId: string }>(
