@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { RequestStatusType, setAppError } from '../../app/app-reducer'
 import { todolistsThunks } from './todoListsReducer'
 import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
@@ -132,9 +132,12 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
   }
 )
 
+
+
 export const tasksReducer = slice.reducer
 export const { changeEntityTask } = slice.actions
 export const tasksThunks = { fetchTasks, deleteTask, createTask, updateTask }
+export const isARejectedTasksAction = isRejected(deleteTask, updateTask)
 
 export type TasksStateType = {
   [key: string]: TaskType[]

@@ -1,7 +1,7 @@
 import { FilterValuesType } from '../../app/App'
 import { tasksThunks } from './tasksReducer'
 import { RequestStatusType } from '../../app/app-reducer'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { todoListAPI, TodolistType, UpdateTodolistTitleArgType } from '../../api/api'
 import { ResultCode } from '../../common/enums'
@@ -104,6 +104,7 @@ export const todolistsReducer = slice.reducer
 export const { changeTodoListEntityStatus } = slice.actions
 export const todolistActions = slice.actions
 export const todolistsThunks = { fetchTodolists, deleteTodolist, createTodolist, changeTodolistTitle }
+export const isARejectedTodolistsAction = isRejected(deleteTodolist)
 
 // types
 export type TodoListDomainType = TodolistType & {

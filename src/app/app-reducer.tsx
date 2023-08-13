@@ -1,7 +1,11 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
+import { isARejectedTasksAction } from '../features/todolists-list/tasksReducer'
+import { isARejectedTodolistsAction } from '../features/todolists-list/todoListsReducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
+
 
 const initialState = {
   status: 'loading' as RequestStatusType,
@@ -37,41 +41,61 @@ const slice = createSlice({
           state.status = 'succeeded'
         }
       )
+      // .addMatcher(
+      //   (action: AnyAction) => {
+      //     return action.type === 'todolists/deleteTodolist/rejected'
+      //   },
+      //   (state, _) => {
+      //     state.status = 'failed'
+      //   }
+      // )
+      // .addMatcher(
+      //   (action: AnyAction) => {
+      //     return action.type === 'tasks/deleteTasks/rejected'
+      //   },
+      //   (state, _) => {
+      //     state.status = 'failed'
+      //   }
+      // )
+      // .addMatcher(
+      //   (action: AnyAction) => {
+      //     return action.type === 'tasks/updateTasks/rejected'
+      //   },
+      //   (state, _) => {
+      //     state.status = 'failed'
+      //   }
+      // )
       .addMatcher(
         (action: AnyAction) => {
-          return action.type === 'todolists/deleteTodolist/rejected'
-        },
-        (state, _) => {
+            return isARejectedTasksAction(action)
+          },
+        (state,_)=>{
           state.status = 'failed'
-        }
-      )
+        })
       .addMatcher(
         (action: AnyAction) => {
-          return action.type === 'tasks/deleteTasks/rejected'
-        },
-        (state, _) => {
+            return isARejectedTodolistsAction(action)
+          },
+        (state,_)=>{
           state.status = 'failed'
-        }
-      )
+        })
       .addMatcher(
         (action: AnyAction) => {
-          return action.type === 'tasks/updateTasks/rejected'
-        },
-        (state, _) => {
-          state.status = 'failed'
-        }
-      )
-      .addMatcher(
-        (action: AnyAction) => {
-          if (action.type === 'todolists/deleteTodolist/rejected') {
-            return false
-          }
-          if (action.type === 'tasks/deleteTasks/rejected') {
-            return false
-          }
-          if (action.type === 'tasks/updateTasks/rejected') {
-            return false
-          } else return action.type.endsWith('/rejected')
+          // if (action.type === 'todolists/deleteTodolist/rejected') {
+          //   return false
+          // }
+          // if (action.type === 'tasks/deleteTasks/rejected') {
+          //   return false
+          // }
+          // if (action.type === 'tasks/updateTasks/rejected') {
+          //   return false
+          // } else return action.type.endsWith('/rejected')
+         if  (isARejectedTasksAction(action)) {
+           return false
+         }
+         if (isARejectedTodolistsAction(action)) {
+           return false
+         } else return action.type.endsWith('/rejected')
         },
         (state, action) => {
           const { payload, error } = action
@@ -91,6 +115,8 @@ const slice = createSlice({
       )
   }
 })
+
+
 
 export const appReducer = slice.reducer
 export const { setAppInitialized, setAppError } = slice.actions
