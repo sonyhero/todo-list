@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import axios, { AxiosError } from 'axios'
-import { setAppError } from '../../app/app-reducer'
+import { setAppError } from '../../app/app.slice'
 import { toast } from 'react-toastify'
 
 export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {

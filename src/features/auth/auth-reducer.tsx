@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { setAppInitialized } from '../../app/app-reducer'
+import { setAppInitialized } from '../../app/app.slice'
 import { ResultCode } from '../../common/enums'
 import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'

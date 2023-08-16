@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import s from '../Todolist/Todolist.module.css'
 import { TaskStatuses } from '../../../common/enums'
-import { RequestStatusType } from '../../../app/app-reducer'
+import { RequestStatusType } from '../../../app/app.slice'
 import { tasksThunks } from '../tasksReducer'
 import { Button, CheckBox, EditableSpan } from '../../../common/components'
 import { useActions } from '../../../common/hooks'

@@ -1,5 +1,5 @@
 import { tasksThunks } from './tasksReducer'
-import { RequestStatusType } from '../../app/app-reducer'
+import { RequestStatusType } from '../../app/app.slice'
 import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { todoListAPI, TodolistType, UpdateTodolistTitleArgType } from '../../api/api'

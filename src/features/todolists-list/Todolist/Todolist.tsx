@@ -1,7 +1,7 @@
 import { FC, memo, useCallback } from 'react'
 import s from './Todolist.module.css'
 import { MappedTasks } from '../Tasks/MappedTasks'
-import { RequestStatusType } from '../../../app/app-reducer'
+import { RequestStatusType } from '../../../app/app.slice'
 import { AddItemForm } from '../../../common/components'
 import { FilterButtonBlock } from './filtered-buttun-block/filter-button-block'
 import { TodolistTitle } from './todolist-title/todolist-title'

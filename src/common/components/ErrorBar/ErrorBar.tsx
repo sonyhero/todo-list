@@ -1,7 +1,7 @@
 import s from './ErrorBar.module.css'
 import { Button } from '../common'
 import { useActions, useAppSelector } from '../../hooks'
-import { appActions } from '../../../app/app-reducer'
+import { appActions } from '../../../app/app.slice'
 import { selectAppError } from '../../../app/app-selectors'
 
 export const ErrorBar = () => {
