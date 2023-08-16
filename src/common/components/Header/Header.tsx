@@ -5,7 +5,7 @@ import { todolistsThunks } from '../../../features/todolists-list/todoListsReduc
 import { useActions, useAppSelector } from '../../hooks'
 import { Button } from '../common'
 import { authThunks } from '../../../features/auth/auth.slice'
-import { selectIsLoggedIn } from '../../../features/auth/auth-selectors'
+import { selectIsLoggedIn } from '../../../features/auth/auth.selectors'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
