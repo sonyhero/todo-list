@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
-import { useActions, useAppSelector } from '../../common/hooks'
+import { useAppSelector } from '../../common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../auth/auth.selectors'
 import { selectAppStatus } from '../../app/app.selectors'
-import { todolistsThunks } from './todoListsReducer'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { Header, LinearProgress } from '../../common/components'
@@ -16,14 +14,14 @@ export const TodolistsList = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const status = useAppSelector(selectAppStatus)
 
-  const { fetchTodolists } = useActions(todolistsThunks)
+  // const { fetchTodolists } = useActions(todolistsThunks)
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      return
-    }
-    fetchTodolists({})
-  }, [])
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     return
+  //   }
+  //   fetchTodolists({})
+  // }, [])
 
   const todoListsComponents = todoLists.map((tl) => {
     return (

@@ -12,7 +12,7 @@ export const useLogin = () => {
     initialValues: {
       email: '',
       password: '',
-      rememberMe: false,
+      rememberMe: true,
       captcha: '',
     },
     validationSchema: basicFormSchema,

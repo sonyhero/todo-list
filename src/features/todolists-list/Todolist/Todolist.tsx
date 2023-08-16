@@ -23,7 +23,7 @@ export const Todolist: FC<Props> = memo((props) => {
     (newTitle: string) => {
       return createTask({ todolistId, title: newTitle }).unwrap()
     },
-    [todolistId],
+    [todolistId, createTask],
   )
 
   return (

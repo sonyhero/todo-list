@@ -17,7 +17,7 @@ export const Login = () => {
         <div>
           <p>
             To log in get registered{' '}
-            <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
+            <a href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
               here
             </a>
           </p>
