@@ -12,7 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     initializeApp({})
-  }, [])
+  }, [initializeApp])
 
   return (
     <>

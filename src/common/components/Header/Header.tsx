@@ -14,7 +14,7 @@ export const Header = () => {
 
   const addTodos = useCallback((title: string) => {
     return createTodolist({ title }).unwrap()
-  }, [])
+  }, [createTodolist])
 
   const logOutHandler = () => logout({})
 

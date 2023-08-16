@@ -14,10 +14,10 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   const { deleteTodolist, changeTodolistTitle } = useActions(todolistsThunks)
   const removeTodos = useCallback(() => {
     deleteTodolist({ todolistId })
-  }, [todolistId])
+  }, [todolistId, deleteTodolist])
   const changeTodosTitle = useCallback((newTitle: string) => {
     changeTodolistTitle({ todolistId, title: newTitle })
-  }, [todolistId, title])
+  }, [todolistId, changeTodolistTitle])
 
 
   return (
