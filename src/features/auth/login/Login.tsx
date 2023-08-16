@@ -1,7 +1,7 @@
 import s from './Login.module.css'
 import { useAppSelector } from '../../../common/hooks'
 import { Navigate } from 'react-router-dom'
-import { selectCaptchaUrl, selectIsLoggedIn } from '../auth-selectors'
+import { selectCaptchaUrl, selectIsLoggedIn } from '../auth.selectors'
 import { useLogin } from './hooks/useLogin'
 
 export const Login = () => {
