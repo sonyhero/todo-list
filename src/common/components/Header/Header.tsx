@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { todolistsThunks } from '../../../features/todolists-list/todoListsReducer'
 import { useActions, useAppSelector } from '../../hooks'
 import { Button } from '../common'
-import { authThunks } from '../../../features/auth/auth-reducer'
+import { authThunks } from '../../../features/auth/auth.slice'
 import { selectIsLoggedIn } from '../../../features/auth/auth-selectors'
 
 export const Header = () => {
