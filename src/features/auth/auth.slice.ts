@@ -4,6 +4,7 @@ import { setAppInitialized } from '../../app/app.slice'
 import { ResultCode } from '../../common/enums'
 import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
 import { clearTasksAndTodolists } from '../../common/actions'
+import { todolistsThunks } from '../todolists-list/todoListsReducer'
 
 const initialState = {
   isLoggedIn: false,
@@ -34,6 +35,7 @@ const slice = createSlice({
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, { dispatch, rejectWithValue }) => {
     const data = await authAPI.login(arg)
     if (data.resultCode === ResultCode.success) {
+      dispatch(todolistsThunks.fetchTodolists())
       return { isLoggedIn: true }
     } else {
       if (data.resultCode === ResultCode.captcha) {
@@ -61,6 +63,7 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/i
   try {
     const data = await authAPI.me()
     if (data.resultCode === ResultCode.success) {
+      dispatch(todolistsThunks.fetchTodolists())
       return { isLoggedIn: true }
     } else {
       return rejectWithValue({ data, showGlobalError: true })
