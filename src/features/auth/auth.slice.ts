@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
 import { setAppInitialized } from '../../app/app.slice'
 import { ResultCode } from '../../common/enums'
@@ -17,17 +17,14 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
       .addCase(logout.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addCase(initializeApp.fulfilled, (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
       })
       .addCase(getCaptcha.fulfilled, (state, action) => {
         state.captchaUrl = action.payload.captchaUrl
+      })
+      .addMatcher(isAnyOf(isFulfilled(login,initializeApp)), state => {
+        state.isLoggedIn = true
       })
   },
 })
