@@ -1,4 +1,4 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { isARejectedTasksAction } from '../features/todolists-list/tasksReducer'
 import { isARejectedTodolistsAction } from '../features/todolists-list/todoListsReducer'
@@ -26,14 +26,14 @@ const slice = createSlice({
     builder
       .addMatcher(
         (action: AnyAction) => {
-          return action.type.endsWith('/pending')
+          return isPending(action)
         },
         (state) => {
           state.status = 'loading'
         })
       .addMatcher(
         (action: AnyAction) => {
-          return action.type.endsWith('/fulfilled')
+          return isFulfilled(action)
         },
         (state) => {
           state.status = 'succeeded'
@@ -59,7 +59,7 @@ const slice = createSlice({
           }
           if (isARejectedTodolistsAction(action)) {
             return false
-          } else return action.type.endsWith('/rejected')
+          } else return isRejected(action)
         },
         (state, action) => {
           const { payload, error } = action
