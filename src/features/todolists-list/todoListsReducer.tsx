@@ -1,10 +1,10 @@
 import { tasksThunks } from './tasksReducer'
-import { RequestStatusType } from '../../app/app.slice'
+import { RequestStatusType } from '@/app/app.slice'
 import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
-import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
-import { todoListAPI, TodolistType, UpdateTodolistTitleArgType } from '../../api/api'
-import { ResultCode } from '../../common/enums'
-import { clearTasksAndTodolists } from '../../common/actions'
+import { createAppAsyncThunk, handleServerNetworkError } from '@/common/utils'
+import { todoListAPI, TodolistType, UpdateTodolistTitleArgType } from '@/api/api'
+import { ResultCode } from '@/common/enums'
+import { clearTasksAndTodolists } from '@/common/actions'
 
 const initialState: TodoListDomainType[] = []
 

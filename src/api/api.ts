@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios'
-import { RequestStatusType } from '../app/app.slice'
-import { instance } from '../common/api'
-import { TaskPriorities, TaskStatuses } from '../common/enums'
-import { ResponseAppType } from '../common/types'
+import { RequestStatusType } from '@/app/app.slice'
+import { instance } from '@/common/api'
+import { TaskPriorities, TaskStatuses } from '@/common/enums'
+import { ResponseAppType } from '@/common/types'
 
 export const todoListAPI = {
   getTodoLists() {

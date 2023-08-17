@@ -1,7 +1,7 @@
 import { AnyAction, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import { isARejectedTasksAction } from '../features/todolists-list/tasksReducer'
-import { isARejectedTodolistsAction } from '../features/todolists-list/todoListsReducer'
+import { isARejectedTasksAction } from '@/features/todolists-list/tasksReducer'
+import { isARejectedTodolistsAction } from '@/features/todolists-list/todoListsReducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 

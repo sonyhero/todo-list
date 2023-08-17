@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { useActions, useAppSelector } from '../common/hooks'
+import { useActions, useAppSelector } from '@/common/hooks'
 import { selectIsInitialized } from './app.selectors'
-import { LinearProgress, Toast } from '../common/components'
-import { authThunks } from '../features/auth/auth.slice'
+import { LinearProgress, Toast } from '@/common/components'
+import { authThunks } from '@/features/auth/auth.slice'
 import 'react-toastify/dist/ReactToastify.css'
 import { Routing } from './Routing'
 
