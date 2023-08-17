@@ -8,7 +8,7 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
   status: 'loading' as RequestStatusType,
   error: null as null | string,
-  isInitialized: false
+  isInitialized: false,
 }
 
 const slice = createSlice({
@@ -20,9 +20,9 @@ const slice = createSlice({
     },
     setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
       state.error = action.payload.error
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addMatcher(
         (action: AnyAction) => {
@@ -30,28 +30,32 @@ const slice = createSlice({
         },
         (state) => {
           state.status = 'loading'
-        })
+        },
+      )
       .addMatcher(
         (action: AnyAction) => {
           return isFulfilled(action)
         },
         (state) => {
           state.status = 'succeeded'
-        })
+        },
+      )
       .addMatcher(
         (action: AnyAction) => {
           return isARejectedTasksAction(action)
         },
         (state, _) => {
           state.status = 'failed'
-        })
+        },
+      )
       .addMatcher(
         (action: AnyAction) => {
           return isARejectedTodolistsAction(action)
         },
         (state, _) => {
           state.status = 'failed'
-        })
+        },
+      )
       .addMatcher(
         (action: AnyAction) => {
           if (isARejectedTasksAction(action)) {
@@ -75,10 +79,10 @@ const slice = createSlice({
             toast.error(err)
           }
           state.status = 'failed'
-        })
-  }
+        },
+      )
+  },
 })
-
 
 export const appReducer = slice.reducer
 export const { setAppInitialized, setAppError } = slice.actions

@@ -12,9 +12,12 @@ export const Header = () => {
   const { createTodolist } = useActions(todolistsThunks)
   const { logout } = useActions(authThunks)
 
-  const addTodos = useCallback((title: string) => {
-    return createTodolist({ title }).unwrap()
-  }, [createTodolist])
+  const addTodos = useCallback(
+    (title: string) => {
+      return createTodolist({ title }).unwrap()
+    },
+    [createTodolist],
+  )
 
   const logOutHandler = () => logout({})
 

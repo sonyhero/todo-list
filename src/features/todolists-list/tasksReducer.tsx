@@ -13,12 +13,12 @@ const slice = createSlice({
   reducers: {
     changeEntityTask: (
       state,
-      action: PayloadAction<{ taskId: string; todolistId: string; entityTaskStatus: RequestStatusType }>
+      action: PayloadAction<{ taskId: string; todolistId: string; entityTaskStatus: RequestStatusType }>,
     ) => {
       const tasks = state[action.payload.todolistId]
       const index = tasks.findIndex((t) => t.id === action.payload.taskId)
       if (index !== -1) tasks[index].entityTaskStatus = action.payload.entityTaskStatus
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,15 +50,17 @@ const slice = createSlice({
       .addCase(todolistsThunks.fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => (state[tl.id] = []))
       })
-  }
+  },
 })
 
-const fetchTasks = createAppAsyncThunk<{ todolistId: string, tasks: TaskType[] },
-  string>('tasks/fetchTasks', async (todolistId, _) => {
-  const data = await taskAPI.getTasks(todolistId)
-  const tasks = data.items
-  return { todolistId, tasks }
-})
+const fetchTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, string>(
+  'tasks/fetchTasks',
+  async (todolistId, _) => {
+    const data = await taskAPI.getTasks(todolistId)
+    const tasks = data.items
+    return { todolistId, tasks }
+  },
+)
 const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
   'tasks/createTask',
   async (arg, { rejectWithValue }) => {
@@ -69,7 +71,7 @@ const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
     } else {
       return rejectWithValue(null)
     }
-  }
+  },
 )
 const deleteTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
   'tasks/deleteTasks',
@@ -83,7 +85,7 @@ const deleteTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
       return rejectWithValue(null)
     }
-  }
+  },
 )
 
 const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
@@ -102,7 +104,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
         startDate: task.startDate,
         description: task.description,
         status: task.status,
-        ...arg.data
+        ...arg.data,
       }
 
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'loading' }))
@@ -110,18 +112,23 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
       const data = await taskAPI.updateTask(arg.todolistId, arg.taskId, model)
 
       if (data.resultCode === ResultCode.success) {
-        dispatch(changeEntityTask({
-            taskId: arg.taskId, todolistId: arg.todolistId,
-            entityTaskStatus: 'succeeded'
-          })
+        dispatch(
+          changeEntityTask({
+            taskId: arg.taskId,
+            todolistId: arg.todolistId,
+            entityTaskStatus: 'succeeded',
+          }),
         )
         return arg
       } else {
         // handleServerAppError(data, dispatch)
-        dispatch(changeEntityTask({
-          taskId: arg.taskId, todolistId: arg.todolistId,
-          entityTaskStatus: 'failed'
-        }))
+        dispatch(
+          changeEntityTask({
+            taskId: arg.taskId,
+            todolistId: arg.todolistId,
+            entityTaskStatus: 'failed',
+          }),
+        )
         return rejectWithValue(null)
       }
     } catch (e) {
@@ -129,10 +136,8 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
       dispatch(changeEntityTask({ taskId: arg.taskId, todolistId: arg.todolistId, entityTaskStatus: 'failed' }))
       return rejectWithValue(null)
     }
-  }
+  },
 )
-
-
 
 export const tasksReducer = slice.reducer
 export const { changeEntityTask } = slice.actions

@@ -38,6 +38,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
+    "format": "prettier --write src",
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build"
   },

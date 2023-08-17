@@ -54,9 +54,9 @@ const slice = createSlice({
 const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
   'todolists/fetchTodolists',
   async (_, { dispatch }) => {
-      const todolists = await todoListAPI.getTodoLists()
-      todolists.forEach((tl) => dispatch(tasksThunks.fetchTasks(tl.id)))
-      return { todolists }
+    const todolists = await todoListAPI.getTodoLists()
+    todolists.forEach((tl) => dispatch(tasksThunks.fetchTasks(tl.id)))
+    return { todolists }
   },
 )
 const createTodolist = createAppAsyncThunk<
@@ -87,17 +87,17 @@ const deleteTodolist = createAppAsyncThunk<{ todolistId: string }, { todolistId:
     }
   },
 )
-const changeTodolistTitle = createAppAsyncThunk<
-  UpdateTodolistTitleArgType,
-  UpdateTodolistTitleArgType
->('todolists/changeTodolistTitle', async (arg, { rejectWithValue }) => {
+const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgType, UpdateTodolistTitleArgType>(
+  'todolists/changeTodolistTitle',
+  async (arg, { rejectWithValue }) => {
     const data = await todoListAPI.updateTodolist(arg)
     if (data.resultCode === ResultCode.success) {
       return arg
     } else {
       return rejectWithValue(null)
     }
-})
+  },
+)
 
 export const todolistsReducer = slice.reducer
 export const { changeTodoListEntityStatus } = slice.actions
