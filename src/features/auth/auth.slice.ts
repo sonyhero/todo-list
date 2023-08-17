@@ -1,10 +1,11 @@
 import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
-import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { setAppInitialized } from '../../app/app.slice'
-import { ResultCode } from '../../common/enums'
-import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
-import { clearTasksAndTodolists } from '../../common/actions'
-import { todolistsThunks } from '../todolists-list/todoListsReducer'
+import { authAPI, LoginParamsType, securityAPI } from '@/api/api'
+import { createAppAsyncThunk, handleServerNetworkError } from '@/common/utils'
+import { ResultCode } from '@/common/enums'
+import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { clearTasksAndTodolists } from '@/common/actions'
+import { setAppInitialized } from '@/app/app.slice'
+
 
 const initialState = {
   isLoggedIn: false,

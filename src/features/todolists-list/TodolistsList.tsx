@@ -1,11 +1,11 @@
-import { useAppSelector } from '../../common/hooks'
+import { useAppSelector } from '@/common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { selectTodolists } from './todolists-selectors'
 import { selectIsLoggedIn } from '../auth/auth.selectors'
-import { selectAppStatus } from '../../app/app.selectors'
+import { selectAppStatus } from '@/app/app.selectors'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
-import { Header, LinearProgress } from '../../common/components'
+import { Header, LinearProgress } from '@/common/components'
 import s from './TodolistsList.module.css'
 
 export const TodolistsList = () => {
