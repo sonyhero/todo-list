@@ -9,7 +9,6 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.22.10",
-    "@craco/craco": "^7.1.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
@@ -34,10 +33,10 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build"
   },
