@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react'
-
-import { LabelDemo, TextField } from '@/components/ui'
+import { LabelDemo } from '@/common/components/ui/label/label'
+import { TextField } from '@/common/components/ui/textfield'
 
 const meta = {
   title: 'Components/LabelDemo',

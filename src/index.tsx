@@ -4,6 +4,7 @@ import { App } from './app/App'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { BrowserRouter } from 'react-router-dom'
+import './styles/index.scss'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 
