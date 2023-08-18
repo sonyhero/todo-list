@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { useActions } from '@/common/hooks'
-import s from './Filter-button-block.module.css'
+import s from './Filter-button-block.module.scss'
 import { FilterValuesType, todolistActions } from '@/features/todolists-list/todoListsReducer'
 import { Button } from '@/components'
 

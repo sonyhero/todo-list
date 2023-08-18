@@ -1,4 +1,4 @@
-import s from './ErrorBar.module.css'
+import s from './ErrorBar.module.scss'
 import { Button } from '../common'
 import { useActions, useAppSelector } from '@/common/hooks'
 import { appActions } from '@/app/app.slice'

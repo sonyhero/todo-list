@@ -3,11 +3,11 @@
   display: flex;
   /*border-bottom: 1px solid #1575bb;*/
   background-color: rgb(167, 202, 237);
-}
 
-.headerWrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 30px;
+  .headerWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+  }
 }

@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import s from './AddItemForm.module.css'
+import s from './AddItemForm.module.scss'
 import { Button, Input } from '../common'
 import { useAddItemForm } from './hooks/useAddItemForm'
 

@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import s from './Button.module.css'
+import s from './Button.module.scss'
 
 type Props = {
   name: string

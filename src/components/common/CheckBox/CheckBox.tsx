@@ -1,5 +1,5 @@
 import { FC, ChangeEvent } from 'react'
-import s from './CheckBox.module.css'
+import s from './CheckBox.module.scss'
 
 type PropsType = {
   checked: boolean

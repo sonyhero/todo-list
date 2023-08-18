@@ -1,4 +1,4 @@
-import s from './Header.module.css'
+import s from './Header.module.scss'
 import { AddItemForm } from '@/components'
 import { useCallback } from 'react'
 import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'

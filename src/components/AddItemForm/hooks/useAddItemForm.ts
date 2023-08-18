@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
-import s from '../AddItemForm.module.css'
+import s from '../AddItemForm.module.scss'
 import { RejectValueType } from '@/common/utils/create-app-async-thunk'
 
 export const useAddItemForm = (addItem: (newTitle: string) => Promise<any>) => {

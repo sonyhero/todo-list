@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Error404.module.css'
+import s from './Error404.module.scss'
 import error404 from './404.svg'
 
 export const Error404 = () => {
