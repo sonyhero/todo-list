@@ -1,5 +1,5 @@
 import { FC, memo, useCallback } from 'react'
-import s from './Todolist.module.css'
+import s from './Todolist.module.scss'
 import { MappedTasks } from '../Tasks/MappedTasks'
 import { RequestStatusType } from '@/app/app.slice'
 import { AddItemForm } from '@/common/components'
@@ -8,6 +8,7 @@ import { TodolistTitle } from './Todolist-title/Todolist-title'
 import { useActions } from '@/common/hooks'
 import { tasksThunks } from '../tasksReducer'
 import { FilterValuesType } from '../todoListsReducer'
+import { Card } from '@/common/components/ui/card'
 
 type Props = {
   title: string
@@ -26,12 +27,20 @@ export const Todolist: FC<Props> = memo((props) => {
     [todolistId, createTask],
   )
 
+  // return (
+  //   <div className={s.todoWrapper}>
+  //     <TodolistTitle title={title} todolistId={todolistId} entityStatus={entityStatus} />
+  //     <AddItemForm disabled={entityStatus === 'loading'} addItem={addTaskHandler} />
+  //     <MappedTasks todolistId={todolistId} filter={filter} />
+  //     <FilterButtonBlock todolistId={todolistId} filter={filter} />
+  //   </div>
+  // )
   return (
-    <div className={s.todoWrapper}>
+    <Card className={s.todoCard}>
       <TodolistTitle title={title} todolistId={todolistId} entityStatus={entityStatus} />
       <AddItemForm disabled={entityStatus === 'loading'} addItem={addTaskHandler} />
       <MappedTasks todolistId={todolistId} filter={filter} />
       <FilterButtonBlock todolistId={todolistId} filter={filter} />
-    </div>
+    </Card>
   )
 })
