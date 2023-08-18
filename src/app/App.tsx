@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import { LinearProgress, Toast } from '@/components'
 import { Routing } from '@/app/Routing'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 export const App = () => {
   const isInitialized = useAppSelector(selectIsInitialized)
   const { initializeApp } = useActions(authThunks)
