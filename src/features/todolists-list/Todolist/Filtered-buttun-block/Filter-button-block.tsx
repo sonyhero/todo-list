@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
-import { useActions } from '../../../../common/hooks'
+import { useActions } from '@/common/hooks'
 import { FilterValuesType, todolistActions } from '../../todoListsReducer'
-import { Button } from '../../../../common/components'
+import { Button } from '@/common/components'
 import s from './Filter-button-block.module.css'
 
 type Props = {

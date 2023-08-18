@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { TodolistsList } from '@/features/todolists-list/TodolistsList'
 import { Login } from '@/features/auth/Login'
