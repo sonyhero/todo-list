@@ -6,7 +6,7 @@ import { selectAppStatus } from '@/app/app.selectors'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { Header, LinearProgress } from '@/common/components'
-import s from './TodolistsList.module.css'
+import s from './TodolistsList.module.scss'
 
 export const TodolistsList = () => {
   const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
