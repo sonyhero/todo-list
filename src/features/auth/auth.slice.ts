@@ -1,10 +1,10 @@
 import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
-import { authAPI, LoginParamsType, securityAPI } from '../../api/api'
-import { setAppInitialized } from '../../app/app.slice'
-import { ResultCode } from '../../common/enums'
-import { createAppAsyncThunk, handleServerNetworkError } from '../../common/utils'
-import { clearTasksAndTodolists } from '../../common/actions'
-import { todolistsThunks } from '../todolists-list/todoListsReducer'
+import { authAPI, LoginParamsType, securityAPI } from '@/api/api'
+import { createAppAsyncThunk, handleServerNetworkError } from '@/common/utils'
+import { ResultCode } from '@/common/enums'
+import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { clearTasksAndTodolists } from '@/common/actions'
+import { setAppInitialized } from '@/app/app.slice'
 
 const initialState = {
   isLoggedIn: false,
@@ -23,13 +23,15 @@ const slice = createSlice({
       .addCase(getCaptcha.fulfilled, (state, action) => {
         state.captchaUrl = action.payload.captchaUrl
       })
-      .addMatcher(isAnyOf(isFulfilled(login,initializeApp)), state => {
+      .addMatcher(isAnyOf(isFulfilled(login, initializeApp)), (state) => {
         state.isLoggedIn = true
       })
   },
 })
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('auth/login', async (arg, { dispatch, rejectWithValue }) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
+  'auth/login',
+  async (arg, { dispatch, rejectWithValue }) => {
     const data = await authAPI.login(arg)
     if (data.resultCode === ResultCode.success) {
       dispatch(todolistsThunks.fetchTodolists())
@@ -39,11 +41,14 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>('aut
         dispatch(getCaptcha())
       }
       const isShowAppError = !data.fieldsErrors.length
-      return rejectWithValue({data, showGlobalError: isShowAppError} )
+      return rejectWithValue({ data, showGlobalError: isShowAppError })
     }
-})
+  },
+)
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, { dispatch, rejectWithValue }) => {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(
+  'auth/logout',
+  async (_, { dispatch, rejectWithValue }) => {
     const data = await authAPI.logout()
     if (data.resultCode === ResultCode.success) {
       dispatch(clearTasksAndTodolists())
@@ -54,24 +59,28 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout',
       }
       return rejectWithValue({ data, showGlobalError: true })
     }
-})
+  },
+)
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/initializeApp', async (_, { dispatch, rejectWithValue }) => {
-  try {
-    const data = await authAPI.me()
-    if (data.resultCode === ResultCode.success) {
-      dispatch(todolistsThunks.fetchTodolists())
-      return { isLoggedIn: true }
-    } else {
-      return rejectWithValue({ data, showGlobalError: true })
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(
+  'auth/initializeApp',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const data = await authAPI.me()
+      if (data.resultCode === ResultCode.success) {
+        dispatch(todolistsThunks.fetchTodolists())
+        return { isLoggedIn: true }
+      } else {
+        return rejectWithValue({ data, showGlobalError: true })
+      }
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppInitialized({ isInitialized: true }))
     }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    return rejectWithValue(null)
-  } finally {
-    dispatch(setAppInitialized({ isInitialized: true }))
-  }
-})
+  },
+)
 
 const getCaptcha = createAppAsyncThunk<{ captchaUrl: string }, void>('auth/getCaptcha', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI

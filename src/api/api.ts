@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios'
-import { RequestStatusType } from '../app/app.slice'
-import { instance } from '../common/api'
-import { TaskPriorities, TaskStatuses } from '../common/enums'
-import { ResponseAppType } from '../common/types'
+import { RequestStatusType } from '@/app/app.slice'
+import { instance } from '@/common/api'
+import { TaskPriorities, TaskStatuses } from '@/common/enums'
+import { ResponseAppType } from '@/common/types'
 
 export const todoListAPI = {
   getTodoLists() {
@@ -26,11 +26,15 @@ export const todoListAPI = {
   },
   updateTodolist(arg: UpdateTodolistTitleArgType) {
     return instance
-      .put<ResponseAppType, AxiosResponse<ResponseAppType>, {
-        title: string
-      }>(`todo-lists/${arg.todolistId}`, { title: arg.title })
+      .put<
+        ResponseAppType,
+        AxiosResponse<ResponseAppType>,
+        {
+          title: string
+        }
+      >(`todo-lists/${arg.todolistId}`, { title: arg.title })
       .then((res) => res.data)
-  }
+  },
 }
 
 export const taskAPI = {
@@ -49,7 +53,7 @@ export const taskAPI = {
     return instance
       .put<ResponseAppType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
       .then((res) => res.data)
-  }
+  },
 }
 
 export const authAPI = {
@@ -69,13 +73,13 @@ export const authAPI = {
   },
   logout() {
     return instance.delete<ResponseAppType>('auth/login').then((res) => res.data)
-  }
+  },
 }
 
 export const securityAPI = {
   getCaptchaUrl() {
     return instance.get<{ url: string }>(`security/get-captcha-url`).then((res) => res.data)
-  }
+  },
 }
 
 // types

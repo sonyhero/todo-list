@@ -4,7 +4,7 @@ describe('authReducer', () => {
   it('should handle login.fulfilled', () => {
     const initialState = {
       isLoggedIn: false,
-      captchaUrl: ''
+      captchaUrl: '',
     }
 
     const action = { type: 'auth/login/fulfilled', payload: { isLoggedIn: true } }
@@ -16,7 +16,7 @@ describe('authReducer', () => {
   it('should handle logout.fulfilled', () => {
     const initialState = {
       isLoggedIn: true,
-      captchaUrl: ''
+      captchaUrl: '',
     }
 
     const action = { type: 'auth/logout/fulfilled', payload: { isLoggedIn: false } }
@@ -28,7 +28,7 @@ describe('authReducer', () => {
   it('should handle initializeApp.fulfilled', () => {
     const initialState = {
       isLoggedIn: false,
-      captchaUrl: ''
+      captchaUrl: '',
     }
 
     const action = { type: 'auth/initializeApp/fulfilled', payload: { isLoggedIn: true } }
@@ -40,7 +40,7 @@ describe('authReducer', () => {
   it('should handle getCaptcha.fulfilled', () => {
     const initialState = {
       isLoggedIn: false,
-      captchaUrl: ''
+      captchaUrl: '',
     }
 
     const action = { type: 'auth/getCaptcha/fulfilled', payload: { captchaUrl: 'https://example.com/captcha.png' } }
@@ -60,7 +60,6 @@ describe('authReducer', () => {
 //     userId: 1
 //   }
 // }
-
 
 // describe('authThunks', () => {
 //   it('login thunk should dispatch getCaptcha if resultCode is captcha', async () => {

@@ -1,8 +1,8 @@
 import { FC, useCallback } from 'react'
-import { useActions } from '../../../../common/hooks'
+import { useActions } from '@/common/hooks'
 import { todolistsThunks } from '../../todoListsReducer'
-import { Button, EditableSpan } from '../../../../common/components'
-import { RequestStatusType } from '../../../../app/app.slice'
+import { Button, EditableSpan } from '@/common/components'
+import { RequestStatusType } from '@/app/app.slice'
 
 type Props = {
   title: string
@@ -15,10 +15,12 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   const removeTodos = useCallback(() => {
     deleteTodolist({ todolistId })
   }, [todolistId, deleteTodolist])
-  const changeTodosTitle = useCallback((newTitle: string) => {
-    changeTodolistTitle({ todolistId, title: newTitle })
-  }, [todolistId, changeTodolistTitle])
-
+  const changeTodosTitle = useCallback(
+    (newTitle: string) => {
+      changeTodolistTitle({ todolistId, title: newTitle })
+    },
+    [todolistId, changeTodolistTitle],
+  )
 
   return (
     <h3>

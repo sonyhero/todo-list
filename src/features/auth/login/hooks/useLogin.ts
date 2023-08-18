@@ -1,9 +1,9 @@
-import { useActions } from '../../../../common/hooks'
+import { useActions } from '@/common/hooks'
 import { authThunks } from '../../auth.slice'
 import { FormikHelpers, useFormik } from 'formik'
 import { basicFormSchema } from '../basic-shema'
-import { LoginParamsType } from '../../../../api/api'
-import { ResponseAppType } from '../../../../common/types'
+import { LoginParamsType } from '@/api/api'
+import { ResponseAppType } from '@/common/types'
 
 export const useLogin = () => {
   const { login } = useActions(authThunks)

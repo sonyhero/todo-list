@@ -1,8 +1,8 @@
 import { appReducer, RequestStatusType, setAppError, setAppInitialized } from './app.slice'
 
 let initialState: {
-  status: RequestStatusType,
-  error: null | string,
+  status: RequestStatusType
+  error: null | string
   isInitialized: boolean
 }
 
@@ -10,7 +10,7 @@ beforeEach(() => {
   initialState = {
     status: 'loading',
     error: null,
-    isInitialized: false
+    isInitialized: false,
   }
 })
 
@@ -48,8 +48,8 @@ test('should handle action with payload', () => {
   const payload = {
     showGlobalError: true,
     data: {
-      messages: ['Error message']
-    }
+      messages: ['Error message'],
+    },
   }
   const action = { type: 'someAction/rejected', payload }
   const newState = appReducer(initialState, action)

@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Task } from './Task'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { useAppSelector } from '../../../common/hooks'
+import { useAppSelector } from '@/common/hooks'
 import { selectFilteredTasks } from '../tasks-selectors'
 import { FilterValuesType } from '../todoListsReducer'
 
