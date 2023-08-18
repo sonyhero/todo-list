@@ -7,7 +7,7 @@ import { Typography } from '../typography'
 import s from './textfield.module.scss'
 
 export type TextFieldProps = {
-  type: 'default' | 'password' | 'searchType'
+  type?: 'default' | 'password' | 'searchType'
   label?: string
   errorMessage?: string
   placeholder?: string
