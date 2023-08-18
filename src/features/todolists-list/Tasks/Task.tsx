@@ -1,10 +1,10 @@
 import { FC, memo } from 'react'
-import s from '../Todolist/Todolist.module.css'
-import { TaskStatuses } from '../../../common/enums'
-import { RequestStatusType } from '../../../app/app.slice'
+import s from './Task.module.scss'
+import { TaskStatuses } from '@/common/enums'
+import { RequestStatusType } from '@/app/app.slice'
 import { tasksThunks } from '../tasksReducer'
-import { Button, CheckBox, EditableSpan } from '../../../common/components'
-import { useActions } from '../../../common/hooks'
+import { Button, CheckBox, EditableSpan } from '@/common/components'
+import { useActions } from '@/common/hooks'
 
 type Props = {
   taskId: string
@@ -28,7 +28,7 @@ export const Task: FC<Props> = memo((props) => {
   const changeTaskTitleHandler = (title: string) => updateTask({ todolistId, taskId, data: { title } })
 
   return (
-    <li className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
+    <div className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
       <div className={s.container}>
         <CheckBox
           disabled={entityTaskStatus === 'loading'}
@@ -44,6 +44,6 @@ export const Task: FC<Props> = memo((props) => {
         xType={'delete'}
         className={false}
       />
-    </li>
+    </div>
   )
 })
