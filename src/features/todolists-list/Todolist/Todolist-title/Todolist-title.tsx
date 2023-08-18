@@ -1,10 +1,10 @@
 import { FC, useCallback } from 'react'
 import { useActions } from '@/common/hooks'
-import { todolistsThunks } from '../../todoListsReducer'
-import { EditableSpan } from '@/common/components'
 import { RequestStatusType } from '@/app/app.slice'
-import { Button } from '@/common/components/ui/button'
-import { Typography } from '@/common/components/ui/typography'
+import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { EditableSpan } from '@/components'
+import { Button } from '@/components/ui/button'
+import { Typography } from '@/components/ui/typography'
 
 type Props = {
   title: string

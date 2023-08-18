@@ -1,6 +1,6 @@
 import { FC, ChangeEvent, memo, useState } from 'react'
-import { Typography } from '@/common/components/ui/typography'
-import { TextField } from '@/common/components/ui/textfield'
+import { Typography } from '@/components/ui/typography'
+import { TextField } from '@/components/ui/textfield'
 
 type EditableSpanPropsType = {
   title: string

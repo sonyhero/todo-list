@@ -3,7 +3,7 @@ import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 
 import s from './checkbox.module.scss'
-import { Typography } from '@/common/components/ui/typography'
+import { Typography } from '@/components/ui/typography'
 
 export type CheckBoxProps = {
   onChange?: (checked: boolean) => void

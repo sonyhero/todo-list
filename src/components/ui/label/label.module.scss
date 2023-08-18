@@ -1,4 +1,4 @@
-@import 'src/common/components/ui/typography/typography.module';
+@import '../typography/typography.module';
 
 .label {
   @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));

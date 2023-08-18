@@ -2,9 +2,9 @@ import { FC, memo } from 'react'
 import s from './Task.module.scss'
 import { TaskStatuses } from '@/common/enums'
 import { RequestStatusType } from '@/app/app.slice'
-import { tasksThunks } from '../tasksReducer'
-import { Button, CheckBox, EditableSpan } from '@/common/components'
 import { useActions } from '@/common/hooks'
+import { tasksThunks } from '@/features/todolists-list/tasksReducer'
+import { Button, CheckBox, EditableSpan } from '@/components'
 
 type Props = {
   taskId: string

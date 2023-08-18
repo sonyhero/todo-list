@@ -1,4 +1,4 @@
-import s from './LinearProgress.module.css'
+import s from './LinearProgress.module.scss'
 
 export const LinearProgress = () => {
   return (
