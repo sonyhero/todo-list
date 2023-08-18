@@ -1,14 +1,15 @@
 import { FC, ChangeEvent, memo, useState } from 'react'
-import { Typography } from '@/components/ui/typography'
+import { Typography, TypographyVariantType } from '@/components/ui/typography'
 import { TextField } from '@/components/ui/textfield'
 
 type EditableSpanPropsType = {
   title: string
   onChange: (newTitle: string) => void
   disabled?: boolean
+  variant?: TypographyVariantType
 }
 export const EditableSpan: FC<EditableSpanPropsType> = memo((props) => {
-  const { title, onChange, disabled } = props
+  const { title, onChange, disabled, variant } = props
   const [editMode, setEditMode] = useState(false)
   const [newTitle, setNewTitle] = useState(props.title)
 
@@ -37,6 +38,8 @@ export const EditableSpan: FC<EditableSpanPropsType> = memo((props) => {
     // <input onChange={onChangeHandler} onBlur={activateViewMode} value={newTitle} autoFocus />
     <TextField onBlur={activateViewMode} onChange={onChangeHandler} value={newTitle} autoFocus />
   ) : (
-    <Typography onDoubleClick={activateEditMode}>{title}</Typography>
+    <Typography variant={variant} onDoubleClick={activateEditMode}>
+      {title}
+    </Typography>
   )
 })

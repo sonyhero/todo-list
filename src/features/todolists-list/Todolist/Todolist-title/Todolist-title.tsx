@@ -5,6 +5,7 @@ import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
 import { EditableSpan } from '@/components'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import s from './todolist-title.module.scss'
 
 type Props = {
   title: string
@@ -25,8 +26,8 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   )
 
   return (
-    <h3>
-      <EditableSpan title={title} onChange={changeTodosTitle} />
+    <div className={s.titleBlock}>
+      <EditableSpan variant={'large'} title={title} onChange={changeTodosTitle} />
       {/*<Button*/}
       {/*  disabled={entityStatus === 'loading'}*/}
       {/*  name={'x'}*/}
@@ -37,6 +38,6 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
       <Button disabled={entityStatus === 'loading'} onClick={removeTodos}>
         <Typography>x</Typography>
       </Button>
-    </h3>
+    </div>
   )
 }
