@@ -1,7 +1,7 @@
 import { AnyAction, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
 import { isARejectedTasksAction } from '@/features/todolists-list/tasksReducer'
 import { isARejectedTodolistsAction } from '@/features/todolists-list/todoListsReducer'
+import { handleServerAppError } from '@/common/utils/handle-app-error'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -44,7 +44,8 @@ const slice = createSlice({
         (action: AnyAction) => {
           return isARejectedTasksAction(action)
         },
-        (state, _) => {
+        (state, action) => {
+          handleServerAppError(action)
           state.status = 'failed'
         },
       )
@@ -52,7 +53,8 @@ const slice = createSlice({
         (action: AnyAction) => {
           return isARejectedTodolistsAction(action)
         },
-        (state, _) => {
+        (state, action) => {
+          handleServerAppError(action)
           state.status = 'failed'
         },
       )
@@ -66,18 +68,7 @@ const slice = createSlice({
           } else return isRejected(action)
         },
         (state, action) => {
-          const { payload, error } = action
-          if (payload) {
-            if (payload.showGlobalError) {
-              const err = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
-              state.error = err
-              toast.error(err)
-            }
-          } else {
-            const err = error.message ? error.message : 'Some error occurred'
-            state.error = err
-            toast.error(err)
-          }
+          handleServerAppError(action)
           state.status = 'failed'
         },
       )
