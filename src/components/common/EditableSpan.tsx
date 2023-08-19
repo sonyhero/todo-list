@@ -1,17 +1,19 @@
 import { FC, ChangeEvent, memo, useState } from 'react'
 import { Typography, TypographyVariantType } from '@/components/ui/typography'
 import { TextField } from '@/components/ui/textfield'
+import s from './editable-span.module.scss'
 
 type EditableSpanPropsType = {
   title: string
   onChange: (newTitle: string) => void
   disabled?: boolean
   variant?: TypographyVariantType
+  className?: string
 }
 export const EditableSpan: FC<EditableSpanPropsType> = memo((props) => {
-  const { title, onChange, disabled, variant } = props
+  const { title, onChange, disabled, variant, className } = props
   const [editMode, setEditMode] = useState(false)
-  const [newTitle, setNewTitle] = useState(props.title)
+  const [newTitle, setNewTitle] = useState(title)
 
   const activateEditMode = () => {
     setEditMode(true)
@@ -25,20 +27,19 @@ export const EditableSpan: FC<EditableSpanPropsType> = memo((props) => {
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
 
-  const finalStyle = disabled ? { color: 'grey' } : { color: 'white' }
+  const finalStyle = `${s.textBox} ${disabled ? s.disabled : ''}`
 
-  // return !disabled && editMode ? (
-  //   <input onChange={onChangeHandler} onBlur={activateViewMode} value={newTitle} autoFocus />
-  // ) : (
-  //   <span style={finalStyle} onDoubleClick={activateEditMode}>
-  //     {title}
-  //   </span>
-  // )
   return !disabled && editMode ? (
-    // <input onChange={onChangeHandler} onBlur={activateViewMode} value={newTitle} autoFocus />
-    <TextField onBlur={activateViewMode} onChange={onChangeHandler} value={newTitle} autoFocus />
+    <TextField
+      placeholder={'Type your '}
+      className={className}
+      onBlur={activateViewMode}
+      onChange={onChangeHandler}
+      value={newTitle}
+      autoFocus
+    />
   ) : (
-    <Typography variant={variant} onDoubleClick={activateEditMode}>
+    <Typography className={finalStyle} variant={variant} onDoubleClick={activateEditMode}>
       {title}
     </Typography>
   )

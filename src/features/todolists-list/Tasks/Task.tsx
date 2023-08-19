@@ -30,25 +30,6 @@ export const Task: FC<Props> = memo((props) => {
 
   const changeTaskTitleHandler = (title: string) => updateTask({ todolistId, taskId, data: { title } })
 
-  // return (
-  //   <div className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
-  //     <div className={s.container}>
-  //       <CheckBox
-  //         disabled={entityTaskStatus === 'loading'}
-  //         checked={status === TaskStatuses.Completed}
-  //         callBack={changeTaskStatusHandler}
-  //       />
-  //       <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler} title={title} />
-  //     </div>
-  //     <Button
-  //       disabled={entityTaskStatus === 'loading'}
-  //       name={'x'}
-  //       callback={removeTaskHandler}
-  //       xType={'delete'}
-  //       className={false}
-  //     />
-  //   </div>
-  // )
   return (
     <div className={s.taskWrap}>
       <div className={s.container}>
@@ -61,7 +42,7 @@ export const Task: FC<Props> = memo((props) => {
         <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler} title={title} />
       </div>
       <Button variant={'icon'} disabled={entityTaskStatus === 'loading'} onClick={removeTaskHandler}>
-        <Trash />
+        <Trash fill={entityTaskStatus === 'loading' ? '#808080FF' : '#fff'} />
       </Button>
     </div>
   )

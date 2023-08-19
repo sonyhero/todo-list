@@ -27,7 +27,7 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
 
   return (
     <div className={s.titleBlock}>
-      <EditableSpan variant={'large'} title={title} onChange={changeTodosTitle} />
+      <EditableSpan className={s.editableBox} variant={'large'} title={title} onChange={changeTodosTitle} />
       <Button variant={'icon'} disabled={entityStatus === 'loading'} onClick={removeTodos}>
         <Trash />
       </Button>
