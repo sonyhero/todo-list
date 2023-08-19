@@ -1,12 +1,12 @@
 import { useAppSelector } from '@/common/hooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { selectTodolists } from './todolists-selectors'
-import { selectIsLoggedIn } from '../auth/auth.selectors'
+import s from './TodolistsList.module.scss'
+import { selectTodolists } from '@/features/todolists-list/todolists-selectors'
+import { selectIsLoggedIn } from '@/features/auth/auth.selectors'
 import { selectAppStatus } from '@/app/app.selectors'
-import { Todolist } from './Todolist/Todolist'
+import { Todolist } from '@/features/todolists-list/Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
-import { Header, LinearProgress } from '@/common/components'
-import s from './TodolistsList.module.css'
+import { Header, LinearProgress } from '@/components'
 
 export const TodolistsList = () => {
   const [todoListsRef] = useAutoAnimate<HTMLDivElement>()
@@ -39,7 +39,7 @@ export const TodolistsList = () => {
       ) : (
         <div style={{ height: '5px', backgroundColor: 'transparent' }}></div>
       )}
-      <div ref={todoListsRef} className={s.wrapper}>
+      <div ref={todoListsRef} className={s.todolistsBox}>
         {todoListsComponents}
       </div>
     </>

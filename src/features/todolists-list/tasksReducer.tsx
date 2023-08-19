@@ -69,7 +69,7 @@ const createTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(
     if (data.resultCode === ResultCode.success) {
       return { task }
     } else {
-      return rejectWithValue(null)
+      return rejectWithValue({ data, showGlobalError: false })
     }
   },
 )
@@ -129,7 +129,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>(
             entityTaskStatus: 'failed',
           }),
         )
-        return rejectWithValue(null)
+        return rejectWithValue({ data, showGlobalError: true })
       }
     } catch (e) {
       handleServerNetworkError(e, dispatch)

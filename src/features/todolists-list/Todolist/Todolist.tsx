@@ -1,13 +1,14 @@
 import { FC, memo, useCallback } from 'react'
-import s from './Todolist.module.css'
-import { MappedTasks } from '../Tasks/MappedTasks'
-import { RequestStatusType } from '@/app/app.slice'
-import { AddItemForm } from '@/common/components'
-import { FilterButtonBlock } from './Filtered-buttun-block/Filter-button-block'
-import { TodolistTitle } from './Todolist-title/Todolist-title'
+import s from './Todolist.module.scss'
 import { useActions } from '@/common/hooks'
-import { tasksThunks } from '../tasksReducer'
-import { FilterValuesType } from '../todoListsReducer'
+import { FilterValuesType } from '@/features/todolists-list/todoListsReducer'
+import { RequestStatusType } from '@/app/app.slice'
+import { tasksThunks } from '@/features/todolists-list/tasksReducer'
+import { Card } from '@/components/ui/card'
+import { TodolistTitle } from '@/features/todolists-list/Todolist/Todolist-title/Todolist-title'
+import { AddItemForm } from '@/components'
+import { MappedTasks } from '@/features/todolists-list/Tasks/MappedTasks'
+import { FilterButtonBlock } from '@/features/todolists-list/Todolist/Filtered-buttun-block/Filter-button-block'
 
 type Props = {
   title: string
@@ -27,11 +28,16 @@ export const Todolist: FC<Props> = memo((props) => {
   )
 
   return (
-    <div className={s.todoWrapper}>
+    <Card className={s.todoCard}>
       <TodolistTitle title={title} todolistId={todolistId} entityStatus={entityStatus} />
-      <AddItemForm disabled={entityStatus === 'loading'} addItem={addTaskHandler} />
+      <AddItemForm
+        className={s.itemForm}
+        placeholder={'Type your task title'}
+        disabled={entityStatus === 'loading'}
+        addItem={addTaskHandler}
+      />
       <MappedTasks todolistId={todolistId} filter={filter} />
       <FilterButtonBlock todolistId={todolistId} filter={filter} />
-    </div>
+    </Card>
   )
 })

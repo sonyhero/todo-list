@@ -4,6 +4,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useAppSelector } from '@/common/hooks'
 import { selectFilteredTasks } from '../tasks-selectors'
 import { FilterValuesType } from '../todoListsReducer'
+import s from './MappedTasks.module.scss'
 
 type Props = {
   todolistId: string
@@ -26,5 +27,9 @@ export const MappedTasks: FC<Props> = memo(({ todolistId, filter }) => {
       />
     )
   })
-  return <ul ref={listRef}>{task}</ul>
+  return (
+    <ul className={s.tasksContainer} ref={listRef}>
+      {task}
+    </ul>
+  )
 })

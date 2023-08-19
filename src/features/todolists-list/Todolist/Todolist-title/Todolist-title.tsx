@@ -1,8 +1,11 @@
 import { FC, useCallback } from 'react'
 import { useActions } from '@/common/hooks'
-import { todolistsThunks } from '../../todoListsReducer'
-import { Button, EditableSpan } from '@/common/components'
 import { RequestStatusType } from '@/app/app.slice'
+import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { EditableSpan } from '@/components'
+import { Button } from '@/components/ui/button'
+import s from './todolist-title.module.scss'
+import { Trash } from '@/assets'
 
 type Props = {
   title: string
@@ -23,15 +26,11 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   )
 
   return (
-    <h3>
-      <EditableSpan title={title} onChange={changeTodosTitle} />
-      <Button
-        disabled={entityStatus === 'loading'}
-        name={'x'}
-        callback={removeTodos}
-        xType={'delete'}
-        className={false}
-      />
-    </h3>
+    <div className={s.titleBlock}>
+      <EditableSpan className={s.editableBox} variant={'large'} title={title} onChange={changeTodosTitle} />
+      <Button variant={'icon'} disabled={entityStatus === 'loading'} onClick={removeTodos}>
+        <Trash />
+      </Button>
+    </div>
   )
 }

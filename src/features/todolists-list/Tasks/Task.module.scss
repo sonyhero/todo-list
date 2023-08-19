@@ -1,0 +1,14 @@
+.taskWrap {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+
+  .container {
+    display: flex;
+    align-items: center;
+    word-break: break-all;
+  }
+}
