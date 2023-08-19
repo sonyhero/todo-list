@@ -4,7 +4,10 @@ import { TaskStatuses } from '@/common/enums'
 import { RequestStatusType } from '@/app/app.slice'
 import { useActions } from '@/common/hooks'
 import { tasksThunks } from '@/features/todolists-list/tasksReducer'
-import { Button, CheckBox, EditableSpan } from '@/components'
+import { EditableSpan } from '@/components'
+import { Trash } from '@/assets'
+import { Button } from '@/components/ui/button'
+import { CheckboxDemo } from '@/components/ui/checkbox'
 
 type Props = {
   taskId: string
@@ -27,23 +30,39 @@ export const Task: FC<Props> = memo((props) => {
 
   const changeTaskTitleHandler = (title: string) => updateTask({ todolistId, taskId, data: { title } })
 
+  // return (
+  //   <div className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
+  //     <div className={s.container}>
+  //       <CheckBox
+  //         disabled={entityTaskStatus === 'loading'}
+  //         checked={status === TaskStatuses.Completed}
+  //         callBack={changeTaskStatusHandler}
+  //       />
+  //       <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler} title={title} />
+  //     </div>
+  //     <Button
+  //       disabled={entityTaskStatus === 'loading'}
+  //       name={'x'}
+  //       callback={removeTaskHandler}
+  //       xType={'delete'}
+  //       className={false}
+  //     />
+  //   </div>
+  // )
   return (
-    <div className={`${s.taskWrap} ${status ? s.isDone : ''}`}>
+    <div className={s.taskWrap}>
       <div className={s.container}>
-        <CheckBox
+        <CheckboxDemo
           disabled={entityTaskStatus === 'loading'}
           checked={status === TaskStatuses.Completed}
-          callBack={changeTaskStatusHandler}
+          onChange={changeTaskStatusHandler}
+          variant={'default'}
         />
         <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler} title={title} />
       </div>
-      <Button
-        disabled={entityTaskStatus === 'loading'}
-        name={'x'}
-        callback={removeTaskHandler}
-        xType={'delete'}
-        className={false}
-      />
+      <Button variant={'icon'} disabled={entityTaskStatus === 'loading'} onClick={removeTaskHandler}>
+        <Trash />
+      </Button>
     </div>
   )
 })
