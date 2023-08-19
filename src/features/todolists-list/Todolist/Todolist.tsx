@@ -38,7 +38,11 @@ export const Todolist: FC<Props> = memo((props) => {
   return (
     <Card className={s.todoCard}>
       <TodolistTitle title={title} todolistId={todolistId} entityStatus={entityStatus} />
-      <AddItemForm disabled={entityStatus === 'loading'} addItem={addTaskHandler} />
+      <AddItemForm
+        placeholder={'Type your task title'}
+        disabled={entityStatus === 'loading'}
+        addItem={addTaskHandler}
+      />
       <MappedTasks todolistId={todolistId} filter={filter} />
       <FilterButtonBlock todolistId={todolistId} filter={filter} />
     </Card>

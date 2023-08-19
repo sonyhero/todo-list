@@ -24,7 +24,7 @@ export const Header = () => {
   return (
     <div className={s.header}>
       <div className={s.headerWrap}>
-        <AddItemForm addItem={addTodos} />
+        <AddItemForm placeholder={'Type your todo title'} addItem={addTodos} />
         {isLoggedIn && <Button callback={logOutHandler} name={'Log out'} />}
       </div>
     </div>
