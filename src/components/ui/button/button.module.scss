@@ -60,11 +60,6 @@
     background-color: var(--color-dark-100);
   }
 
-  &:focus {
-    background-color: var(--color-dark-300);
-    border: 2px solid var(--info-700, #2f68cc);
-  }
-
   &:active {
     background-color: var(--color-dark-500);
   }
@@ -78,7 +73,7 @@
   @include button;
 
   color: var(--color-accent-500);
-  border: 1px solid var(--color-accent-500);
+  outline: 1px solid var(--color-accent-500);
 
   &:disabled {
     color: var(--color-accent-900);
@@ -90,7 +85,6 @@
   }
 
   &:not(:disabled):focus {
-    font-size: var(--font-size-m);
     border: none;
   }
 
