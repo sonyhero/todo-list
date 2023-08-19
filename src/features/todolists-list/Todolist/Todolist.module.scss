@@ -14,4 +14,13 @@
   width: 26.5rem;
   margin: 2.25rem auto 0;
   padding: 2.06rem 2.25rem;
+
+  .itemForm {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
 }

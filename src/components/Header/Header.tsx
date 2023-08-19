@@ -3,9 +3,9 @@ import { AddItemForm } from '@/components'
 import { useCallback } from 'react'
 import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
 import { useActions, useAppSelector } from '@/common/hooks'
-import { Button } from '../common'
 import { authThunks } from '@/features/auth/auth.slice'
 import { selectIsLoggedIn } from '@/features/auth/auth.selectors'
+import { Button } from '@/components/ui/button'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -23,9 +23,9 @@ export const Header = () => {
 
   return (
     <div className={s.header}>
-      <div className={s.headerWrap}>
-        <AddItemForm placeholder={'Type your todo title'} addItem={addTodos} />
-        {isLoggedIn && <Button callback={logOutHandler} name={'Log out'} />}
+      <div className={s.contentBox}>
+        <AddItemForm className={s.itemForm} placeholder={'Type your todo title'} addItem={addTodos} />
+        {isLoggedIn && <Button onClick={logOutHandler}>Log out</Button>}
       </div>
     </div>
   )
