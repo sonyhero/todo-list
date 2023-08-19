@@ -39,7 +39,7 @@ export const TodolistsList = () => {
       ) : (
         <div style={{ height: '5px', backgroundColor: 'transparent' }}></div>
       )}
-      <div ref={todoListsRef} className={s.wrapper}>
+      <div ref={todoListsRef} className={s.todolistsBox}>
         {todoListsComponents}
       </div>
     </>
