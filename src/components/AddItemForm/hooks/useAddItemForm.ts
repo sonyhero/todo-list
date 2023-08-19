@@ -1,5 +1,4 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
-import s from '../AddItemForm.module.scss'
 import { RejectValueType } from '@/common/utils/create-app-async-thunk'
 
 export const useAddItemForm = (addItem: (newTitle: string) => Promise<any>) => {
@@ -27,14 +26,11 @@ export const useAddItemForm = (addItem: (newTitle: string) => Promise<any>) => {
     }
   }, [newTitle, addItem])
 
-  const finalInputClassName = s.input + (error ? ' ' + s.errorInput : '')
-
   return {
     newTitle,
     error,
     onKeyDownHandler,
     onChangeHandler,
-    finalInputClassName,
     addItemHandler,
   }
 }

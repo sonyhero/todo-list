@@ -1,27 +1,28 @@
 import { FC, memo } from 'react'
 import s from './AddItemForm.module.scss'
-import { Button, Input } from '../common'
 import { useAddItemForm } from './hooks/useAddItemForm'
+import { Button } from '@/components/ui/button'
+import { TextField } from '@/components/ui/textfield'
 
 type AddItemFormPropsType = {
   addItem: (newTitle: string) => Promise<any>
   disabled?: boolean
 }
 export const AddItemForm: FC<AddItemFormPropsType> = memo(({ addItem, disabled }) => {
-  const { newTitle, error, onKeyDownHandler, onChangeHandler, finalInputClassName, addItemHandler } =
-    useAddItemForm(addItem)
+  const { newTitle, error, onKeyDownHandler, onChangeHandler, addItemHandler } = useAddItemForm(addItem)
 
   return (
     <div className={s.itemForm}>
-      <Input
-        disabled={disabled}
+      <TextField
         value={newTitle}
         onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
-        className={finalInputClassName}
+        errorMessage={error}
+        disabled={disabled}
       />
-      <Button disabled={disabled} name={'Add'} callback={addItemHandler} />
-      {error && <div className={s.errorMessage}>{error}</div>}
+      <Button disabled={disabled} onClick={addItemHandler}>
+        Add
+      </Button>
     </div>
   )
 })
