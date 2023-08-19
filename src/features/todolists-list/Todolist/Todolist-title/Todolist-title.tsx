@@ -4,8 +4,8 @@ import { RequestStatusType } from '@/app/app.slice'
 import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
 import { EditableSpan } from '@/components'
 import { Button } from '@/components/ui/button'
-import { Typography } from '@/components/ui/typography'
 import s from './todolist-title.module.scss'
+import { Trash } from '@/assets'
 
 type Props = {
   title: string
@@ -28,15 +28,8 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   return (
     <div className={s.titleBlock}>
       <EditableSpan variant={'large'} title={title} onChange={changeTodosTitle} />
-      {/*<Button*/}
-      {/*  disabled={entityStatus === 'loading'}*/}
-      {/*  name={'x'}*/}
-      {/*  callback={removeTodos}*/}
-      {/*  xType={'delete'}*/}
-      {/*  className={false}*/}
-      {/*/>*/}
-      <Button disabled={entityStatus === 'loading'} onClick={removeTodos}>
-        <Typography>x</Typography>
+      <Button variant={'icon'} disabled={entityStatus === 'loading'} onClick={removeTodos}>
+        <Trash />
       </Button>
     </div>
   )
