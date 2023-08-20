@@ -35,7 +35,7 @@ export const Task: FC<Props> = memo((props) => {
       <div className={s.container}>
         <CheckboxDemo
           disabled={entityTaskStatus === 'loading'}
-          checked={status === TaskStatuses.Completed}
+          value={status === TaskStatuses.Completed}
           onChange={changeTaskStatusHandler}
           variant={'default'}
         />

@@ -1,31 +1,39 @@
-import { useActions } from '@/common/hooks'
+import { useActions, useAppSelector } from '@/common/hooks'
 import { authThunks } from '../../auth.slice'
-import { FormikHelpers, useFormik } from 'formik'
-import { basicFormSchema } from '../basic-shema'
-import { LoginParamsType } from '@/api/api'
-import { ResponseAppType } from '@/common/types'
+import { selectCaptchaUrl } from '@/features/auth/auth.selectors'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
+import * as Yup from 'yup'
+
+export const loginFormSchema = Yup.object({
+  email: Yup.string().email('Invalid email address').required('Required'),
+  password: Yup.string().min(8, 'Must be longer than 8 characters').required('Required'),
+  rememberMe: Yup.boolean().default(true),
+  captcha: Yup.string().default(''),
+})
+
+export type LoginSchemaType = Yup.InferType<typeof loginFormSchema>
 
 export const useLogin = () => {
   const { login } = useActions(authThunks)
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
+  const captcha = useAppSelector(selectCaptchaUrl)
+  const { control, handleSubmit } = useForm<LoginSchemaType>({
+    defaultValues: {
       rememberMe: true,
-      captcha: '',
     },
-    validationSchema: basicFormSchema,
-    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-      login(values)
-        .unwrap()
-        .catch((reason: ResponseAppType) => {
-          reason.fieldsErrors?.forEach((fieldError) => {
-            formikHelpers.setFieldError(fieldError.field, fieldError.error)
-          })
-        })
-    },
+    resolver: yupResolver(loginFormSchema),
   })
 
-  return { formik }
+  const onSubmit = (values: LoginSchemaType) => {
+    login(values)
+      .unwrap()
+      .catch((err) => {
+        toast.error(err.data.message)
+      })
+  }
+
+  const handleSubmitForm = handleSubmit(onSubmit)
+
+  return { captcha, control, handleSubmitForm }
 }

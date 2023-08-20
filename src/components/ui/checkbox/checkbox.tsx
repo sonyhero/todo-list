@@ -9,20 +9,19 @@ import * as Label from '@radix-ui/react-label'
 export type CheckBoxProps = {
   onChange?: (checked: boolean) => void
   disabled?: boolean
-  checked: boolean
+  value: boolean
   variant: 'default' | 'withText'
   label?: string
 }
 
-export const CheckboxDemo: FC<CheckBoxProps> = ({ disabled = false, checked, label, onChange }) => {
+export const CheckboxDemo: FC<CheckBoxProps> = ({ disabled = false, value, label, onChange }) => {
   return (
     <div className={s.checkBoxBlock}>
       <Label.Root>
         <Typography className={`${s.label} ${disabled ? s.labelDisabled : ''}`} variant={'body2'} as={'label'}>
           <Checkbox.Root
-            className={`${s.checkboxRoot} ${checked ? s.active : s.unActive}`}
-            id="c1"
-            checked={checked}
+            className={`${s.checkboxRoot} ${value ? s.active : s.unActive}`}
+            checked={value}
             onCheckedChange={onChange}
             disabled={disabled}
           >

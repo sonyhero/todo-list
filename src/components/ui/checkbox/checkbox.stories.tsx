@@ -6,7 +6,7 @@ const meta = {
   component: CheckboxDemo,
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    value: {
       options: ['default', 'withText'],
       control: { type: 'radio' },
     },
@@ -20,13 +20,13 @@ type Story = StoryObj<typeof meta>
 export const ShowCheckbox: Story = {
   args: {
     variant: 'default',
-    checked: true,
+    value: true,
   },
 }
 
 export const DisabledCheckbox: Story = {
   args: {
-    checked: true,
+    value: true,
     disabled: true,
     variant: 'default',
   },
@@ -34,7 +34,7 @@ export const DisabledCheckbox: Story = {
 
 export const CheckboxWithText: Story = {
   args: {
-    checked: false,
+    value: false,
     variant: 'withText',
     label: 'Test',
   },
@@ -42,7 +42,7 @@ export const CheckboxWithText: Story = {
 
 export const DisabledCheckboxWithText: Story = {
   args: {
-    checked: false,
+    value: false,
     variant: 'withText',
     disabled: true,
     label: 'Test',
