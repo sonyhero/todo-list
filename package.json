@@ -7,6 +7,7 @@
   },
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sonyhero.github.io/todo-list",
   "dependencies": {
     "@babel/runtime": "^7.22.10",
     "@craco/craco": "^7.1.0",
@@ -26,6 +27,7 @@
     "@types/uuid": "^9.0.2",
     "axios": "^1.4.0",
     "formik": "^2.4.3",
+    "gh-pages": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",
@@ -44,6 +46,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
+    "deploy": "gh-pages -d build",
     "format": "prettier --write src",
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build"
