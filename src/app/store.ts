@@ -1,5 +1,5 @@
-import { todolistsReducer } from '@/features/todolists-list/todoListsReducer'
-import { tasksReducer } from '@/features/todolists-list/tasksReducer'
+import { todolistsReducer } from '@/features/todo-list-list/todo-list.slice'
+import { tasksReducer } from '@/features/todo-list-list/tasks/tasks.slice'
 import { appReducer } from './app.slice'
 import { authReducer } from '@/features/auth/auth.slice'
 import { configureStore } from '@reduxjs/toolkit'

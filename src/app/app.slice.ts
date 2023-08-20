@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit'
-import { isARejectedTasksAction } from '@/features/todolists-list/tasksReducer'
-import { isARejectedTodolistsAction } from '@/features/todolists-list/todoListsReducer'
+import { isARejectedTasksAction } from '@/features/todo-list-list/tasks/tasks.slice'
+import { isARejectedTodolistsAction } from '@/features/todo-list-list/todo-list.slice'
 import { handleServerAppError } from '@/common/utils/handle-app-error'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

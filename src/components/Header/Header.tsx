@@ -1,7 +1,7 @@
 import s from './Header.module.scss'
 import { AddItemForm } from '@/components'
 import { useCallback } from 'react'
-import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { todolistsThunks } from '@/features/todo-list-list/todo-list.slice'
 import { useActions, useAppSelector } from '@/common/hooks'
 import { authThunks } from '@/features/auth/auth.slice'
 import { selectIsLoggedIn } from '@/features/auth/auth.selectors'

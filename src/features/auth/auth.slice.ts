@@ -2,7 +2,7 @@ import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
 import { authAPI, LoginParamsType, securityAPI } from '@/api/api'
 import { createAppAsyncThunk, handleServerNetworkError } from '@/common/utils'
 import { ResultCode } from '@/common/enums'
-import { todolistsThunks } from '@/features/todolists-list/todoListsReducer'
+import { todolistsThunks } from '@/features/todo-list-list/todo-list.slice'
 import { clearTasksAndTodolists } from '@/common/actions'
 import { setAppInitialized } from '@/app/app.slice'
 

@@ -4,7 +4,7 @@ import {
   TodoListDomainType,
   todolistsReducer,
   todolistsThunks,
-} from './todoListsReducer'
+} from './todo-list.slice'
 import { v1 } from 'uuid'
 
 let startState: Array<TodoListDomainType>

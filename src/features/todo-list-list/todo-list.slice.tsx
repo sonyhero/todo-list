@@ -1,4 +1,4 @@
-import { tasksThunks } from './tasksReducer'
+import { tasksThunks } from './tasks/tasks.slice'
 import { RequestStatusType } from '@/app/app.slice'
 import { createSlice, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { createAppAsyncThunk, handleServerNetworkError } from '@/common/utils'

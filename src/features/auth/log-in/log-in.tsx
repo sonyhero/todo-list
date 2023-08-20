@@ -1,10 +1,9 @@
 import { Card } from '@/components/ui/card'
 import s from './log-in.module.scss'
 import { Typography } from '@/components/ui/typography'
-import { useLogin } from '@/features/auth/Login/hooks/useLogin'
+import { useLogin } from '@/features/auth/log-in/hooks/useLogin'
 import { ControlledCheckbox, ControlledTextField } from '@/components/ui/controlled'
 import { Button } from '@/components/ui/button'
-
 
 export const Login = () => {
   const { captcha, control, handleSubmitForm } = useLogin()

@@ -1,6 +1,6 @@
 import { AppRootStateType } from '@/app/store'
 import { createSelector } from '@reduxjs/toolkit'
-import { FilterValuesType } from './todoListsReducer'
+import { FilterValuesType } from '../todo-list.slice'
 import { TaskStatuses } from '@/common/enums'
 
 const selectTasksByTodolistId = (todolistId: string) => {
