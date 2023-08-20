@@ -1,61 +1,53 @@
-import s from './Login.module.css'
-import { useAppSelector } from '@/common/hooks'
-import { Navigate } from 'react-router-dom'
-import { selectCaptchaUrl, selectIsLoggedIn } from '../auth.selectors'
-import { useLogin } from './hooks/useLogin'
+import { Card } from '@/components/ui/card'
+import s from './Login.module.scss'
+import { Typography } from '@/components/ui/typography'
+import { Button } from '@/components/ui/button'
+import { ControlledCheckbox, ControlledTextField } from '@/components/ui/controlled'
+import { useLogin } from '@/features/auth/Login/hooks/useLogin'
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
-  const captcha = useAppSelector(selectCaptchaUrl)
-  const { formik } = useLogin()
+  const { captcha, control, handleSubmitForm } = useLogin()
 
-  return isLoggedIn ? (
-    <Navigate to={'/'} />
-  ) : (
-    <div className={s.container}>
-      <form onSubmit={formik.handleSubmit} className={s.formContainer}>
-        <div>
-          <p>
-            To log in get registered{' '}
-            <a href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
-              here
-            </a>
-          </p>
-          <p>or use common test account credentials:</p>
-          <p> Email: free@samuraijs.com</p>
-          <p>Password: free</p>
-        </div>
-        <h3>Login Here</h3>
-        <label htmlFor="email">Email Address</label>
-        <div className={s.input}>
-          <input id="email" type="email" {...formik.getFieldProps('email')} />
-        </div>
-        {formik.touched.email && formik.errors.email && <div style={{ color: 'red' }}>{formik.errors.email}</div>}
-        <label htmlFor="password">Password</label>
-        <div className={s.input}>
-          <input id="password" type="password" {...formik.getFieldProps('password')} />
-        </div>
-        {formik.touched.password && formik.errors.password && (
-          <div style={{ color: 'red' }}>{formik.errors.password}</div>
-        )}
-        <>
-          <label htmlFor="rememberMe">Remember Me</label>
-          <input id="rememberMe" type="checkbox" {...formik.getFieldProps('rememberMe')} />
-        </>
-
+  return (
+    <Card className={s.signBlock}>
+      <Typography className={s.title} variant={'large'}>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmitForm}>
+        <ControlledTextField
+          name={'email'}
+          label={'Email'}
+          type={'default'}
+          placeholder={'enter your email'}
+          control={control}
+          className={s.email}
+        />
+        <ControlledTextField
+          name={'password'}
+          label={'Password'}
+          type={'password'}
+          placeholder={'enter your password'}
+          control={control}
+          className={s.password}
+        />
+        <ControlledCheckbox control={control} variant={'default'} name={'rememberMe'} label={'Remember me'} />
         {captcha && (
           <>
-            <label htmlFor="captcha">Enter captcha</label>
-            <div className={s.input}>
-              <input id="captcha" {...formik.getFieldProps('captcha')} />
-            </div>
+            <ControlledTextField
+              name={'captcha'}
+              label={'Captcha'}
+              type={'default'}
+              placeholder={'enter captcha'}
+              control={control}
+              className={s.password}
+            />
+            <img src={`${captcha}`} alt="captcha img" />
           </>
         )}
-        {captcha && <img src={`${captcha}`} alt="captcha img" />}
-        <button disabled={Object.keys(formik.errors).length !== 0} type={'submit'}>
+        <Button fullWidth={true} className={s.submit} type="submit">
           Login
-        </button>
+        </Button>
       </form>
-    </div>
+    </Card>
   )
 }
