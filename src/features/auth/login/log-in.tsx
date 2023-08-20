@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card'
-import s from './Login.module.scss'
+import s from './log-in.module.scss'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { ControlledCheckbox, ControlledTextField } from '@/components/ui/controlled'
@@ -29,6 +29,7 @@ export const Login = () => {
           placeholder={'enter your password'}
           control={control}
           className={s.password}
+          autoComplete={'on'}
         />
         <ControlledCheckbox control={control} variant={'default'} name={'rememberMe'} label={'Remember me'} />
         {captcha && (
