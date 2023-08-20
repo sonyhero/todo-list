@@ -1,7 +1,7 @@
 import { TodolistsList } from '@/features/todolists-list/TodolistsList'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { LoginPage } from '@/features/auth/Login'
 import { Error404 } from '@/components'
+import { LoginPage } from '@/features/auth/Login/login-page'
 
 export const Routing = () => {
   return (
