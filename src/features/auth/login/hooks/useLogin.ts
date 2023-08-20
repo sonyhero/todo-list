@@ -1,5 +1,5 @@
 import { useActions, useAppSelector } from '@/common/hooks'
-import { authThunks } from '../../auth.slice'
+import { authThunks } from '@/features/auth/auth.slice'
 import { selectCaptchaUrl } from '@/features/auth/auth.selectors'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
