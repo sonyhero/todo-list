@@ -20,6 +20,9 @@ export const useLogin = () => {
   const captcha = useAppSelector(selectCaptchaUrl)
   const { control, handleSubmit } = useForm<LoginSchemaType>({
     defaultValues: {
+      email: '',
+      password: '',
+      captcha: '',
       rememberMe: true,
     },
     resolver: yupResolver(loginFormSchema),
