@@ -13,7 +13,7 @@ type Props = {
 
 export const MappedTasks: FC<Props> = memo(({ todolistId, filter }) => {
   const tasks = useAppSelector(selectFilteredTasks(todolistId, filter))
-  const [listRef] = useAutoAnimate<HTMLUListElement>()
+  const [listRef] = useAutoAnimate<HTMLDivElement>()
 
   const task = tasks.map((t) => {
     return (
@@ -28,8 +28,8 @@ export const MappedTasks: FC<Props> = memo(({ todolistId, filter }) => {
     )
   })
   return (
-    <ul className={s.tasksContainer} ref={listRef}>
+    <div className={s.tasksContainer} ref={listRef}>
       {task}
-    </ul>
+    </div>
   )
 })
