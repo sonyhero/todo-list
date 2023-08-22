@@ -8,8 +8,8 @@ import * as Yup from 'yup'
 
 export const loginFormSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string().min(8, 'Must be longer than 8 characters').required('Required'),
-  rememberMe: Yup.boolean().default(true),
+  password: Yup.string().min(4, 'Must be longer than 4 characters').required('Required'),
+  rememberMe: Yup.boolean().default(false),
   captcha: Yup.string().default(''),
 })
 
@@ -23,7 +23,7 @@ export const useLogin = () => {
       email: '',
       password: '',
       captcha: '',
-      rememberMe: true,
+      rememberMe: false,
     },
     resolver: yupResolver(loginFormSchema),
   })
