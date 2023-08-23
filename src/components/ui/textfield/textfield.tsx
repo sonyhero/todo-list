@@ -88,6 +88,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               <button
                 className={s.buttonAction}
                 type={'button'}
+                aria-label={'show password'}
                 disabled={disableValue}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
@@ -99,7 +100,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               </button>
             )}
             {type === 'searchType' && !!value && (
-              <button className={s.buttonAction} type={'button'} disabled={disableValue} onClick={onSearchClearHandler}>
+              <button
+                className={s.buttonAction}
+                type={'button'}
+                aria-label={'delete'}
+                disabled={disableValue}
+                onClick={onSearchClearHandler}
+              >
                 <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
               </button>
             )}

@@ -11,13 +11,13 @@ export const Login = () => {
   return (
     <Card className={s.signBlock}>
       <Typography>
-        To log in get registered{' '}
+        To log in get registered on{' '}
         <Typography as={'a'} href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
-          here
+          this site
         </Typography>
       </Typography>
       <Typography>or use common test account credentials:</Typography>
-      <Typography> Email: free@samuraijs.com</Typography>
+      <Typography>Email: free@samuraijs.com</Typography>
       <Typography>Password: free</Typography>
       <Typography className={s.title} variant={'large'}>
         Login

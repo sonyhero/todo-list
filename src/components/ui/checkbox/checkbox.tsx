@@ -24,6 +24,7 @@ export const CheckboxDemo: FC<CheckBoxProps> = ({ disabled = false, value, label
             checked={value}
             onCheckedChange={onChange}
             disabled={disabled}
+            aria-label={label ? label : 'checkbox'}
           >
             <Checkbox.Indicator className={s.checkboxIndicator}>
               <CheckIcon className={s.icon} />
