@@ -10,13 +10,7 @@ export type LabelProps = {
   disabled?: boolean
 } & ComponentPropsWithoutRef<'label'>
 
-export const LabelDemo: FC<LabelProps> = ({
-  variant = 'primary',
-  label,
-  children,
-  disabled,
-  ...rest
-}) => {
+export const LabelDemo: FC<LabelProps> = ({ variant = 'primary', label, children, disabled, ...rest }) => {
   return (
     <Label.Root {...rest}>
       {label && <div className={`${s.label} ${disabled ? s.disabled : s[variant]} `}>{label}</div>}
