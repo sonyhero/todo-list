@@ -25,7 +25,11 @@ export const Header = () => {
     <div className={s.header}>
       <div className={s.contentBox}>
         <AddItemForm className={s.itemForm} placeholder={'Type your todo title'} addItem={addTodos} />
-        {isLoggedIn && <Button onClick={logOutHandler}>Log out</Button>}
+        {isLoggedIn && (
+          <Button variant={'tertiary'} onClick={logOutHandler}>
+            Log out
+          </Button>
+        )}
       </div>
     </div>
   )
