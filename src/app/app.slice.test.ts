@@ -3,6 +3,7 @@ import { appReducer, RequestStatusType, setAppError, setAppInitialized } from '.
 let initialState: {
   status: RequestStatusType
   error: null | string
+  isMobile: null | boolean
   isInitialized: boolean
 }
 
@@ -11,6 +12,7 @@ beforeEach(() => {
     status: 'loading',
     error: null,
     isInitialized: false,
+    isMobile: null,
   }
 })
 

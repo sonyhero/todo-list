@@ -8,6 +8,7 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
   status: 'loading' as RequestStatusType,
   error: null as null | string,
+  isMobile: null as null | boolean,
   isInitialized: false,
 }
 
@@ -20,6 +21,9 @@ const slice = createSlice({
     },
     setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
       state.error = action.payload.error
+    },
+    setIsMobile: (state, action: PayloadAction<{ isMobile: boolean | null }>) => {
+      state.isMobile = action.payload.isMobile
     },
   },
   extraReducers: (builder) => {
