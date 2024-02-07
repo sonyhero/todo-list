@@ -6,9 +6,13 @@ import { useActions, useAppSelector } from '@/common/hooks'
 import { authThunks } from '@/features/auth/auth.slice'
 import { selectIsLoggedIn } from '@/features/auth/auth.selectors'
 import { Button } from '@/components/ui/button'
+import { Logout } from '@/assets'
+import { selectIsMobile } from '@/app/app.selectors'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const isMobile = useAppSelector(selectIsMobile)
+
   const { createTodolist } = useActions(todolistsThunks)
   const { logout } = useActions(authThunks)
 
@@ -26,8 +30,9 @@ export const Header = () => {
       <div className={s.contentBox}>
         <AddItemForm className={s.itemForm} placeholder={'Type your todo title'} addItem={addTodos} />
         {isLoggedIn && (
-          <Button variant={'tertiary'} onClick={logOutHandler}>
-            Log out
+          <Button variant={isMobile ? 'icon' : 'tertiary'} onClick={logOutHandler}>
+            {!isMobile && 'Log out'}
+            <Logout />
           </Button>
         )}
       </div>
