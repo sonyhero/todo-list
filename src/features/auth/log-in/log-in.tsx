@@ -10,26 +10,28 @@ export const Login = () => {
 
   return (
     <Card className={s.signBlock}>
-      <Typography>
-        To log in get registered on{' '}
-        <Typography as={'a'} href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
-          this site
+      <div>
+        <Typography>
+          To log in get registered on{' '}
+          <Typography as={'a'} href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
+            this site
+          </Typography>
         </Typography>
-      </Typography>
-      <Typography>or use common test account credentials:</Typography>
-      <Typography>Email: free@samuraijs.com</Typography>
-      <Typography>Password: free</Typography>
-      <Typography className={s.title} variant={'large'}>
-        Login
-      </Typography>
-      <form onSubmit={handleSubmitForm}>
+        <Typography>or use common test acco unt credentials:</Typography>
+        <Typography>Email: free@samuraijs.com</Typography>
+        <Typography>Password: free</Typography>
+      </div>
+
+      <form onSubmit={handleSubmitForm} className={s.form}>
+        <Typography className={s.title} variant={'large'}>
+          Login
+        </Typography>
         <ControlledTextField
           name={'email'}
           label={'Email'}
           type={'default'}
           placeholder={'enter your email'}
           control={control}
-          className={s.email}
         />
         <ControlledTextField
           name={'password'}
@@ -37,7 +39,6 @@ export const Login = () => {
           type={'password'}
           placeholder={'enter your password'}
           control={control}
-          className={s.password}
           autoComplete={'on'}
         />
         <ControlledCheckbox control={control} variant={'default'} name={'rememberMe'} label={'Remember me'} />
