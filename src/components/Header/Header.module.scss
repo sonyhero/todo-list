@@ -18,6 +18,9 @@
       align-items: flex-start;
       gap: 10px;
     }
+    @media (max-width: 767px) {
+      justify-content: center;
+    }
     @media (max-width: 470px) {
       min-width: 22rem;
       justify-content: center;
