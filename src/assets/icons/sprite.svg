@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+>
+
+    <symbol id="icon-add"
+            viewBox="0 0 24 24"
+            fill="#fff"
+            width="24"
+            height="24"
+    >
+        <path d="M7 12L12 12M12 12L17 12M12 12V7M12 12L12 17" stroke="#fff" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-logOut"
+            width="24"
+            height="24"
+            viewBox="-4 0 24 16"
+            fill="#fff"
+    >
+        <g fill="inherit">
+            <path d="M4.667 4a.667.667 0 0 0 0-1.333H3.333a.667.667 0 0 0-.666.666v9.334a.667.667 0 0 0 .666.666h1.334a.666.666 0 1 0 0-1.333H4V4h.667Zm9.213 3.613L12 4.947a.667.667 0 1 0-1.087.773l1.147 1.613H6.667a.667.667 0 0 0 0 1.334H12l-1.2 1.6a.67.67 0 0 0 .133.933.666.666 0 0 0 .934-.133l2-2.667a.667.667 0 0 0 .013-.787Z"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <path fill="inherit" d="M0 0h16v16H0z"/>
+            </clipPath>
+        </defs>
+    </symbol>
+
+    <symbol id="icon-trash"
+            width="24"
+            height="24"
+            viewBox="0 0 16 16"
+            fill="#fff"
+    >
+        <g>
+            <path
+                    fill="inherit"
+            d="M14 4h-3.3V2.9A1.6 1.6 0 0 0 9 1.3H7A1.6 1.6 0 0 0 5.3 3v1H2a.7.7 0 1 0 0 1.3h.7v7.4a2 2 0 0 0 2 2h6.6a2 2 0 0 0 2-2V5.3h.7A.7.7 0 1 0 14 4ZM6.7 2.9c0-.1.1-.2.3-.2h2c.2 0 .3 0 .3.2V4H6.7V2.9Zm5.3 9.8a.7.7 0 0 1-.7.6H4.7a.7.7 0 0 1-.7-.6V5.3h8v7.4Z"
+            />
+        </g>
+        <defs>
+            <clipPath id="a">
+                <path fill="inherit" d="M0 0h16v16H0z" />
+            </clipPath>
+        </defs>
+    </symbol>
+
+</svg>
