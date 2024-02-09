@@ -5,7 +5,7 @@ import { RequestStatusType } from '@/app/app.slice'
 import { useActions } from '@/common/hooks'
 import { tasksThunks } from '@/features/todo-list-list/tasks/tasks.slice'
 import { EditableSpan } from '@/components'
-import { Trash } from '@/assets'
+import { Icon } from '@/assets'
 import { Button } from '@/components/ui/button'
 import { CheckboxDemo } from '@/components/ui/checkbox'
 
@@ -41,8 +41,8 @@ export const Task: FC<Props> = memo((props) => {
         />
         <EditableSpan disabled={entityTaskStatus === 'loading'} onChange={changeTaskTitleHandler} title={title} />
       </div>
-      <Button variant={'icon'} disabled={entityTaskStatus === 'loading'} onClick={removeTaskHandler}>
-        <Trash fill={entityTaskStatus === 'loading' ? '#808080FF' : '#fff'} />
+      <Button isIcon={true} variant={'tertiary'} disabled={entityTaskStatus === 'loading'} onClick={removeTaskHandler}>
+        <Icon name={'trash'} fill={entityTaskStatus === 'loading' ? '#808080FF' : '#fff'} />
       </Button>
     </div>
   )

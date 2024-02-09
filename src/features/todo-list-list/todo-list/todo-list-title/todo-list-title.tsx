@@ -5,7 +5,7 @@ import { todolistsThunks } from '@/features/todo-list-list/todo-list.slice'
 import { EditableSpan } from '@/components'
 import { Button } from '@/components/ui/button'
 import s from './todo-list-title.module.scss'
-import { Trash } from '@/assets'
+import { Icon } from '@/assets'
 
 type Props = {
   title: string
@@ -28,8 +28,8 @@ export const TodolistTitle: FC<Props> = ({ title, todolistId, entityStatus }) =>
   return (
     <div className={s.titleBlock}>
       <EditableSpan className={s.editableBox} variant={'large'} title={title} onChange={changeTodosTitle} />
-      <Button variant={'icon'} disabled={entityStatus === 'loading'} onClick={removeTodos}>
-        <Trash />
+      <Button isIcon={true} variant={'tertiary'} disabled={entityStatus === 'loading'} onClick={removeTodos}>
+        <Icon name={'trash'} />
       </Button>
     </div>
   )
