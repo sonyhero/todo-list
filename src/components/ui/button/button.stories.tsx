@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Logout } from '@/assets'
+import { Icon } from '@/assets'
 import { Button } from '@/components/ui/button/button'
 
 const meta = {
@@ -31,7 +31,7 @@ export const PrimaryWithIcon: Story = {
     variant: 'primary',
     children: (
       <>
-        <Logout />
+        <Icon name={'logOut'} />
         Button primary
       </>
     ),
@@ -51,7 +51,7 @@ export const SecondaryWithIcon: Story = {
     variant: 'secondary',
     children: (
       <>
-        <Logout />
+        <Icon name={'logOut'} />
         Button secondary
       </>
     ),
