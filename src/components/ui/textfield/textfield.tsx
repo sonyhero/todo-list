@@ -64,53 +64,51 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     }
 
     return (
-      <div className={className}>
+      <div className={`${s.fieldContainer} ${className}`}>
         <LabelDemo label={label} variant={'secondary'}>
-          <div className={`${s.fieldContainer}`}>
-            {type === 'searchType' && (
-              <span className={s.search}>
-                <Search fill={disableValue ? '#4c4c4c' : '#808080'} />
-              </span>
-            )}
-            <input
-              className={`${s.field} ${errorMessage ? s.error : ''}`}
-              ref={ref}
-              placeholder={placeholder}
-              type={finalType}
+          {type === 'searchType' && (
+            <span className={s.search}>
+              <Search fill={disableValue ? '#4c4c4c' : '#808080'} />
+            </span>
+          )}
+          <input
+            className={`${s.field} ${errorMessage ? s.error : ''}`}
+            ref={ref}
+            placeholder={placeholder}
+            type={finalType}
+            disabled={disableValue}
+            onChange={onChangeHandler}
+            onKeyDown={onKeyPressCallback}
+            style={inputStyle(type)}
+            value={value}
+            {...restProps}
+          />
+          {type === 'password' && (
+            <button
+              className={s.buttonAction}
+              type={'button'}
+              aria-label={'show password'}
               disabled={disableValue}
-              onChange={onChangeHandler}
-              onKeyDown={onKeyPressCallback}
-              style={inputStyle(type)}
-              value={value}
-              {...restProps}
-            />
-            {type === 'password' && (
-              <button
-                className={s.buttonAction}
-                type={'button'}
-                aria-label={'show password'}
-                disabled={disableValue}
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? (
-                  <Eye fill={disableValue ? '#4c4c4c' : '#fff'} />
-                ) : (
-                  <NotEye fill={disableValue ? '#4c4c4c' : '#fff'} />
-                )}
-              </button>
-            )}
-            {type === 'searchType' && !!value && (
-              <button
-                className={s.buttonAction}
-                type={'button'}
-                aria-label={'delete'}
-                disabled={disableValue}
-                onClick={onSearchClearHandler}
-              >
-                <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
-              </button>
-            )}
-          </div>
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <Eye fill={disableValue ? '#4c4c4c' : '#fff'} />
+              ) : (
+                <NotEye fill={disableValue ? '#4c4c4c' : '#fff'} />
+              )}
+            </button>
+          )}
+          {type === 'searchType' && !!value && (
+            <button
+              className={s.buttonAction}
+              type={'button'}
+              aria-label={'delete'}
+              disabled={disableValue}
+              onClick={onSearchClearHandler}
+            >
+              <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
+            </button>
+          )}
           <Typography variant="body1" className={s.errorMessage}>
             {errorMessage}
           </Typography>

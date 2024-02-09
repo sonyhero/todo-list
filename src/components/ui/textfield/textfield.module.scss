@@ -77,8 +77,10 @@
     border: 0;
     outline: 0;
   }
-}
 
-.errorMessage {
-  color: var(--color-danger-300);
+  .errorMessage {
+    //position: absolute;
+    color: var(--color-danger-300);
+    word-break: break-all;
+  }
 }
