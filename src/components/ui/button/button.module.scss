@@ -25,6 +25,10 @@
   &:focus {
     outline: 2px solid var(--color-info-700);
   }
+
+  @media (max-width: 767px) {
+    padding: 0.375rem 1.55rem;
+  }
 }
 
 .primary {

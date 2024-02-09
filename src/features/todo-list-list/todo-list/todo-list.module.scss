@@ -1,19 +1,11 @@
-/*.todoWrapper {*/
-/*  border: 1px solid #1575bb;*/
-/*  border-radius: 3px;*/
-/*  padding: 10px;*/
-/*  margin: 10px;*/
-/*}*/
-
 .todoCard {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
 
-  width: 24rem;
-  //margin: 1rem auto;
-  padding: 2rem 1.5rem;
+  min-width: 22.5rem;
+  padding: 2rem 1rem;
 
   .itemForm {
     display: flex;
@@ -22,5 +14,9 @@
     width: 100%;
     justify-content: space-between;
     margin-bottom: 2rem;
+  }
+
+  @media (max-width: 767px) {
+    margin: 0 auto;
   }
 }

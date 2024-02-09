@@ -2,8 +2,11 @@
   display: flex;
   gap: 10px;
   width: 70vw;
-  justify-content: flex-start;
   flex-wrap: wrap;
-  //border: 1px solid red;
   margin: 1rem auto;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 1rem auto;
+  }
 }
