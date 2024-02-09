@@ -1,7 +1,7 @@
 import { useActions, useAppSelector } from '@/common/hooks'
 import { selectIsInitialized } from '@/app/app.selectors'
 import { authThunks } from '@/features/auth/auth.slice'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { LinearProgress, Toast } from '@/components'
 import { Routing } from '@/app/Routing'
 
@@ -13,18 +13,11 @@ export const App = () => {
   const { initializeApp } = useActions(authThunks)
   const { setIsMobile } = useActions(appActions)
 
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
-
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
+    const isMobile = window.innerWidth < 798
+    setIsMobile({ isMobile })
 
+    const handleResize = () => {
       const isMobile = window.innerWidth < 798
       setIsMobile({ isMobile })
     }
