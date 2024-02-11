@@ -65,12 +65,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div className={`${s.fieldContainer} ${className}`}>
-        <LabelDemo label={label} variant={'secondary'}>
-          {type === 'searchType' && (
-            <span className={s.search}>
-              <Search fill={disableValue ? '#4c4c4c' : '#808080'} />
-            </span>
-          )}
+        <LabelDemo className={s.label} label={label} variant={'secondary'}>
+          {type === 'searchType' && <Search className={s.search} fill={disableValue ? '#4c4c4c' : '#808080'} />}
           <input
             className={`${s.field} ${errorMessage ? s.error : ''}`}
             ref={ref}
@@ -92,9 +88,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? (
-                <Eye fill={disableValue ? '#4c4c4c' : '#fff'} />
+                <Eye className={s.eyeIcon} fill={disableValue ? '#4c4c4c' : '#fff'} />
               ) : (
-                <NotEye fill={disableValue ? '#4c4c4c' : '#fff'} />
+                <NotEye className={s.eyeIcon} fill={disableValue ? '#4c4c4c' : '#fff'} />
               )}
             </button>
           )}
@@ -109,10 +105,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
             </button>
           )}
-          <Typography variant="body1" className={s.errorMessage}>
-            {errorMessage}
-          </Typography>
         </LabelDemo>
+        <Typography variant="body1" className={s.errorMessage}>
+          {errorMessage}
+        </Typography>
       </div>
     )
   },
