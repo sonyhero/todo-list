@@ -17,7 +17,7 @@ export const Login = () => {
             this site
           </Typography>
         </Typography>
-        <Typography>or use common test acco unt credentials:</Typography>
+        <Typography>or use common test account credentials:</Typography>
         <Typography>Email: free@samuraijs.com</Typography>
         <Typography>Password: free</Typography>
       </div>
